@@ -1,0 +1,82 @@
+---
+import $ from 'jquery';
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title="Home | Descriptive Alt Text Generator">
+	<main>
+		<header>
+			<wwu-pre-header></wwu-pre-header>
+			  <wwu-header sitename="Descriptive Alt Text Generator" regioncontent=""></wwu-header>
+			
+			<wwu-main-nav>
+			  <a href="index.html">Home</a>
+			  
+			  <wwu-has-children label="About">
+				<wwu-sub-menu>
+				  <a href="ArboretumBoard.html">About the Board</a>
+				  <a href="rules.html">Preserve the Arboretum (Rules)</a>
+				  <a href="involve.html">Get Involved</a>
+				  <a href="contact.html">Contact Us</a>
+				</wwu-sub-menu>
+			  </wwu-has-children>
+			  
+			  <wwu-has-children label="Natural Features">
+				<wwu-sub-menu>
+				  <a href="geology.html">Geology</a>
+				  <a href="plants.html">Plants</a>
+				  <a href="fungi.html">Fungi</a>
+				  <a href="birds.html">Birds</a>
+				</wwu-sub-menu>
+			  </wwu-has-children>
+			  
+			  <a href="map.html">Map</a>
+			</wwu-main-nav>
+			
+			</header>
+		  
+		  
+			 <main id="main-content" class="page-content">
+			<div class="region-wrapper">
+			  
+		<h1>Descriptive Alt Text Generator</h1>    
+		  <h2>How It works</h2>
+		  <p>Upload your image using the "Upload Image" button, press the "Evaluate Image" button, then search through the results from the different AI engines for ideas as to how to best enter the alt text for your uploaded image.</p>
+		<button>Upload Image</button>    
+		<!-- Place image viewer here -->
+		<button>Evaluate Image</button>
+		<!-- When the evaluation is complete, populate the page with the results -->
+		<h2>Results</h2>
+		<!-- radio group that the user can select suggested alt text from -->
+		<h3>Gemini</h3>
+		<p>Results from Gemini</p>
+		<h3>Chat GPT</h3>
+		<p>Results from Chat GPT</p>
+		<h3>Azure</h3>
+		<p>Results from Azure</p>
+		<h3>ETC.</h3>
+		<p>And any other engines you find relevant</p>
+		<!-- end radio group -->
+		<!-- checkbox here to mark image as decorative instead of using one of the AI created suggestions To set the image as decorative you set alt="" on the <img> element -->
+		<!-- read only edit field with code that provides the <img> tag with the preferred alt text <img href="bla bla bla" alt=""> for when it's marked as decorative, <img href="bla bla bla" alt="suggested selection from radio group above"> -->
+		<!-- It might be cool to add a "Copy to Clipboard" button at the end of each result to make it simple for folks to copy the suggested alt text in case the user wants to modify it manually. -->
+		<!-- Another cool feature would be to add a textbox to each result where the user could send refinement queues back to the result of choice to say something like "Describe the image in more detail", or something like that. -->
+		<!-- The important thing to do in the UI is to ensure logical heading structure, meaningful text on all elements, and keep it simple. My suggestion is to add in some functions to complete the basics and, if you have time, jump back in and add more functionality as you see fit -->
+		
+		</div>
+		  </main>
+		  
+		  <footer>
+			<!-- footer content goes here -->
+			<section class="site-footer" aria-label="Descriptive Alt Text Generator Footer">
+			  
+			  <div class="footer-region">
+				<div class="region region--foter_left">
+						  </div>
+			  </div>
+			</section>
+			
+			<wwu-footer></wwu-footer>
+		  </footer>
+</Layout>

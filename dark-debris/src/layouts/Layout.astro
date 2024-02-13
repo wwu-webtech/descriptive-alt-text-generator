@@ -1,0 +1,82 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<!-- add contextually relevant title here -->
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" sizes="32x32" href="./img/Favicon/favicon_package_v0/favicon-32x32.png">
+		
+		<!-- add CSS includes here -->
+		<link rel="stylesheet" type="text/css" href="./css/main.css" />
+		<link rel="stylesheet" type="text/css" href="./css/ultimenu-extras.css" />
+		
+		<!-- meta include inside of the head region -->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description"
+		content="This is a Proof of Concept application to help Western Washington University digital outreach editors create better alt text using artificial intelligence graphical recognition engines">
+		<meta name="keywords"
+		content="">
+		<meta name="robots" content="index, follow">
+		
+		<!-- OpenGraph tags for social media -->
+		<meta property="og:title" content="">
+		<meta property="og:description"
+		content="">
+		<meta property="og:url" content="">
+		
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<slot />
+		<!-- scripts for ashlar components -->
+
+		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/search.js"></script>
+		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/pre-header.js"></script>
+		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/logo.js"></script>
+		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/wwu-header.js"></script>
+		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/social-media-icons.js"></script>
+		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/wwu-footer.js"></script>
+		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/main-navigation.js"></script>
+		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/accessible-mega-menu.js"></script>
+		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/menu-extras.js"></script>
+	</body>
+</html>
+<style is:global>
+	:root {
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+	html {
+		font-family: system-ui, sans-serif;
+		background: #13151a;
+		background-size: 224px;
+	}
+	code {
+		font-family:
+			Menlo,
+			Monaco,
+			Lucida Console,
+			Liberation Mono,
+			DejaVu Sans Mono,
+			Bitstream Vera Sans Mono,
+			Courier New,
+			monospace;
+	}
+</style>
