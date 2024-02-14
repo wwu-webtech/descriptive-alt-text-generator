@@ -1,0 +1,66 @@
+h1 {
+    text-align: center;
+}
+
+form {
+    margin: 0;
+}
+
+.align-left {
+    float: left;
+}
+.align-right {
+    float: right;
+}
+
+.photocaption {
+    font-size: var(--font-size--sm);
+    font-style: italic;
+    margin: 0;
+}
+
+.splash {
+    max-height: 20vh;
+    overflow: hidden;
+}
+
+.ultimenu {
+    position: relative;
+}
+.ultimenu__flyout,
+.ultimenu__region {
+    width: 100%;
+}
+.ultimenu .has-ultimenu .ultimenu__link {
+    padding-right: var(--space--lg);
+}
+
+.birds .card {
+    padding-bottom: var(--space--2xl);
+}
+.birds .card audio {
+    z-index: 2;
+    position: absolute;
+    bottom: 0;
+}
+.birds .card .image img {
+    height: unset;
+}
+
+.grid-column-count--2.column--50-50,
+.grid-column-count--2.column--75-25 {
+    grid-template-columns: unset;
+}
+@media (max-width: 580px) {
+    .grid-column-count--3 {
+        grid-template-columns: unset !important;
+    }
+}
+@media (min-width: 950px) {
+    .grid-column-count--2.column--50-50 {
+        grid-template-columns: 1fr 1fr;
+    }
+    .grid-column-count--2.column--75-25 {
+        grid-template-column: 3fr 1fr;
+    }
+}
