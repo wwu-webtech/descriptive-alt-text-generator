@@ -11,27 +11,8 @@ import Card from '../components/Card.astro';
 			  <wwu-header sitename="Descriptive Alt Text Generator" regioncontent=""></wwu-header>
 			
 			<wwu-main-nav>
-			  <a href="index.html">Home</a>
-			  
-			  <wwu-has-children label="About">
-				<wwu-sub-menu>
-				  <a href="ArboretumBoard.html">About the Board</a>
-				  <a href="rules.html">Preserve the Arboretum (Rules)</a>
-				  <a href="involve.html">Get Involved</a>
-				  <a href="contact.html">Contact Us</a>
-				</wwu-sub-menu>
-			  </wwu-has-children>
-			  
-			  <wwu-has-children label="Natural Features">
-				<wwu-sub-menu>
-				  <a href="geology.html">Geology</a>
-				  <a href="plants.html">Plants</a>
-				  <a href="fungi.html">Fungi</a>
-				  <a href="birds.html">Birds</a>
-				</wwu-sub-menu>
-			  </wwu-has-children>
-			  
-			  <a href="map.html">Map</a>
+			  <a href="index.astro">Home</a>
+			  <a href="Contact.astro">Conct Us</a>
 			</wwu-main-nav>
 			
 			</header>
@@ -43,8 +24,12 @@ import Card from '../components/Card.astro';
 		<h1>Descriptive Alt Text Generator</h1>    
 		  <h2>How It works</h2>
 		  <p>Upload your image using the "Upload Image" button, press the "Evaluate Image" button, then search through the results from the different AI engines for ideas as to how to best enter the alt text for your uploaded image.</p>
+
+
 		<button>Upload Image</button>    
+<h2>"name of Image" Viewer</h2>
 		<!-- Place image viewer here -->
+<!-- Once the image is loaded, place a data table with the XIFF data here. Something to do if you have time. Not a priority --> 
 		<button>Evaluate Image</button>
 		<!-- When the evaluation is complete, populate the page with the results -->
 		<h2>Results</h2>
