@@ -4,15 +4,15 @@ import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 ---
 
-<Layout title="Home | Descriptive Alt Text Generator">
-	<main>
+<Layout title="Home | Descriptive Alt Text Generator | Western Washington University">
+
 		<header>
 			<wwu-pre-header></wwu-pre-header>
 			  <wwu-header sitename="Descriptive Alt Text Generator" regioncontent=""></wwu-header>
 			
 			<wwu-main-nav>
 			  <a href="index.astro">Home</a>
-			  <a href="Contact.astro">Conct Us</a>
+			  <a href="Contact.astro">Contact Us</a>
 			</wwu-main-nav>
 			
 			</header>
@@ -24,29 +24,39 @@ import Card from '../components/Card.astro';
 		<h1>Descriptive Alt Text Generator</h1>    
 		  <h2>How It works</h2>
 		  <p>Upload your image using the "Upload Image" button, press the "Evaluate Image" button, then search through the results from the different AI engines for ideas as to how to best enter the alt text for your uploaded image.</p>
-
+<p>If you have suggestions as to how to make this service better then please sen comments to <a href="mailto:engebrd2@wwu.edu">David Engebretson</a></p>
 
 		<button>Upload Image</button>    
 <h2>"name of Image" Viewer</h2>
 		<!-- Place image viewer here -->
-<!-- Once the image is loaded, place a data table with the XIFF data here. Something to do if you have time. Not a priority --> 
+<h3>XIFF Data from the image data content</h3>
+		<!-- Once the image is loaded, place a data table with the XIFF data here. Something to do if you have time. Not a priority --> 
+		<!-- Don't activate the evaluation button until after the image is loaded completely -->
 		<button>Evaluate Image</button>
-		<!-- When the evaluation is complete, populate the page with the results -->
+		<!-- When the evaluation is complete, populate the page with the results from the AI engines -->
 		<h2>Results</h2>
-		<!-- radio group that the user can select suggested alt text from -->
+		<!-- radio group that the user can select suggested alt text from, or just present all of the information and let the user decide what to use. It's up to you. -->
 		<h3>Gemini</h3>
 		<p>Results from Gemini</p>
+	<!-- add an edit box here to refine the results -->
+		<button>Refine Results</button>
 		<h3>Chat GPT</h3>
 		<p>Results from Chat GPT</p>
+	<!-- Add an edit box here to refine the results -->
+	<button>Refine Results</button>
 		<h3>Azure</h3>
 		<p>Results from Azure</p>
+	<!-- Add an edit box here to refine the results -->
+	<button>Refine Results</button>
 		<h3>ETC.</h3>
 		<p>And any other engines you find relevant</p>
+	<button>Refine Results</button>
+	<button>Refine Results</button>
 		<!-- end radio group -->
-		<!-- checkbox here to mark image as decorative instead of using one of the AI created suggestions To set the image as decorative you set alt="" on the <img> element -->
+		<!-- checkbox here to mark image as decorative instead of using one of the AI created suggestions To set the image as decorative. You set alt="" on the <img> element to mark an image as decorative -->
 		<!-- read only edit field with code that provides the <img> tag with the preferred alt text <img href="bla bla bla" alt=""> for when it's marked as decorative, <img href="bla bla bla" alt="suggested selection from radio group above"> -->
 		<!-- It might be cool to add a "Copy to Clipboard" button at the end of each result to make it simple for folks to copy the suggested alt text in case the user wants to modify it manually. -->
-		<!-- Another cool feature would be to add a textbox to each result where the user could send refinement queues back to the result of choice to say something like "Describe the image in more detail", or something like that. -->
+		<!-- Another cool feature would be to add a textbox to each result where the user could send refinement queues back to the AI result of choice to say something like "Describe the image in more detail", or something like that. -->
 		<!-- The important thing to do in the UI is to ensure logical heading structure, meaningful text on all elements, and keep it simple. My suggestion is to add in some functions to complete the basics and, if you have time, jump back in and add more functionality as you see fit -->
 		
 		</div>
