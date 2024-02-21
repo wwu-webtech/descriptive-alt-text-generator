@@ -2,7 +2,6 @@
 // This component will be used in the main App component
 
 import React, { useState, useEffect} from 'react';
-import axios from 'axios';
 
 const UploadImage = () => {
     const [file, setFile] = useState(null);
@@ -23,8 +22,32 @@ const UploadImage = () => {
         }
     }, [file]);
 
+    // const handleAPICall = () => {
+    //     const headers = {
+    //         'Content-Type': 'application/json',
+    //         'Ocp-Apim-Subscription-Key' : key
+    //     };
+
+    //     const requestData = {
+    //         url: "https://cdn.britannica.com/84/145084-050-A0268BC0/Old-Main-Western-Washington-University-Bellingham.jpg"
+    //     }
+
+    //     fetch(endpoint, {
+    //         method: 'POST',
+    //         headers: headers,
+    //         body: JSON.stringify(requestData)
+    //     })
+    //     .then(response => response.json())
+    //     .then(data =>  {
+    //         console.log(data)
+    //     })
+    //     .catch(error => {
+    //         console.error("Error: ", error);
+    //     })
+    // }
+
     return (
-        <>
+        <div>
             <div className="wwu-card horizontal dark-blue-bg">
                 <div class="image">
                 {loading ? <div>Loading...</div> : preview && (
@@ -43,7 +66,7 @@ const UploadImage = () => {
                     </form>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

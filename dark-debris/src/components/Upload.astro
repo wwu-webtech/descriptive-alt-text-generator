@@ -1,0 +1,49 @@
+---
+// interface Props {
+//   key: string;
+//   endpoint: string;
+// }
+
+// const { key, endpoint } = Astro.props;
+---
+
+<button id="testbtn">Test Alert</button>
+
+<script type="module">
+  // Get the button element by its id
+  const testButton = document.getElementById("testbtn");
+
+  const key = (await import.meta.env.VITE_SUBSCRIPTION_KEY)
+  const endpoint = (await import.meta.env.VITE_END_POINT)
+
+  console.log(key)
+  console.log(endpoint)
+
+  const handleAPICall = () => {
+    const headers = {
+      "Content-Type": "application/json",
+      "Ocp-Apim-Subscription-Key": key,
+    };
+
+    const requestData = {
+      url: "https://cdn.britannica.com/84/145084-050-A0268BC0/Old-Main-Western-Washington-University-Bellingham.jpg",
+    };
+
+    fetch(endpoint, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(requestData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
+  };
+
+  testButton.addEventListener("click", function () {
+    handleAPICall()
+  });
+</script>
