@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {render} from "react-dom";
 
-const UploadImage = ({endpoint, key}) => {
+const UploadImage = () => {
     const [file, setFile] = useState('')
     const [fileName, setFileName] = useState('Choose File');
     const [uploadedFile, setUploadedFile] = useState({});
@@ -24,44 +24,39 @@ const UploadImage = ({endpoint, key}) => {
         e.preventDefault();
     }
 
-    const handleAPICall = () => {
-        const headers = {
-            'Content-Type': 'application/json',
-            'Ocp-Apim-Subscription-Key' : key
-        };
+    // const handleAPICall = () => {
+    //     const headers = {
+    //         'Content-Type': 'application/json',
+    //         'Ocp-Apim-Subscription-Key' : key
+    //     };
 
-        const requestData = {
-            url: "https://cdn.britannica.com/84/145084-050-A0268BC0/Old-Main-Western-Washington-University-Bellingham.jpg"
-        }
+    //     const requestData = {
+    //         url: "https://cdn.britannica.com/84/145084-050-A0268BC0/Old-Main-Western-Washington-University-Bellingham.jpg"
+    //     }
 
-        fetch(endpoint, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(requestData)
-        })
-        .then(response => response.json())
-        .then(data =>  {
-            console.log(data)
-        })
-        .catch(error => {
-            console.error("Error: ", error);
-        })
-    }
-
-    const btnAlert = () => {
-        alert("testing")
-    }
+    //     fetch(endpoint, {
+    //         method: 'POST',
+    //         headers: headers,
+    //         body: JSON.stringify(requestData)
+    //     })
+    //     .then(response => response.json())
+    //     .then(data =>  {
+    //         console.log(data)
+    //     })
+    //     .catch(error => {
+    //         console.error("Error: ", error);
+    //     })
+    // }
 
     return (
         <div>
-            {/* <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit}>
                 <div>
                 <label htmlFor="customFile">{fileName}</label>
                     <input type="file" id="customFile" onChange={onChange}/> 
                 </div>
                 <input type="submit" value="Submit"/>
-            </form> */}
-            <button id="testbtn">Test Alert</button>
+            </form>
         </div>
     );
 }

@@ -6,6 +6,7 @@ import Header from "../components/Header.astro"
 import MainNav from "../components/MainNav.astro"
 import Footer from "../components/Footer.astro"
 import UploadImage from "../components/UploadImage";
+import Upload from "../components/Upload.astro"
 const endpoint = import.meta.env.END_POINT;
 const subscriptionKey = import.meta.env.SUBSCRIPTION_KEY;
 ---
@@ -33,8 +34,8 @@ const subscriptionKey = import.meta.env.SUBSCRIPTION_KEY;
         please sen comments to <a href="mailto:engebrd2@wwu.edu"
           >David Engebretson</a>
       </p>
-
-      <UploadImage endpoint={endpoint} key={subscriptionKey}/>
+      <Upload />
+      <UploadImage/>
       <h2>"name of Image" Viewer</h2>
       <!-- Place image viewer here -->
       <h3>XIFF Data from the image data content</h3>
@@ -60,6 +61,8 @@ const subscriptionKey = import.meta.env.SUBSCRIPTION_KEY;
       <p>And any other engines you find relevant</p>
       <button>Refine Results</button>
 
+      
+    
       <!-- end radio group -->
       <!-- checkbox here to mark image as decorative instead of using one of the AI created suggestions To set the image as decorative. You set alt="" on the <img> element to mark an image as decorative -->
       <!-- read only edit field with code that provides the <img> tag with the preferred alt text <img href="bla bla bla" alt=""> for when it's marked as decorative, <img href="bla bla bla" alt="suggested selection from radio group above"> -->
