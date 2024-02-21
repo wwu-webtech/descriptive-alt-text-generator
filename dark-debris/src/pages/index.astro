@@ -6,8 +6,10 @@ import Header from "../components/Header.astro"
 import MainNav from "../components/MainNav.astro"
 import Footer from "../components/Footer.astro"
 import UploadImage from "../components/UploadImage";
+const endpoint = import.meta.env.END_POINT;
+const subscriptionKey = import.meta.env.SUBSCRIPTION_KEY;
 ---
-
+ 
 <Layout
   title="Home | Descriptive Alt Text Generator | Western Washington University"
 >
@@ -32,7 +34,7 @@ import UploadImage from "../components/UploadImage";
           >David Engebretson</a>
       </p>
 
-      <UploadImage/>
+      <UploadImage endpoint={endpoint} key={subscriptionKey}/>
       <h2>"name of Image" Viewer</h2>
       <!-- Place image viewer here -->
       <h3>XIFF Data from the image data content</h3>
