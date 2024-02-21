@@ -7,8 +7,8 @@ import MainNav from "../components/MainNav.astro"
 import Footer from "../components/Footer.astro"
 import UploadImage from "../components/UploadImage";
 import Upload from "../components/Upload.astro"
-const endpoint = import.meta.env.END_POINT;
-const subscriptionKey = import.meta.env.SUBSCRIPTION_KEY;
+const endpoint = import.meta.env.VITE_END_POINT;
+const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
 ---
  
 <Layout
@@ -34,7 +34,7 @@ const subscriptionKey = import.meta.env.SUBSCRIPTION_KEY;
         please sen comments to <a href="mailto:engebrd2@wwu.edu"
           >David Engebretson</a>
       </p>
-      <Upload />
+      <Upload key={subscriptionKey} endpoint={endpoint}/>
       <UploadImage/>
       <h2>"name of Image" Viewer</h2>
       <!-- Place image viewer here -->
@@ -54,7 +54,7 @@ const subscriptionKey = import.meta.env.SUBSCRIPTION_KEY;
       <!-- Add an edit box here to refine the results -->
       <button>Refine Results</button>
       <h3>Azure</h3>
-      <p>Results from Azure</p>
+      <p id="azure-caption">Results from Azure</p>
       <!-- Add an edit box here to refine the results -->
       <button>Refine Results</button>
       <h3>ETC.</h3>

@@ -1,49 +1,57 @@
 ---
-// interface Props {
-//   key: string;
-//   endpoint: string;
-// }
+interface Props {
+  key: string;
+  endpoint: string;
+}
 
-// const { key, endpoint } = Astro.props;
+const { key, endpoint } = Astro.props;
 ---
 
-<button id="testbtn">Test Alert</button>
+<astro-upload data-endpoint={endpoint} data-key={key}>
+  <button>Say hi!</button>
+</astro-upload>
 
-<script type="module">
-  // Get the button element by its id
-  const testButton = document.getElementById("testbtn");
+<script>
+  class AstroUpload extends HTMLElement {
+    constructor() {
+      super();
 
-  const key = (await import.meta.env.VITE_SUBSCRIPTION_KEY)
-  const endpoint = (await import.meta.env.VITE_END_POINT)
+      const handleAPICall = () => {
+        const headers = {
+          "Content-Type": "application/json",
+          "Ocp-Apim-Subscription-Key": this.dataset.key,
+        };
 
-  console.log(key)
-  console.log(endpoint)
+        const requestData = {
+          url: "https://cdn.britannica.com/84/145084-050-A0268BC0/Old-Main-Western-Washington-University-Bellingham.jpg",
+        };
 
-  const handleAPICall = () => {
-    const headers = {
-      "Content-Type": "application/json",
-      "Ocp-Apim-Subscription-Key": key,
-    };
+        fetch(this.dataset.endpoint, {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(requestData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const captionText = data.description.captions[0].text;
 
-    const requestData = {
-      url: "https://cdn.britannica.com/84/145084-050-A0268BC0/Old-Main-Western-Washington-University-Bellingham.jpg",
-    };
+            // Create a new p element and append it to the DOM
+            const captionElement = document.getElementById("azure-caption");
+            captionElement.textContent = captionText;
+          })
+          .catch((error) => {
+            console.error("Error: ", error);
+          });
+      };
 
-    fetch(endpoint, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(requestData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error: ", error);
+      // Read the message from the data attribute.
+      const message = this.dataset.endpoint;
+      const button = this.querySelector("button");
+      button.addEventListener("click", () => {
+        handleAPICall();
       });
-  };
+    }
+  }
 
-  testButton.addEventListener("click", function () {
-    handleAPICall()
-  });
+  customElements.define("astro-upload", AstroUpload);
 </script>
