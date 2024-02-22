@@ -8,7 +8,8 @@ const { key, endpoint } = Astro.props;
 ---
 
 <astro-upload data-endpoint={endpoint} data-key={key}>
-  <canvas id="canvas" style={{ marginTop: "10px" }}></canvas>
+  <div class="wwu-card horizontal dark-blue-bg">
+    <div class="body">
   <form style={{ marginTop: "20px", marginBottom: "20px" }}>
     <label for="file">File</label>
     <input
@@ -28,6 +29,9 @@ const { key, endpoint } = Astro.props;
     </textarea>
   </form>
   <button id="evaluate-image">Evaluate Image</button>
+    </div>
+    <canvas id="canvas" style={{ margin: "10px", objectFit: "contain", width: "95%"}}></canvas>
+    </div>
 </astro-upload>
 
 <script>

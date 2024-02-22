@@ -36,11 +36,7 @@ const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
       </p>
 
       <h2>Upload An Image</h2>
-      <div class="wwu-card horizontal dark-blue-bg">
-        <div class="body">
-          <Upload key={subscriptionKey} endpoint={endpoint}/>
-        </div>
-      </div>
+      <Upload key={subscriptionKey} endpoint={endpoint}/>
 
       <!-- <UploadImage/> -->
       <h2>"name of Image" Viewer</h2>
