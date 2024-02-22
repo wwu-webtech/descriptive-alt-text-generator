@@ -34,8 +34,13 @@ const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
         please sen comments to <a href="mailto:engebrd2@wwu.edu"
           >David Engebretson</a>
       </p>
-      <Upload key={subscriptionKey} endpoint={endpoint}/>
-      <UploadImage/>
+      <div class="wwu-card horizontal dark-blue-bg">
+        <div class="body">
+          <Upload key={subscriptionKey} endpoint={endpoint}/>
+        </div>
+      </div>
+
+      <!-- <UploadImage/> -->
       <h2>"name of Image" Viewer</h2>
       <!-- Place image viewer here -->
       <h3>XIFF Data from the image data content</h3>

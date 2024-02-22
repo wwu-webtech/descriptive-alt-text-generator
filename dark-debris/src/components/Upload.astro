@@ -8,46 +8,100 @@ const { key, endpoint } = Astro.props;
 ---
 
 <astro-upload data-endpoint={endpoint} data-key={key}>
-  <button>Test API Call</button>
+  <canvas id="canvas" style={{marginTop: "10px"}}></canvas>
+  <form style={{ marginTop: "20px", marginBottom: "20px" }}>
+    <label for="file">Upload Image</label>
+    <input
+      type="file"
+      id="file-input"
+      accept=".png,.jpg,.jpeg"
+      style={{ width: "100%" }}
+    />
+    <label for="prompt">Prompt <i>[Optional]</i></label>
+    <textarea
+      id="prompt"
+      placeholder="Enter a prompt"
+      rows="5"
+      wrap="hard"
+      style={{ width: "100%" }}
+    >
+    </textarea>
+  </form>
+  <button id="evaluate-image">Evaluate Image</button>
 </astro-upload>
 
 <script>
   class AstroUpload extends HTMLElement {
     constructor() {
       super();
+      const canvas = document.getElementById("canvas");
+      const context = canvas.getContext("2d"); // Declare context outside the event listener
+      const fileInput = document.getElementById("file-input");
 
       const handleAPICall = () => {
         const headers = {
-          "Content-Type": "application/json",
+          "Content-Type": "application/octet-stream",
           "Ocp-Apim-Subscription-Key": this.dataset.key,
         };
 
-        const requestData = {
-          url: "https://cdn.britannica.com/84/145084-050-A0268BC0/Old-Main-Western-Washington-University-Bellingham.jpg",
-        };
-
-        fetch(this.dataset.endpoint, {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify(requestData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            const captionText = data.description.captions[0].text;
-
-            const captionElement = document.getElementById("azure-caption");
-            captionElement.textContent = captionText;
+        canvas.toBlob((blob) => {
+          fetch(this.dataset.endpoint, {
+            method: "POST",
+            headers: headers,
+            body: blob,
           })
-          .catch((error) => {
-            console.error("Error: ", error);
-          });
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              const captionText = data.description.captions[0].text;
+
+              const captionElement = document.getElementById("azure-caption");
+              captionElement.textContent = captionText;
+            })
+            .catch((error) => {
+              console.error("Error: ", error);
+            });
+        });
       };
 
-      // Read the message from the data attribute.
-      const message = this.dataset.endpoint;
-      const button = this.querySelector("button");
+      const button = document.getElementById("evaluate-image");
       button.addEventListener("click", () => {
         handleAPICall();
+      });
+
+      fileInput.addEventListener("change", () => {
+        const selectedFile = fileInput.files[0];
+
+        if (selectedFile) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            const img = new Image();
+            img.onload = function () {
+                // Calculate the aspect ratio of the image
+                const aspectRatio = img.width / img.height;
+
+                // Calculate the new dimensions to fit within 300x300
+                let newWidth, newHeight;
+                if (aspectRatio > 1) {
+                    newWidth = Math.min(img.width, 300);
+                    newHeight = newWidth / aspectRatio;
+                } else {
+                    newHeight = Math.min(img.height, 300);
+                    newWidth = newHeight * aspectRatio;
+                }
+
+                // Adjust canvas size to the new dimensions
+                canvas.width = newWidth;
+                canvas.height = newHeight;
+
+                // Draw the image on the canvas
+                context.drawImage(img, 0, 0, newWidth, newHeight);
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(selectedFile);
+        }
       });
     }
   }
