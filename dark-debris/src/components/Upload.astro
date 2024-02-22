@@ -53,7 +53,7 @@ const { key, endpoint } = Astro.props;
             .then((response) => response.json())
             .then((data) => {
               console.log(data);
-              const captionText = data.description.captions[0].text;
+              const captionText = data.captionResult.text;
 
               const captionElement = document.getElementById("azure-caption");
               captionElement.textContent = captionText;
