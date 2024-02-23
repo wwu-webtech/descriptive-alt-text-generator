@@ -1,0 +1,36 @@
+---
+import $ from "jquery";
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import Header from "../components/Header.astro"
+import MainNav from "../components/MainNav.astro"
+import Footer from "../components/Footer.astro"
+import UploadImage from "../components/UploadImage";
+import Upload from "../components/Upload.astro"
+const endpoint = import.meta.env.VITE_END_POINT;
+const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
+---
+ 
+<Layout
+  title="Administration Page | Descriptive Alt Text Generator | Western Washington University"
+>
+  <header>
+	<Header title="Descriptive Alt Text Generator"/>
+	<MainNav/>
+  </header>
+
+  <main id="main-content" class="page-content">
+    <div class="region-wrapper">
+      <h1>Descriptive Alt Text Generator Admin Page</h1>
+      <h2>Data Usage</h2>
+      <p>A data table here to present cost and usage information</p>
+
+      <button>Download CSV</button>
+      
+  </main>
+
+  <footer>
+	<Footer/>
+  </footer>
+  
+</Layout>
