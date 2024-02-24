@@ -92,6 +92,7 @@ const { key, endpoint } = Astro.props;
               const aspectRatio = img.width / img.height;
 
               // Calculate the new dimensions to fit within 300x300
+/*            <----Legacy Code---->
               let newWidth, newHeight;
               if (aspectRatio > 1) {
                 newWidth = Math.min(img.width, 300);
@@ -100,13 +101,13 @@ const { key, endpoint } = Astro.props;
                 newHeight = Math.min(img.height, 300);
                 newWidth = newHeight * aspectRatio;
               }
-
+*/
               // Adjust canvas size to the new dimensions
-              canvas.width = newWidth;
-              canvas.height = newHeight;
+              canvas.width = img.width;
+              canvas.height = img.height;
 
               // Draw the image on the canvas
-              context.drawImage(img, 0, 0, newWidth, newHeight);
+              context.drawImage(img, 0, 0, img.width, img.height);
             };
             img.src = e.target.result;
           };
