@@ -1,11 +1,9 @@
 ---
-import $ from "jquery";
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import Header from "../components/Header.astro"
 import MainNav from "../components/MainNav.astro"
 import Footer from "../components/Footer.astro"
-import UploadImage from "../components/UploadImage";
 import Upload from "../components/Upload.astro"
 const endpoint = import.meta.env.VITE_END_POINT;
 const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
@@ -22,6 +20,6 @@ const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
       <p>A data table here to present cost and usage information</p>
 
       <button>Download CSV</button>
-      
+		</div>
   </main>
 </Layout>

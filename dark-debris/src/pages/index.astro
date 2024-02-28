@@ -1,12 +1,12 @@
 ---
-import $ from "jquery";
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import Header from "../components/Header.astro"
 import MainNav from "../components/MainNav.astro"
 import Footer from "../components/Footer.astro"
-import UploadImage from "../components/UploadImage";
+import Old_UploadImage from "../../../starter-code/old_UploadImage";
 import Upload from "../components/Upload.astro"
+import UrlUpload from "../components/UrlUpload.astro"
 const endpoint = import.meta.env.VITE_END_POINT;
 const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
 ---
@@ -31,10 +31,27 @@ const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
           >David Engebretson</a>
       </p>
 
-      <h2>Upload An Image</h2>
-      <Upload key={subscriptionKey} endpoint={endpoint}/>
+      <h2>Input An Image</h2>
+			<div id="block-ashlar-local-tasks" class="contextual-region block--local-tasks-block no-margin--bottom no-padding--bottom">
+				<h2 class="visually-hidden">Primary tabs</h2>
+				<ul class="align-center no-margin--bottom no-padding--bottom">
+					<li class="align-right no-margin--bottom no-padding--bottom" style={{ width: "50%", textAlign:'center'}}>
+						<a onclick="showURLForm()">Image Upload</a>
+					</li>
+					<li class="align-left no-margin--bottom no-padding--bottom" style={{ width: "50%", textAlign:'center'}}>
+						<a onclick="showUploadForm()">Image URL</a>
+					</li>
+				</ul>
+			</div>
+      <div id='upload-form' style="display:block">
+        <Upload key={subscriptionKey} endpoint={endpoint}/>
 
-      <!-- <UploadImage/> -->
+      </div>
+      <div id="url-form" style="display:none">
+        <UrlUpload key={subscriptionKey} endpoint={endpoint}/>
+      </div>
+
+      <!-- <Old_UploadImage/> -->
       <h2>"name of Image" Viewer</h2>
       <!-- Place image viewer here -->
       <h3>XIFF Data from the image data content</h3>
@@ -59,7 +76,6 @@ const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
       <h3>ETC.</h3>
       <p>And any other engines you find relevant</p>
       <button>Refine Results</button>
-
       
     
       <!-- end radio group -->
@@ -71,3 +87,16 @@ const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
     </div>
   </main>
 </Layout>
+
+<script is:inline>
+	//Script to have Image Upload and Image URL switch between both file upload types
+	function showURLForm() {
+		document.getElementById("upload-form").style.display = "block";
+		document.getElementById("url-form").style.display = "none";
+	}
+  function showUploadForm() {
+  document.getElementById("upload-form").style.display = "none";
+  document.getElementById("url-form").style.display = "block";
+}
+
+</script>

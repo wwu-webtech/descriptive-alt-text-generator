@@ -39,7 +39,8 @@ const { key, endpoint } = Astro.props;
     constructor() {
       super();
       const canvas = document.getElementById("canvas");
-      const context = canvas.getContext("2d"); // Declare context outside the event listener
+      const canvasElement = document.getElementById("canvas") as HTMLCanvasElement;
+      const context = canvasElement.getContext("2d"); // Declare context outside the event listener
       canvas.width = 0;
       canvas.height = 0;
       const fileInput = document.getElementById("file-input");

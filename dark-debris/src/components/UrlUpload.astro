@@ -1,0 +1,43 @@
+---
+interface Props {
+  key: string;
+  endpoint: string;
+}
+
+const { key, endpoint } = Astro.props;
+---
+
+<astro-upload data-endpoint={endpoint} data-key={key}>
+    <div class="wwu-card horizontal dark-blue-bg">
+      <div class="body">
+    <form style={{ marginTop: "20px", marginBottom: "20px" }}>
+      <label for="url-upload">URL</label>
+        <input
+            id="url-upload"
+            type="url"
+            placeholder="Enter a URL"
+            style={{ width: "100%", lineHeight: "1.5em" }}
+            oninput="handleInput(event)"
+            required
+        />
+      <label for="prompt">Prompt <i>[Optional]</i></label>
+      <textarea
+        id="prompt"
+        placeholder="Enter a prompt"
+        rows="5"
+        wrap="hard"
+        style={{ width: "100%" }}
+      >
+      </textarea>
+    </form>
+    <button id="evaluate-image">Evaluate Image</button>
+      </div>
+      <canvas id="canvas" style={{ margin: "10px", objectFit: "contain", width: "95%"}}></canvas>
+    </div>
+  </astro-upload>
+
+<script>
+    //TODO: Implement live image viewer
+    //TODO: Send to the Azure API
+</script>
+
