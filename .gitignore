@@ -1,0 +1,7 @@
+# gitignore for Astro projects
+
+# Local Dev Settings
+.env
+
+# Mac Generated Files
+.DS_Store
