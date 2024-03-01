@@ -1,10 +1,12 @@
 ---
+// Astro version of UrlUpload component
 interface Props {
   key: string;
   endpoint: string;
 }
 
 const { key, endpoint } = Astro.props;
+let img_src = "";
 ---
 
 <astro-upload data-endpoint={endpoint} data-key={key}>
@@ -32,12 +34,15 @@ const { key, endpoint } = Astro.props;
     </form>
     <button id="evaluate-image">Evaluate Image</button>
       </div>
-      <canvas id="canvas" style={{ margin: "10px", objectFit: "contain", width: "95%"}}></canvas>
     </div>
   </astro-upload>
 
 <script>
     //TODO: Implement live image viewer
-    //TODO: Send to the Azure API
+		addEventListener("input", (event) => {
+			const src = event.target.value;
+			const img = document.querySelector("img");
+		});
+		//TODO: Send to the Azure API
 </script>
 

@@ -6,7 +6,7 @@ import MainNav from "../components/MainNav.astro"
 import Footer from "../components/Footer.astro"
 import Old_UploadImage from "../../../starter-code/old_UploadImage";
 import Upload from "../components/Upload.astro"
-import UrlUpload from "../components/UrlUpload.astro"
+import UrlUpload from "../components/UrlUpload.jsx"
 const endpoint = import.meta.env.VITE_END_POINT;
 const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
 ---
@@ -30,8 +30,18 @@ const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
         please sen comments to <a href="mailto:engebrd2@wwu.edu"
           >David Engebretson</a>
       </p>
-
       <h2 id="#input-form">Input An Image</h2>
+			<wwu-switcher label="Accessible Label">
+				<wwu-switcher-item label="File Upload">
+						<Upload key={subscriptionKey} endpoint={endpoint}/>
+				</wwu-switcher-item>
+				<wwu-switcher-item label="Link to Image">
+						<UrlUpload key={subscriptionKey} endpoint={endpoint} client:load/>
+				</wwu-switcher-item>
+			</wwu-switcher>
+			<!-- Legacy Code for using local tasks instead of wwu-switcher, 
+							--worth noting that it changes button styling inside the 
+							components in the wwu-switcher--
 			<div id="block-ashlar-local-tasks" class="contextual-region block--local-tasks-block no-margin--bottom no-padding--bottom">
 				<h2 class="visually-hidden">Primary tabs</h2>
 				<ul class="align-center no-margin--bottom no-padding--bottom">
@@ -49,7 +59,7 @@ const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
       </div>
       <div id="url-form" style="display:none">
         <UrlUpload key={subscriptionKey} endpoint={endpoint}/>
-      </div>
+      </div>-->
 
       <!-- <Old_UploadImage/> -->
       <h2>"name of Image" Viewer</h2>
