@@ -1,7 +1,7 @@
 // React Integration of UrlUpload component
 import React, { useState } from 'react';
 
-export default function UrlUpload({key, endpoint}) {
+export default function UrlUpload({azureKey, azureEndpoint}) {
 	const [url, setUrl] = useState('');
 
 	const handleChange = async (event) => {
@@ -9,7 +9,7 @@ export default function UrlUpload({key, endpoint}) {
 	};
 
 	return (
-		<astro-upload data-endpoint={endpoint} data-key={key}>
+		<astro-upload data-endpoint={azureEndpoint} data-key={azureKey}>
 			<div className="wwu-card horizontal dark-blue-bg">
 				<div className="body">
 					<form style={{marginTop: "20px", marginBottom: "20px"}}>

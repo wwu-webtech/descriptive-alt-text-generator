@@ -1,13 +1,13 @@
 ---
 interface Props {
-  key: string;
-  endpoint: string;
+  azureKey: string;
+  azureEndpoint: string;
 }
 
-const { key, endpoint } = Astro.props;
+const { azureKey, azureEndpoint } = Astro.props;
 ---
 
-<astro-upload data-endpoint={endpoint} data-key={key}>
+<astro-upload data-endpoint={azureEndpoint} data-key={azureKey}>
   <div class="wwu-card horizontal dark-blue-bg">
     <div class="body">
   <form style={{ marginTop: "20px", marginBottom: "20px" }}>
