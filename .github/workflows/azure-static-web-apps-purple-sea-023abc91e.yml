@@ -22,10 +22,6 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Echo the MSFT_COGNITIVE_AI
-        run: |
-          echo "Azure Key is "
-          echo ${{ secrets.MSFT_COGNITIVE_AI }}
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
