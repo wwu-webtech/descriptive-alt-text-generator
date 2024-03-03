@@ -7,8 +7,8 @@ import Footer from "../components/Footer.astro"
 import Old_UploadImage from "../../../starter-code/old_UploadImage";
 import Upload from "../components/Upload.astro"
 import UrlUpload from "../components/UrlUpload.jsx"
-const endpoint = import.meta.env.VITE_END_POINT;
-const subscriptionKey = import.meta.env.MSFT_COGNITIVE_AI;
+const azureEndpoint = import.meta.env.AZURE_ENDPOINT;
+const azureKey = import.meta.env.MSFT_COGNITIVE_AI;
 ---
  
 <Layout
@@ -33,10 +33,10 @@ const subscriptionKey = import.meta.env.MSFT_COGNITIVE_AI;
       <h2 id="#input-form">Input An Image</h2>
 			<wwu-switcher label="Accessible Label">
 				<wwu-switcher-item label="File Upload">
-						<Upload azureKey={subscriptionKey} azureEndpoint={endpoint}/>
+						<Upload azureKey={azureKey} azureEndpoint={azureEndpoint}/>
 				</wwu-switcher-item>
 				<wwu-switcher-item label="Link to Image">
-						<UrlUpload azureKey={subscriptionKey} azureEndpoint={endpoint} client:load/>
+						<UrlUpload azureKey={azureKey} azureEndpoint={azureEndpoint} client:load/>
 				</wwu-switcher-item>
 			</wwu-switcher>
 			<!-- Legacy Code for using local tasks instead of wwu-switcher, 
