@@ -36,7 +36,7 @@ const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
 						<Upload key={subscriptionKey} endpoint={endpoint}/>
 				</wwu-switcher-item>
 				<wwu-switcher-item label="Link to Image">
-						<UrlUpload key={subscriptionKey} endpoint={endpoint} client:load/>
+						<UrlUpload api_key={subscriptionKey} endpoint={endpoint} client:load/>
 				</wwu-switcher-item>
 			</wwu-switcher>
 			<!-- Legacy Code for using local tasks instead of wwu-switcher, 
@@ -97,15 +97,3 @@ const subscriptionKey = import.meta.env.VITE_SUBSCRIPTION_KEY;
     </div>
   </main>
 </Layout>
-
-<script is:inline>
-	//Script to have Image Upload and Image URL switch between both file upload types
-	function showURLForm() {
-		document.getElementById("upload-form").style.display = "block";
-		document.getElementById("url-form").style.display = "none";
-	}
-  function showUploadForm() {
-  document.getElementById("upload-form").style.display = "none";
-  document.getElementById("url-form").style.display = "block";
-}
-</script>

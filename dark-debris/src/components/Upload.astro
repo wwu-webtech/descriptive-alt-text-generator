@@ -35,7 +35,7 @@ const { key, endpoint } = Astro.props;
 </astro-upload>
 
 <script>
-  import { handleAzureCall, handleGeminiCall } from "../js/API"
+  import { handleAzureCallFromCanvas, handleGeminiCall } from "../js/API"
   class AstroUpload extends HTMLElement {
     constructor() {
       super();
@@ -48,7 +48,7 @@ const { key, endpoint } = Astro.props;
 
       const button = document.getElementById("evaluate-image");
       button.addEventListener("click", () => {
-        handleAzureCall(this.dataset.key, this.dataset.endpoint);
+        handleAzureCallFromCanvas(this.dataset.key, this.dataset.endpoint);
         console.log("Button clicked!");
       });
 
