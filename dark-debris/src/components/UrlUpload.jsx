@@ -1,6 +1,6 @@
 // React Integration of UrlUpload component
 import React, { useState } from 'react';
-import {AzureURLRequest} from "../api/AzureURLRequest.jsx";
+//import {AzureURLRequest} from "../api/AzureURLRequest.jsx";
 import { handleAzureCall } from "../js/API.js";
 
 export default function UrlUpload({api_key, endpoint}) {
