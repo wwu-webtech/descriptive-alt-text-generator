@@ -50,6 +50,7 @@ const { azureKey, azureEndpoint } = Astro.props;
       button.addEventListener("click", () => {
         handleAzureCall(this.dataset.key, "https://descriptive-alt-text.cognitiveservices.azure.com/computervision/imageanalysis:analyze?api-version=2024-02-01&features=tags,read,caption,denseCaptions,smartCrops,objects,people&language=en&gender-neutral-caption=false");
         console.log("Button clicked!");
+        console.log(this.dataset.key)
       });
 
       fileInput.addEventListener("change", () => {
