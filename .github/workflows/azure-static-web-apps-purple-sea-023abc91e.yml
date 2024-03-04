@@ -10,7 +10,7 @@ on:
       - main
 
 env:
-  azureKey: ${{ secrets.MSFT_COGNITIVE_AI }}
+  MSFT_COGNITIVE_AI: ${{ secrets.MSFT_COGNITIVE_AI }}
 
 jobs:
   build_and_deploy_job:
