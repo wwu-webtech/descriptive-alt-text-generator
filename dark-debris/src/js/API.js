@@ -22,6 +22,8 @@ const handleAzureCall = (key) => {
 
           const captionElement = document.getElementById("azure-caption");
           captionElement.textContent = captionText;
+
+          document.getElementById("azure-result").scrollIntoView();
         })
         .catch((error) => {
           console.error("Error: ", error);
