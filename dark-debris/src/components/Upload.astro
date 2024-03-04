@@ -1,13 +1,7 @@
 ---
-interface Props {
-  azureKey: string;
-  azureEndpoint: string;
-}
-
-const { azureKey, azureEndpoint } = Astro.props;
 ---
 
-<astro-upload data-endpoint={azureEndpoint} data-key={azureKey}>
+<astro-upload>
   <div class="wwu-card horizontal dark-blue-bg">
     <div class="body">
   <form style={{ marginTop: "20px", marginBottom: "20px" }}>
@@ -16,7 +10,7 @@ const { azureKey, azureEndpoint } = Astro.props;
       type="file"
       id="file-input"
       accept=".png,.jpg,.jpeg"
-      style={{ width: "100%" }}
+      style={{ width: "100%" }} 
     />
     <label for="prompt"><h3>Prompt <i>[Optional]</i></h3></label>
     <textarea
@@ -35,6 +29,7 @@ const { azureKey, azureEndpoint } = Astro.props;
 </astro-upload>
 
 <script>
+
   class AstroUpload extends HTMLElement {
     constructor() {
       super();

@@ -1,4 +1,5 @@
 import { handleAzureCall } from "./API";
+// import { azureKey } from "../pages/index.astro"; 
 
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
@@ -6,13 +7,12 @@ canvas.width = 0;
 canvas.height = 0;
 const fileInput = document.getElementById("file-input");
 
-const astroUpload = document.querySelector("astro-upload");
-const dataKey = astroUpload.getAttribute("data-key");
+const azureKey = (await import.meta.env.PUBLIC_MSFT_COGNITIVE_AI)
 
 const button = document.getElementById("evaluate-image");
 button.addEventListener("click", () => {
   console.log("Evaluating...");
-  handleAzureCall(dataKey); 
+  handleAzureCall(azureKey); 
 });
 
 fileInput.addEventListener("change", () => {

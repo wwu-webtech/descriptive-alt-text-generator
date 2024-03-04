@@ -7,8 +7,8 @@ import Footer from "../components/Footer.astro"
 import Old_UploadImage from "../../../starter-code/old_UploadImage";
 import Upload from "../components/Upload.astro"
 import UrlUpload from "../components/UrlUpload.jsx"
-const azureEndpoint = import.meta.env.AZURE_ENDPOINT;
-const azureKey = import.meta.env.MSFT_COGNITIVE_AI ?? process.env.MSFT_COGNITIVE_AI;;
+const azureEndpoint = import.meta.env.PUBLIC_AZURE_ENDPOINT;
+const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
 ---
  
 <Layout
@@ -27,13 +27,13 @@ const azureKey = import.meta.env.MSFT_COGNITIVE_AI ?? process.env.MSFT_COGNITIVE
       </p>
       <p>
         If you have suggestions as to how to make this service better then
-        please sen comments to <a href="mailto:engebrd2@wwu.edu"
+        please send comments to <a href="mailto:engebrd2@wwu.edu"
           >David Engebretson</a>
       </p>
       <h2 id="#input-form">Input An Image</h2>
 			<wwu-switcher label="Accessible Label">
 				<wwu-switcher-item label="File Upload">
-						<Upload azureKey={azureKey} azureEndpoint={azureEndpoint}/>
+						<Upload />
 				</wwu-switcher-item>
 				<wwu-switcher-item label="Link to Image">
 						<UrlUpload azureKey={azureKey} azureEndpoint={azureEndpoint} client:load/>
