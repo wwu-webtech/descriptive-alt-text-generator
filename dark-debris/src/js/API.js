@@ -1,4 +1,4 @@
-const handleAzureCall = (key, endpoint) => {
+const handleAzureCall = (key) => {
     const canvas = document.getElementById("canvas");
     const headers = {
       "Content-Type": "application/octet-stream",
@@ -10,7 +10,7 @@ const handleAzureCall = (key, endpoint) => {
         console.error("Error: No image blob available");
         return;
       }
-      fetch(endpoint, {
+      fetch("https://descriptive-alt-text.cognitiveservices.azure.com/computervision/imageanalysis:analyze?api-version=2024-02-01&features=tags,read,caption,denseCaptions,smartCrops,objects,people&language=en&gender-neutral-caption=false", {
         method: "POST",
         headers: headers,
         body: blob,
