@@ -1,4 +1,4 @@
-import { handleAzureCall } from "./API";
+import { handleAzureCall, handleGeminiCall } from "./API";
 // import { azureKey } from "../pages/index.astro"; 
 
 const canvas = document.getElementById("canvas");
@@ -8,11 +8,13 @@ canvas.height = 0;
 const fileInput = document.getElementById("file-input");
 
 const azureKey = (await import.meta.env.PUBLIC_MSFT_COGNITIVE_AI)
+const geminiKey = (await import.meta.env.PUBLIC_GEMINI_KEY)
 
 const button = document.getElementById("evaluate-image");
 button.addEventListener("click", () => {
   console.log("Evaluating...");
   handleAzureCall(azureKey); 
+  // handleGeminiCall(geminiKey);
 });
 
 fileInput.addEventListener("change", () => {
