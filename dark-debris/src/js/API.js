@@ -1,9 +1,12 @@
-const handleAzureCall = (key) => {
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const handleAzureCall = () => {
   const canvas = document.getElementById("canvas");
   const headers = {
     "Content-Type": "application/octet-stream",
-    "Ocp-Apim-Subscription-Key": key,
+    "Ocp-Apim-Subscription-Key": import.meta.env.PUBLIC_MSFT_COGNITIVE_AI,
   };
+
 
   canvas.toBlob((blob) => {
     if (!blob) {
@@ -23,7 +26,7 @@ const handleAzureCall = (key) => {
         const captionElement = document.getElementById("azure-caption");
         captionElement.textContent = captionText;
 
-        document.getElementById("azure-result").scrollIntoView();
+        document.getElementById("results-section").scrollIntoView();
       })
       .catch((error) => {
         console.error("Error: ", error);
@@ -31,40 +34,49 @@ const handleAzureCall = (key) => {
   });
 };
 
-const handleGeminiCall = async (key) => {
-  try {
+const handleGeminiCall = async () => {
+  const canvas = document.getElementById("canvas");
+
+  const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+
+  if (dataURL !== "data:,") {
+    const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+
+    const prompt = "Create a descriptive caption for this image. Limit the response to 240 characters and below.";
+
     const payload = {
-      contents: [{
-        parts: [{
-          text: "Write a story about a magic backpack."
-        }]
-      }]
+      contents: [
+        {
+          parts: [
+            { text: prompt },
+            {
+              inline_data: {
+                mime_type: "image/jpeg",
+                data: dataURL.split(",")[1],
+              },
+            },
+          ],
+        },
+      ],
     };
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${key}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+    try {
+      const result = await model.generateContent(payload);
+      const response = await result.response;
+      const text = await response.text();
+      const captionElement = document.getElementById("gemini-caption");
+      captionElement.textContent = text;
+      console.log(text);
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok: ' + response.status);
+    } catch (error) {
+      console.error("Error during API request:", error.message);
     }
-    if (!response.ok) {
-      throw new Error('Network response was not ok: ' + response.status);
-    }
-
-    const responseData = await response.json();
-    // Process the responseData as needed
-    console.log(responseData.candidates[0].content.parts[0].text);
-    const captionText = responseData.candidates?.[0]?.content?.parts?.[0]?.text || "Error!"
-    const captionElement = document.getElementById("gemini-caption");
-    captionElement.textContent = captionText;
-  } catch (error) {
-    console.error('Error during fetch:', error);
+  } else {
+    console.error("There is no image to evaluate!");
   }
 };
+
+
 
 export { handleAzureCall, handleGeminiCall }
