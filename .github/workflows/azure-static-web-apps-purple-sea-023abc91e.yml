@@ -11,6 +11,7 @@ on:
 
 env:
   PUBLIC_MSFT_COGNITIVE_AI: ${{ secrets.MSFT_COGNITIVE_AI }}
+  PUBLIC_GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
 
 jobs:
   build_and_deploy_job:
