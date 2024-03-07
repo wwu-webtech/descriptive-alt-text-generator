@@ -43,7 +43,14 @@ const handleGeminiCall = async () => {
     const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
-    const prompt = "Create a descriptive caption for this image. Limit the response to 240 characters and below.";
+    const promptFieldValue = document.getElementById("prompt").value
+
+    let prompt = "Create an english descriptive alternative text for this image. Limit the response to 240 characters and below. ";
+    if (promptFieldValue !== "") {
+      prompt = prompt + " This is additional information from the user: " + promptFieldValue;
+    }
+
+    console.log(prompt)
 
     const payload = {
       contents: [
@@ -51,7 +58,7 @@ const handleGeminiCall = async () => {
           parts: [
             { text: prompt },
             {
-              inline_data: {
+              inline_data: {  
                 mime_type: "image/jpeg",
                 data: dataURL.split(",")[1],
               },
