@@ -1,0 +1,27 @@
+---
+interface Props {
+  model_id: string;
+}
+
+const { model_id } = Astro.props;
+---
+
+<details id="refine-detail">
+    <summary style="border: none;">Refine results</summary>
+  <label for={model_id}><h4>Additional information</h4></label>
+  <textarea
+    id={model_id}
+    placeholder="Enter additional information"
+    wrap="hard"
+    rows="2"
+    style={{ width: "100%" }}></textarea>
+  <button>Refine results</button>
+</details>
+
+
+<style>
+    #refine-detail{
+        width: 75%;
+        border-color: transparent;
+    }
+</style>

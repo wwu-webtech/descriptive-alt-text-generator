@@ -23,8 +23,12 @@ const handleAzureCall = () => {
         console.log(data);
         const captionText = data.captionResult.text;
 
-        const captionElement = document.getElementById("azure-caption");
-        captionElement.textContent = captionText;
+        // Update the p tag
+        // const captionElement = document.getElementById("azure-caption");
+        // captionElement.textContent = captionText;
+
+        // Update the text area
+        document.getElementById("azure-area").value = captionText;
 
         document.getElementById("results-section").scrollIntoView();
       })
@@ -72,9 +76,13 @@ const handleGeminiCall = async () => {
       const result = await model.generateContent(payload);
       const response = await result.response;
       const text = await response.text();
-      const captionElement = document.getElementById("gemini-caption");
-      captionElement.textContent = text;
-      console.log(text);
+
+      // Update the p tag
+      // const captionElement = document.getElementById("gemini-caption");
+      // captionElement.textContent = text;
+
+      // Update the text area
+      document.getElementById("gemini-area").value = text;
 
     } catch (error) {
       console.error("Error during API request:", error.message);

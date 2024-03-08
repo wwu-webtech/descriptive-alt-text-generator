@@ -1,20 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
-import Header from "../components/Header.astro"
-import MainNav from "../components/MainNav.astro"
-import Footer from "../components/Footer.astro"
-import Old_UploadImage from "../../../starter-code/old_UploadImage";
-import Upload from "../components/Upload.astro"
-import UrlUpload from "../components/UrlUpload.jsx"
+import RefineResults from "../components/RefineResults.astro"
+import Upload from "../components/Upload.astro";
+import UrlUpload from "../components/UrlUpload.jsx";
+
 const azureEndpoint = import.meta.env.PUBLIC_AZURE_ENDPOINT;
 const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
 ---
- 
+
 <Layout
   title="Home | Descriptive Alt Text Generator | Western Washington University"
 >
-
   <main id="main-content" class="page-content">
     <div class="region-wrapper">
       <h1>Descriptive Alt Text Generator</h1>
@@ -28,18 +24,23 @@ const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
       <p>
         If you have suggestions as to how to make this service better then
         please send comments to <a href="mailto:engebrd2@wwu.edu"
-          >David Engebretson</a>
+          >David Engebretson</a
+        >
       </p>
       <h2 id="#input-form">Input An Image</h2>
-			<wwu-switcher label="Accessible Label">
-				<wwu-switcher-item label="File Upload">
-						<Upload />
-				</wwu-switcher-item>
-				<wwu-switcher-item label="Link to Image">
-						<UrlUpload azureKey={azureKey} azureEndpoint={azureEndpoint} client:load/>
-				</wwu-switcher-item>
-			</wwu-switcher>
-			<!-- Legacy Code for using local tasks instead of wwu-switcher, 
+      <wwu-switcher label="Accessible Label">
+        <wwu-switcher-item label="File Upload">
+          <Upload />
+        </wwu-switcher-item>
+        <wwu-switcher-item label="Link to Image">
+          <UrlUpload
+            azureKey={azureKey}
+            azureEndpoint={azureEndpoint}
+            client:load
+          />
+        </wwu-switcher-item>
+      </wwu-switcher>
+      <!-- Legacy Code for using local tasks instead of wwu-switcher, 
 							--worth noting that it changes button styling inside the 
 							components in the wwu-switcher--
 			<div id="block-ashlar-local-tasks" class="contextual-region block--local-tasks-block no-margin--bottom no-padding--bottom">
@@ -67,27 +68,42 @@ const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
       <h3>XIFF Data from the image data content</h3>
       <!-- Once the image is loaded, place a data table with the XIFF data here. Something to do if you have time. Not a priority -->
       <!-- Don't activate the evaluation button until after the image is loaded completely -->
-      
+
       <!-- When the evaluation is complete, populate the page with the results from the AI engines -->
       <h2 id="results-section">Results</h2>
       <!-- radio group that the user can select suggested alt text from, or just present all of the information and let the user decide what to use. It's up to you. -->
-      <h3 id="azure-result">Gemini</h3>
-      <p id="gemini-caption">Results from Gemini</p>
-      <!-- add an edit box here to refine the results -->
-      <button>Refine Results</button>
+      <label  for="gemini-area"><h3>Gemini</h3></label>
+      <textarea
+        id="gemini-area"
+        placeholder="Results from Gemini"
+        wrap="hard"
+        rows="5"
+        style={{ width: "100%" }}></textarea>
+      <!-- <p id="gemini-caption">Results from Gemini</p> -->
+      <RefineResults model_id="refine-gemini"/>
+      <!-- <button>Refine Results</button> -->
+
+      <label  for="azure-area"><h3>Azure</h3></label>
+      <textarea
+        id="azure-area"
+        placeholder="Results from Azure"
+        wrap="hard"
+        rows="5"
+        style={{ width: "100%" }}></textarea>
+      <!-- <p id="azure-caption">Results from Azure</p> -->
+      <RefineResults model_id="refine-azure"/>
+      <!-- <button>Refine Results</button> -->
+      
+
       <h3>Chat GPT</h3>
       <p>Results from Chat GPT</p>
       <!-- Add an edit box here to refine the results -->
       <button>Refine Results</button>
-      <h3 id="azure-result">Azure</h3>
-      <p id="azure-caption">Results from Azure</p>
-      <!-- Add an edit box here to refine the results -->
-      <button>Refine Results</button>
+
       <h3>ETC.</h3>
       <p>And any other engines you find relevant</p>
       <button>Refine Results</button>
-      
-    
+
       <!-- end radio group -->
       <!-- checkbox here to mark image as decorative instead of using one of the AI created suggestions To set the image as decorative. You set alt="" on the <img> element to mark an image as decorative -->
       <!-- read only edit field with code that provides the <img> tag with the preferred alt text <img href="bla bla bla" alt=""> for when it's marked as decorative, <img href="bla bla bla" alt="suggested selection from radio group above"> -->
@@ -99,13 +115,13 @@ const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
 </Layout>
 
 <script is:inline>
-	//Script to have Image Upload and Image URL switch between both file upload types
-	function showURLForm() {
-		document.getElementById("upload-form").style.display = "block";
-		document.getElementById("url-form").style.display = "none";
-	}
+  //Script to have Image Upload and Image URL switch between both file upload types
+  function showURLForm() {
+    document.getElementById("upload-form").style.display = "block";
+    document.getElementById("url-form").style.display = "none";
+  }
   function showUploadForm() {
-  document.getElementById("upload-form").style.display = "none";
-  document.getElementById("url-form").style.display = "block";
-}
+    document.getElementById("upload-form").style.display = "none";
+    document.getElementById("url-form").style.display = "block";
+  }
 </script>

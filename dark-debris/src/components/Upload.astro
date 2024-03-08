@@ -1,41 +1,46 @@
 ---
+
 ---
 
 <astro-upload>
   <div class="wwu-card horizontal dark-blue-bg">
     <div class="body">
-  <form style={{ marginTop: "20px", marginBottom: "20px" }}>
-    <label for="file"><h3>File</h3></label>
-    <input
-      type="file"
-      id="file-input"
-      accept=".png,.jpg,.jpeg"
-      style={{ width: "100%" }} 
-    />
-    <label for="prompt"><h3>Prompt <i>[Optional]</i></h3></label>
-    <textarea
-      id="prompt"
-      placeholder="Enter a prompt"
-      rows="5"
-      wrap="hard"
-      style={{ width: "100%" }}
-    >
-    </textarea>
-  </form>
-  <button id="evaluate-image" style={{ marginBottom: '10px'}}>Evaluate Image</button>
+      <form style={{ marginTop: "20px", marginBottom: "20px" }}>
+        <label for="file-input"><h3>File</h3></label>
+        <input
+          type="file"
+          id="file-input"
+          accept=".png,.jpg,.jpeg"
+          style={{ width: "100%", cursor: "pointer" }}
+
+        />
+        <label for="prompt"><h3>Prompt <i>[Optional]</i></h3></label>
+        <textarea
+          id="prompt"
+          placeholder="Enter a prompt"
+          rows="5"
+          wrap="hard"
+          style={{ width: "100%" }}
+        >
+        </textarea>
+      </form>
+      <button id="evaluate-image" style={{ marginBottom: "10px" }}
+        >Evaluate Image</button
+      >
     </div>
-    <canvas id="canvas" style={{ margin: "10px", objectFit: "contain", width: "95%"}}></canvas>
-    </div>
+    <canvas
+      id="canvas"
+      style={{ margin: "10px", objectFit: "contain", width: "95%" }}></canvas>
+  </div>
 </astro-upload>
 
 <script>
-
   class AstroUpload extends HTMLElement {
     constructor() {
       super();
     }
   }
-  document.getElementById("prompt").value = ""
+  document.getElementById("prompt").value = "";
   customElements.define("astro-upload", AstroUpload);
 </script>
 
