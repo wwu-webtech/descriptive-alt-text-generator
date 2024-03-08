@@ -92,6 +92,51 @@ const handleGeminiCall = async () => {
   }
 };
 
+const handleGeminiRefineResults = async () => {
+  const initialResponse = document.getElementById("gemini-area").value;
+  const additionalInfo = document.getElementById("refine-gemini").value;
+
+  const canvas = document.getElementById("canvas");
+
+  const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+
+  if (dataURL !== "data:,") {
+    const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+    let prompt = `Initial Result: ${initialResponse}. Enhance the caption by incorporating the following additional information: ${additionalInfo}`;
+    
+    console.log(prompt)
+
+    const payload = {
+      contents: [
+        {
+          parts: [
+            { text: prompt },
+            {
+              inline_data: {  
+                mime_type: "image/jpeg",
+                data: dataURL.split(",")[1],
+              },
+            },
+          ],
+        },
+      ],
+    };
+    
+    try {
+      const result = await model.generateContent(payload);
+      const response = await result.response;
+      const text = await response.text();
+
+      document.getElementById("gemini-area").value = text;
+    } catch (error) {
+      console.error("Error during API request:", error.message);
+    }
+  } else {
+    console.error("There is no image to evaluate!");
+  }
+}
 
 
-export { handleAzureCall, handleGeminiCall }
+
+export { handleAzureCall, handleGeminiCall, handleGeminiRefineResults }

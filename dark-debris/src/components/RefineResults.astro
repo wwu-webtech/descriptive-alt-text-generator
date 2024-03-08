@@ -1,9 +1,10 @@
 ---
 interface Props {
   model_id: string;
+  button_id: string;
 }
 
-const { model_id } = Astro.props;
+const { model_id, button_id } = Astro.props;
 ---
 
 <details id="refine-detail">
@@ -15,8 +16,10 @@ const { model_id } = Astro.props;
     wrap="hard"
     rows="2"
     style={{ width: "100%" }}></textarea>
-  <button>Refine results</button>
+  <button id={button_id}>Refine results</button>
 </details>
+
+<script src="../js/RefineHelper.js"></script>
 
 
 <style>
