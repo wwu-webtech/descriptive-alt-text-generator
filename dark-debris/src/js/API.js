@@ -1,5 +1,12 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+const showErrorDialog = (msg) => {
+  const dialog = document.getElementById("evaluate-error")
+  const message = document.getElementById("evaluate-error-message")
+  message.textContent = msg
+  dialog.showModal();
+}
+
 const handleAzureCall = () => {
   const canvas = document.getElementById("canvas");
   const headers = {
@@ -10,6 +17,7 @@ const handleAzureCall = () => {
 
   canvas.toBlob((blob) => {
     if (!blob) {
+      showErrorDialog("No image to evaluate")
       console.error("Error: No image blob available");
       return;
     }
@@ -30,9 +38,9 @@ const handleAzureCall = () => {
         // Update the text area
         document.getElementById("azure-area").value = captionText;
 
-        document.getElementById("results-section").scrollIntoView();
       })
       .catch((error) => {
+        showErrorDialog("Azure API Error.")
         console.error("Error: ", error);
       });
   });
@@ -42,7 +50,6 @@ const handleGeminiCall = async () => {
   const canvas = document.getElementById("canvas");
 
   const dataURL = canvas.toDataURL("image/jpeg", 0.5);
-
   if (dataURL !== "data:,") {
     const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
@@ -84,10 +91,14 @@ const handleGeminiCall = async () => {
       // Update the text area
       document.getElementById("gemini-area").value = text;
 
+      document.getElementById("results-section").scrollIntoView();
+
     } catch (error) {
+      showErrorDialog("Gemini API Error.")
       console.error("Error during API request:", error.message);
     }
   } else {
+    showErrorDialog("No image to evaluate.")
     console.error("There is no image to evaluate!");
   }
 };
@@ -133,6 +144,7 @@ const handleGeminiRefineResults = async () => {
       console.error("Error during API request:", error.message);
     }
   } else {
+    showErrorDialog("No image to evaluate")
     console.error("There is no image to evaluate!");
   }
 }

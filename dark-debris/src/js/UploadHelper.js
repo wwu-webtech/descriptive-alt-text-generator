@@ -8,10 +8,20 @@ canvas.height = 0;
 const fileInput = document.getElementById("file-input");
 
 const button = document.getElementById("evaluate-image");
-button.addEventListener("click", () => {
+button.addEventListener("click", async () => {
+  const loading = document.getElementById("evaluate-loading");
+  loading.showModal();
   console.log("Evaluating...");
-  handleGeminiCall();
-  handleAzureCall(); 
+
+  try {
+    await handleAzureCall();
+    await handleGeminiCall();
+  } catch (error) {
+    // Handle errors if needed
+    console.error(error);
+  } finally {
+    loading.close();
+  }
 });
 
 fileInput.addEventListener("change", () => {
