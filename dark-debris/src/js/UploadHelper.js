@@ -32,13 +32,18 @@ url_button.addEventListener("click", async () => {
     // await handleGeminiURL();
     await handleAzureURL();
   } catch (error) {
-    console.error(error);
+    console.error(error); 
   } finally {
     loading.close();
   }
 });
 
 fileInput.addEventListener("change", () => {
+  // Clear the results
+  document.getElementById("gemini-area").value = ""
+  document.getElementById("azure-area").value = ""
+
+
   const selectedFile = fileInput.files[0];
 
   if (selectedFile) {

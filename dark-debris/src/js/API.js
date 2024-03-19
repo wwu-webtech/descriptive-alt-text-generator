@@ -149,44 +149,82 @@ const handleGeminiRefineResults = async () => {
   }
 }
 
-const handleAzureURL = async () => {
-  const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
-  const url = document.getElementById("url-upload").value;
-  console.log(url)
+// const handleAzureURL = async () => {
+//   const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
+//   const url = document.getElementById("url-upload").value;
+//   console.log(url)
 
+//   const headers = {
+//     "Content-Type": "application/json",
+//     "Ocp-Apim-Subscription-Key": import.meta.env.PUBLIC_MSFT_COGNITIVE_AI,
+//   };
+
+//   const requestData = {
+//     url: url
+//   }
+
+//   if (url === "") {
+//     showErrorDialog("No URL to evaluate")
+//   } else {
+//     await sleep(1500)
+//     fetch("https://descriptive-alt-text.cognitiveservices.azure.com/computervision/imageanalysis:analyze?api-version=2024-02-01&features=tags,read,caption,denseCaptions,smartCrops,objects,people&language=en&gender-neutral-caption=false", {
+//       method: 'POST',
+//       headers: headers,
+//       body: JSON.stringify(requestData)
+//     })
+//       .then(response => response.json())
+//       .then(data => {
+//         console.log(data)
+//         const captionText = data.captionResult.text;
+
+//         // Update the text area
+//         document.getElementById("azure-area").value = captionText;
+//         document.getElementById("results-section").scrollIntoView();
+//       })
+//       .catch(error => {
+//         showErrorDialog("Azure API Error.")
+//         console.error("Error: ", error);
+//       })
+//   }
+// }
+const handleAzureURL = () => {
+  const canvas = document.getElementById("url-canvas");
   const headers = {
-    "Content-Type": "application/json",
+    "Content-Type": "application/octet-stream",
     "Ocp-Apim-Subscription-Key": import.meta.env.PUBLIC_MSFT_COGNITIVE_AI,
   };
 
-  const requestData = {
-    url: url
-  }
 
-  if (url === "") {
-    showErrorDialog("No URL to evaluate")
-  } else {
-    await sleep(1500)
+  canvas.toBlob((blob) => {
+    if (!blob) {
+      showErrorDialog("No image to evaluate")
+      console.error("Error: No image blob available");
+      return;
+    }
     fetch("https://descriptive-alt-text.cognitiveservices.azure.com/computervision/imageanalysis:analyze?api-version=2024-02-01&features=tags,read,caption,denseCaptions,smartCrops,objects,people&language=en&gender-neutral-caption=false", {
-      method: 'POST',
+      method: "POST",
       headers: headers,
-      body: JSON.stringify(requestData)
+      body: blob,
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
         const captionText = data.captionResult.text;
+
+        // Update the p tag
+        // const captionElement = document.getElementById("azure-caption");
+        // captionElement.textContent = captionText;
 
         // Update the text area
         document.getElementById("azure-area").value = captionText;
-        document.getElementById("results-section").scrollIntoView();
+
       })
-      .catch(error => {
+      .catch((error) => {
         showErrorDialog("Azure API Error.")
         console.error("Error: ", error);
-      })
-  }
-}
+      });
+  });
+};
 
 const handleGeminiURL = async () => {
   const imageUrl = document.getElementById("url-upload").value;

@@ -1,14 +1,44 @@
 import React, { useState } from "react";
 
-export default function UrlUpload({ azureKey, azureEndpoint }) {
+export default function UrlUpload() {
 	const [url, setUrl] = useState("");
+
+	// const handleChange = async (event) => {
+	// 	setUrl(event.target.value);
+	// 	console.log(event.target.value)
+	// };
 
 	const handleChange = async (event) => {
 		setUrl(event.target.value);
+		console.log("The link is: ", event.target.value)
+		const imageUrl = event.target.value;
+		const canvas = document.getElementById("url-canvas");
+		const ctx = canvas.getContext("2d");
+		const img = new Image();
+
+		img.onload = function() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+	
+			canvas.width = img.width;
+			canvas.height = img.height;
+
+			ctx.drawImage(img, 0, 0, img.width, img.height);
+		};
+	
+		img.onerror = function() {
+			console.error("Error loading image:", imageUrl);
+		};
+
+		img.crossOrigin = 'Anonymous';
+	
+		img.src = imageUrl;
+
+		canvas.toDataURL();
 	};
+	
 
 	return (
-		<astro-upload data-endpoint={azureEndpoint} data-key={azureKey}>
+		<astro-upload>
 			<div className="wwu-card horizontal dark-blue-bg">
 				<div className="body">
 					<form style={{ marginTop: "20px", marginBottom: "20px" }}>
@@ -22,7 +52,7 @@ export default function UrlUpload({ azureKey, azureEndpoint }) {
 							required
 						/>
 						<label htmlFor="prompt">
-							<h3>Prompt<i style={{ fontSize: "18px", float:"right", color:"#d5e381" }}>* Optional</i></h3>
+							<h3>Prompt<i style={{ fontSize: "18px", float: "right", color: "#d5e381" }}>* Optional</i></h3>
 						</label>
 						<textarea
 							id="prompt"
@@ -37,13 +67,9 @@ export default function UrlUpload({ azureKey, azureEndpoint }) {
 					</button>
 				</div>
 				<div style={{ objectFit: "contain" }}>
-					{url && (
-						<img
-							src={url}
-							alt="Image failed to load. Did you submit the correct link?"
-							style={{ objectFit: "contain", margin: "10px", width: "95%" }}
-						/>
-					)}
+					<canvas
+						id="url-canvas"
+						style={{ margin: "10px", objectFit: "contain", width: "95%" }}></canvas>
 				</div>
 			</div>
 		</astro-upload>
