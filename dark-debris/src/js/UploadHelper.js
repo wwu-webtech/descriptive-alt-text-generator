@@ -39,6 +39,10 @@ url_button.addEventListener("click", async () => {
 });
 
 fileInput.addEventListener("change", () => {
+  // Clear the results
+  document.getElementById("gemini-area").value = ""
+  document.getElementById("azure-area").value = ""
+  
   const selectedFile = fileInput.files[0];
 
   if (selectedFile) {

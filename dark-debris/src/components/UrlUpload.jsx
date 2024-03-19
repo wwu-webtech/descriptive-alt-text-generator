@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function UrlUpload({ azureKey, azureEndpoint }) {
+export default function UrlUpload() {
 	const [url, setUrl] = useState("");
 
 	const handleChange = async (event) => {
@@ -8,7 +8,7 @@ export default function UrlUpload({ azureKey, azureEndpoint }) {
 	};
 
 	return (
-		<astro-upload data-endpoint={azureEndpoint} data-key={azureKey}>
+		<astro-upload>
 			<div className="wwu-card horizontal dark-blue-bg">
 				<div className="body">
 					<form style={{ marginTop: "20px", marginBottom: "20px" }}>
