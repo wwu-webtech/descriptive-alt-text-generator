@@ -1,5 +1,4 @@
-import { handleAzureCall, handleGeminiCall } from "./API";
-// import { azureKey } from "../pages/index.astro"; 
+import { handleAzureCall, handleGeminiCall, handleAzureURL, handleGeminiURL } from "./API";
 
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
@@ -7,8 +6,8 @@ canvas.width = 0;
 canvas.height = 0;
 const fileInput = document.getElementById("file-input");
 
-const button = document.getElementById("evaluate-image");
-button.addEventListener("click", async () => {
+const file_button = document.getElementById("evaluate-image");
+file_button.addEventListener("click", async () => {
   const loading = document.getElementById("evaluate-loading");
   loading.showModal();
   console.log("Evaluating...");
@@ -17,7 +16,22 @@ button.addEventListener("click", async () => {
     await handleAzureCall();
     await handleGeminiCall();
   } catch (error) {
-    // Handle errors if needed
+    console.error(error);
+  } finally {
+    loading.close();
+  }
+});
+
+const url_button = document.getElementById("evaluate-url");
+url_button.addEventListener("click", async () => {
+  const loading = document.getElementById("evaluate-loading");
+  loading.showModal();
+  console.log("Evaluating...");
+  try {
+    // This still needs a bit of work:
+    // await handleGeminiURL();
+    await handleAzureURL();
+  } catch (error) {
     console.error(error);
   } finally {
     loading.close();

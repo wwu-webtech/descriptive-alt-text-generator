@@ -1,4 +1,3 @@
-// React Integration of UrlUpload component
 import React, { useState } from "react";
 
 export default function UrlUpload({ azureKey, azureEndpoint }) {
@@ -33,8 +32,8 @@ export default function UrlUpload({ azureKey, azureEndpoint }) {
 							style={{ width: "100%" }}
 						/>
 					</form>
-					<button id="evaluate-image" style={{ marginBottom: "10px" }}>
-						Evaluate Image
+					<button id="evaluate-url" style={{ marginBottom: "10px" }}>
+						Evaluate URL
 					</button>
 				</div>
 				<div style={{ objectFit: "contain" }}>

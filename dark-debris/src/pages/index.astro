@@ -43,6 +43,15 @@ const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
       </p>
       <h2 id="#input-form">Input An Image</h2>
       <wwu-switcher label="Accessible Label">
+        <dialog id="evaluate-error">
+          <p id="evaluate-error-message"></p>
+          <form method="dialog">
+            <button>OK</button>
+          </form>
+        </dialog>
+        <dialog id="evaluate-loading">
+          <img src="/loading.gif" alt="Loading gif" style="width:100px;height:100px;">
+        </dialog>
         <wwu-switcher-item label="File Upload">
           <Upload />
         </wwu-switcher-item>

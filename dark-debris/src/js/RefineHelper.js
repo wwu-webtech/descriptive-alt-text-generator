@@ -11,6 +11,7 @@ button.addEventListener("click", async () => {
   } catch (error) {
     console.error(error);
   } finally {
+    document.getElementById("refine-gemini").value = ""
     loading.close();
   }
 
