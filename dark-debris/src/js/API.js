@@ -56,7 +56,7 @@ const handleGeminiCall = async () => {
 
     const promptFieldValue = document.getElementById("prompt").value
 
-    let prompt = "Create an english descriptive alternative text for this image. Limit the response to 240 characters and below. ";
+    let prompt = "Create an english descriptive alternative text for this image.";
     if (promptFieldValue !== "") {
       prompt = prompt + " This is additional information from the user: " + promptFieldValue;
     }
