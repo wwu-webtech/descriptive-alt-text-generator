@@ -15,12 +15,26 @@ const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
     <div class="region-wrapper">
       <h1>Descriptive Alt Text Generator</h1>
       <h2>How It works</h2>
-      <p>
-        Upload your image using the "Upload Image" button, press the "Evaluate
-        Image" button, then search through the results from the different AI
-        engines for ideas as to how to best enter the alt text for your uploaded
-        image.
-      </p>
+      <div>
+				<p>Pick the method of inputting a file, either upload or link to an image (WIP).<p>
+				<ul>
+					<li>
+						<p><b>File Upload: </b>Click choose file under the File label and select locally the file you will use</p>
+					</li>
+					<li>
+						<p><b>Link To Image: </b>Input the direct link to an image</p>
+					</li>
+				</ul>
+				<p>
+					After uploading your image, optionally prompt the AI with any 
+					information to assist with its generation (only for Gemini).
+        	Then press the "Evaluate Image" button, then search through the results from the different AI
+        	engines for ideas as to how to best enter the alt text for your uploaded image.
+					With Gemini after receiving results you can click "Refine Results" 
+					and include information to rewrite the given alternative text by 
+					clicking the colored "Refine Results" button.
+				</p>
+			</div>
       <p>
         If you have suggestions as to how to make this service better then
         please send comments to <a href="mailto:engebrd2@wwu.edu"
@@ -32,7 +46,7 @@ const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
         <wwu-switcher-item label="File Upload">
           <Upload />
         </wwu-switcher-item>
-        <wwu-switcher-item label="Link to Image">
+        <wwu-switcher-item label="Link to Image *WIP*">
           <UrlUpload
             azureKey={azureKey}
             azureEndpoint={azureEndpoint}
@@ -60,12 +74,12 @@ const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
       </div>
       <div id="url-form" style="display:none">
         <UrlUpload key={subscriptionKey} endpoint={endpoint}/>
-      </div>-->
+      </div>
 
-      <!-- <Old_UploadImage/> -->
+       <Old_UploadImage/>
       <h2>"name of Image" Viewer</h2>
-      <!-- Place image viewer here -->
-      <h3>XIFF Data from the image data content</h3>
+       Place image viewer here
+      <h3>XIFF Data from the image data content</h3>-->
       <!-- Once the image is loaded, place a data table with the XIFF data here. Something to do if you have time. Not a priority -->
       <!-- Don't activate the evaluation button until after the image is loaded completely -->
 
@@ -95,14 +109,14 @@ const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
       <!-- <button>Refine Results</button> -->
       
 
-      <h3>Chat GPT</h3>
+      <!--<h3>Chat GPT</h3>
       <p>Results from Chat GPT</p>
-      <!-- Add an edit box here to refine the results -->
+      <!-- Add an edit box here to refine the results 
       <button>Refine Results</button>
 
       <h3>ETC.</h3>
       <p>And any other engines you find relevant</p>
-      <button>Refine Results</button>
+      <button>Refine Results</button>-->
 
       <!-- end radio group -->
       <!-- checkbox here to mark image as decorative instead of using one of the AI created suggestions To set the image as decorative. You set alt="" on the <img> element to mark an image as decorative -->

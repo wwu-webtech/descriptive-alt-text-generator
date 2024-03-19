@@ -13,7 +13,7 @@ export default function UrlUpload({ azureKey, azureEndpoint }) {
 			<div className="wwu-card horizontal dark-blue-bg">
 				<div className="body">
 					<form style={{ marginTop: "20px", marginBottom: "20px" }}>
-						<label htmlFor="url-upload">URL</label>
+						<label htmlFor="url-upload"><h3>URL</h3></label>
 						<input
 							id="url-upload"
 							type="url"
@@ -23,7 +23,7 @@ export default function UrlUpload({ azureKey, azureEndpoint }) {
 							required
 						/>
 						<label htmlFor="prompt">
-							Prompt <i>[Optional]</i>
+							<h3>Prompt<i style={{ fontSize: "18px", float:"right", color:"#d5e381" }}>* Optional</i></h3>
 						</label>
 						<textarea
 							id="prompt"
