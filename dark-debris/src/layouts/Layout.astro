@@ -2,6 +2,8 @@
 import MainNav from "../components/MainNav.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+
+
 interface Props {
 	title: string;
 }
@@ -44,7 +46,9 @@ const { title } = Astro.props;
 			<Header title="Descriptive Alt Text Generator"/>
 			<MainNav/>
 		</header>
-		<slot />
+		<main id="main-content">
+				<slot />
+				</main>
 		<footer>
 			<Footer/>
 		</footer>
