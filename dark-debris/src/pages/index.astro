@@ -1,9 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import RefineResults from "../components/RefineResults.astro"
-import Upload from "../components/Upload.astro";
-import UrlUpload from "../components/UrlUpload.jsx";
-
+import TextGenerator from "../components/TextGenerator.astro";
 const azureEndpoint = import.meta.env.PUBLIC_AZURE_ENDPOINT;
 const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
 ---
@@ -17,12 +14,11 @@ const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
       <h2>How It works</h2>
       <div>
 				<p>Pick the method of inputting an image, either upload or link to an image (Work In Progress).</p>
-<p>
 				<ul>
 					<li><b>File Upload: </b>Click the Choose File button and select the local file you would like to evaluate</li>
 					<li><b>Link To Image: </b>Input the direct link to an image on the web you would like to evaluate</li>
 				</ul>
-        </p>
+
 				<p>
 					After uploading your image, optionally prompt the AI with any 
 					information to assist with its alt text generation (currently only for Gemini).
@@ -33,115 +29,27 @@ const azureKey = import.meta.env.PUBLIC_MSFT_COGNITIVE_AI;
 					After receiving results (currently only with Gemini) you can expand the "Refine Results" button to include additional information for helping the AI engine rewrite the initially given alternative text, then click the "Refine" button to re-evaluate the image with the new information
 				</p>
 			</div>
-      <p>
+      <div>
       <h3>Suggestions?</h3>
         If you have suggestions as to how to make this service better then
         please send comments to <a href="mailto:engebrd2@wwu.edu"
           >David Engebretson</a>
-      </p>
-      <h2 id="#input-form">Input An Image</h2>
-      <wwu-switcher label="Upload Type">
-        <dialog id="evaluate-error">
-          <p id="evaluate-error-message"></p>
-          <form method="dialog">
-            <button>OK</button>
-          </form>
-        </dialog>
-        <dialog id="evaluate-loading">
-          <img src="/loading.gif" alt="Loading gif" style="width:100px;height:100px;">
-        </dialog>
-        <wwu-switcher-item label="File Upload">
-          <Upload />
-        </wwu-switcher-item>
-        <wwu-switcher-item label="Link to Image *WIP*">
-          <UrlUpload
-            client:load
-          />
-        </wwu-switcher-item>
-      </wwu-switcher>
-      <!-- Legacy Code for using local tasks instead of wwu-switcher, 
-							--worth noting that it changes button styling inside the 
-							components in the wwu-switcher--
-			<div id="block-ashlar-local-tasks" class="contextual-region block--local-tasks-block no-margin--bottom no-padding--bottom">
-				<h2 class="visually-hidden">Primary tabs</h2>
-				<ul class="align-center no-margin--bottom no-padding--bottom">
-					<li class="align-right no-margin--bottom no-padding--bottom" style={{ width: "50%", textAlign:'center'}}>
-						<a href='#input-form' onclick="showURLForm()">Image Upload</a>
-					</li>
-					<li class="align-left no-margin--bottom no-padding--bottom" style={{ width: "50%", textAlign:'center'}}>
-						<a href='#input-form' onclick="showUploadForm()">Image URL</a>
-					</li>
-				</ul>
-			</div>
-      <div id='upload-form' style="display:block">
-        <Upload key={subscriptionKey} endpoint={endpoint}/>
-
       </div>
-      <div id="url-form" style="display:none">
-        <UrlUpload key={subscriptionKey} endpoint={endpoint}/>
-      </div>
-
-       <Old_UploadImage/>
-      <h2>"name of Image" Viewer</h2>
-       Place image viewer here
-      <h3>XIFF Data from the image data content</h3>-->
-      <!-- Once the image is loaded, place a data table with the XIFF data here. Something to do if you have time. Not a priority -->
-      <!-- Don't activate the evaluation button until after the image is loaded completely -->
-
-      <!-- When the evaluation is complete, populate the page with the results from the AI engines -->
-      <h2 id="results-section">Results</h2>
-      <!-- radio group that the user can select suggested alt text from, or just present all of the information and let the user decide what to use. It's up to you. -->
-      <label  for="gemini-area"><h3>Gemini</h3></label>
-      <textarea
-        id="gemini-area"
-        placeholder="Results from Gemini"
-        wrap="hard"
-        rows="5"
-        style={{ width: "100%" }}></textarea>
-      <!-- <p id="gemini-caption">Results from Gemini</p> -->
-      <RefineResults model_id="refine-gemini" button_id="refine-gemini-button"/>
-      <!-- <button>Refine Results</button> -->
-
-      <label  for="azure-area"><h3>Azure</h3></label>
-      <textarea
-        id="azure-area"
-        placeholder="Results from Azure"
-        wrap="hard"
-        rows="5"
-        style={{ width: "100%" }}></textarea>
-      <!-- <p id="azure-caption">Results from Azure</p> -->
-      <!-- <RefineResults model_id="refine-azure" button_id="refine-azure-button"/> -->
-      <!-- <button>Refine Results</button> -->
-      
-
-      <!--<h3>Chat GPT</h3>
-      <p>Results from Chat GPT</p>
-      <!-- Add an edit box here to refine the results 
-      <button>Refine Results</button>
-
-      <h3>ETC.</h3>
-      <p>And any other engines you find relevant</p>
-      <button>Refine Results</button>-->
-
-      <!-- end radio group -->
+			<TextGenerator/>
       <!-- checkbox here to mark image as decorative instead of using one of the AI created suggestions To set the image as decorative. You set alt="" on the <img> element to mark an image as decorative -->
       <!-- read only edit field with code that provides the <img> tag with the preferred alt text <img href="bla bla bla" alt=""> for when it's marked as decorative, <img href="bla bla bla" alt="suggested selection from radio group above"> -->
       <!-- It might be cool to add a "Copy to Clipboard" button at the end of each result to make it simple for folks to copy the suggested alt text in case the user wants to modify it manually. -->
       <!-- Another cool feature would be to add a textbox to each result where the user could send refinement queues back to the AI result of choice to say something like "Describe the image in more detail", or something like that. -->
       <!-- The important thing to do in the UI is to ensure logical heading structure, meaningful text on all elements, and keep it simple. My suggestion is to add in some functions to complete the basics and, if you have time, jump back in and add more functionality as you see fit -->
     </div>
-    </div>
-  
-</Layout>
+	</div>
+</Layout>	
 
-<script is:inline>
-  //Script to have Image Upload and Image URL switch between both file upload types
-  function showURLForm() {
-    document.getElementById("upload-form").style.display = "block";
-    document.getElementById("url-form").style.display = "none";
-  }
-  function showUploadForm() {
-    document.getElementById("upload-form").style.display = "none";
-    document.getElementById("url-form").style.display = "block";
-  }
-</script>
+<style>
+	#evaluate-error {
+		display: none;
+	}
+	#evaluate-loading {
+		display: none;
+	}
+</style>
