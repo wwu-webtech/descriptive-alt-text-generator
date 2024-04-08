@@ -10,7 +10,7 @@ const file_button = document.getElementById("evaluate-image");
 file_button.addEventListener("click", async () => {
   const loading = document.getElementById("evaluate-loading");
   loading.showModal();
-  // console.log("Evaluating...");
+  console.log("Evaluating...");
 
   try {
     await handleAzureCall();

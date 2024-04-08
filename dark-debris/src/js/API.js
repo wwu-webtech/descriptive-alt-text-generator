@@ -7,7 +7,7 @@ const showErrorDialog = (msg) => {
   dialog.showModal();
 }
 
-const handleAzureCall = () => {
+const handleAzureCall = async () => {
   const canvas = document.getElementById("canvas");
   const headers = {
     "Content-Type": "application/octet-stream",
@@ -109,7 +109,7 @@ const handleGeminiRefineResults = async () => {
 
   const dataURL = canvas.toDataURL("image/jpeg", 0.5);
 
-  if (dataURL !== "data:,") {
+  if (dataURL !== "data:," && additionalInfo != "") {
     const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
     let prompt = `Building on the intial response of ${initialResponse}, enhance the caption by incorporating the following additional information: ${additionalInfo}`;
@@ -142,8 +142,13 @@ const handleGeminiRefineResults = async () => {
       console.error("Error during API request:", error.message);
     }
   } else {
-    showErrorDialog("No image to evaluate")
-    console.error("There is no image to evaluate!");
+    if (additionalInfo == "" && dataURL !== "data:,") {
+      showErrorDialog("Please insert some additional information.")
+      console.error("There is additional information.");
+    } else {
+      showErrorDialog("There is no image to evaluate!")
+      console.error("There is no image to evaluate!");
+    }
   }
 }
 
