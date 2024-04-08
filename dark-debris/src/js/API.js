@@ -29,14 +29,12 @@ const handleAzureCall = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        const captionText = data.captionResult.text;
+        let captionText = ""
 
-        // Update the p tag
-        // const captionElement = document.getElementById("azure-caption");
-        // captionElement.textContent = captionText;
-
-        // Update the text area
-        document.getElementById("azure-area").value = captionText;
+        for (let i = 0; i < data.denseCaptionsResult.values.length; i++ ) {
+          captionText += data.denseCaptionsResult.values[i].text + "\n"
+        }
+        document.getElementById("azure-area").value = captionText + "\n"
 
       })
       .catch((error) => {
