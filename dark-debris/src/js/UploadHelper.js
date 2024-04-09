@@ -1,4 +1,4 @@
-import { handleAzureCall, handleGeminiCall, handleAzureURL, handleGeminiURL } from "./API";
+import { handleAzureCall, handleGeminiCall, handleAzureURL, handleGeminiURL, handleOpenAICall } from "./API";
 
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
@@ -15,6 +15,9 @@ file_button.addEventListener("click", async () => {
   try {
     await handleAzureCall();
     await handleGeminiCall();
+    // await handleOpenAICall().catch((err) => {
+    //   console.error("The sample encountered an error:", err);
+    // });
   } catch (error) {
     console.error(error);
   } finally {

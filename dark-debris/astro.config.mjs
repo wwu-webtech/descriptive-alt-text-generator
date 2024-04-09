@@ -9,9 +9,5 @@ export default defineConfig({
   },
   images: {
     extensions: ['jpg', 'jpeg', 'png', 'gif'],
-  },
-  server: {
-    open: "/index.html"
-  },
-  site: "https://purple-sea-023abc91e.4.azurestaticapps.net/index.html"
+  }
 });

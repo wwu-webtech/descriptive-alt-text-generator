@@ -1,4 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { OpenAIClient, AzureKeyCredential } from "@azure/openai"
+// const { OpenAIClient, AzureKeyCredential } = require("@azure/openai");
 
 const showErrorDialog = (msg) => {
   const dialog = document.getElementById("evaluate-error")
@@ -239,5 +241,33 @@ const handleGeminiURL = async () => {
   }
 };
 
+const handleOpenAICall = async () => {
+  // Replace with your Azure OpenAI key
+  const key = import.meta.env.PUBLIC_CHATGPT_KEY;
+  const endpoint = import.meta.env.PUBLIC_OPENAI_ENDPOINT;
+  const client = new OpenAIClient(endpoint, new AzureKeyCredential(key));
 
-export { handleAzureCall, handleGeminiCall, handleGeminiRefineResults, handleAzureURL, handleGeminiURL }
+  const deploymentId = "test_deployment";
+
+  const messages = [
+    { role: "system", content: "You are a helpful assistant. You will talk like a pirate." },
+    { role: "user", content: "Can you help me?" },
+    { role: "assistant", content: "Arrrr! Of course, me hearty! What can I do for ye?" },
+    { role: "user", content: "What's the best way to train a parrot?" },
+  ];
+
+  console.log(`Messages: ${messages.map((m) => m.content).join("\n")}`);
+
+  const events = await client.streamChatCompletions(deploymentId, messages, { maxTokens: 128 });
+  for await (const event of events) {
+    for (const choice of event.choices) {
+      const delta = choice.delta?.content;
+      if (delta !== undefined) {
+        console.log(`Chatbot: ${delta}`);
+      }
+    }
+  }
+}
+
+
+export { handleAzureCall, handleGeminiCall, handleGeminiRefineResults, handleAzureURL, handleGeminiURL, handleOpenAICall }
