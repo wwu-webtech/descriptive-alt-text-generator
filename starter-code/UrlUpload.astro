@@ -1,15 +1,4 @@
----
-// Astro version of UrlUpload component
-interface Props {
-  key: string;
-  endpoint: string;
-}
-
-const { key, endpoint } = Astro.props;
-let img_src = "";
----
-
-<astro-upload data-endpoint={endpoint} data-key={key}>
+<astro-upload>
     <div class="wwu-card horizontal dark-blue-bg">
       <div class="body">
     <form style={{ marginTop: "20px", marginBottom: "20px" }}>

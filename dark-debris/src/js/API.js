@@ -1,4 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { OpenAIClient, AzureKeyCredential } from "@azure/openai"
+// const { OpenAIClient, AzureKeyCredential } = require("@azure/openai");
 
 const showErrorDialog = (msg) => {
   const dialog = document.getElementById("evaluate-error")
@@ -7,7 +9,7 @@ const showErrorDialog = (msg) => {
   dialog.showModal();
 }
 
-const handleAzureCall = () => {
+const handleAzureCall = async () => {
   const canvas = document.getElementById("canvas");
   const headers = {
     "Content-Type": "application/octet-stream",
@@ -29,14 +31,12 @@ const handleAzureCall = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        const captionText = data.captionResult.text;
+        let captionText = ""
 
-        // Update the p tag
-        // const captionElement = document.getElementById("azure-caption");
-        // captionElement.textContent = captionText;
-
-        // Update the text area
-        document.getElementById("azure-area").value = captionText;
+        for (let i = 0; i < data.denseCaptionsResult.values.length; i++ ) {
+          captionText += data.denseCaptionsResult.values[i].text + "\n"
+        }
+        document.getElementById("azure-area").value = captionText + "\n"
 
       })
       .catch((error) => {
@@ -111,7 +111,7 @@ const handleGeminiRefineResults = async () => {
 
   const dataURL = canvas.toDataURL("image/jpeg", 0.5);
 
-  if (dataURL !== "data:,") {
+  if (dataURL !== "data:," && additionalInfo != "") {
     const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
     let prompt = `Building on the intial response of ${initialResponse}, enhance the caption by incorporating the following additional information: ${additionalInfo}`;
@@ -144,8 +144,13 @@ const handleGeminiRefineResults = async () => {
       console.error("Error during API request:", error.message);
     }
   } else {
-    showErrorDialog("No image to evaluate")
-    console.error("There is no image to evaluate!");
+    if (additionalInfo == "" && dataURL !== "data:,") {
+      showErrorDialog("Please insert some additional information.")
+      console.error("There is additional information.");
+    } else {
+      showErrorDialog("There is no image to evaluate!")
+      console.error("There is no image to evaluate!");
+    }
   }
 }
 
@@ -236,5 +241,33 @@ const handleGeminiURL = async () => {
   }
 };
 
+const handleOpenAICall = async () => {
+  // Replace with your Azure OpenAI key
+  const key = import.meta.env.PUBLIC_CHATGPT_KEY;
+  const endpoint = import.meta.env.PUBLIC_OPENAI_ENDPOINT;
+  const client = new OpenAIClient(endpoint, new AzureKeyCredential(key));
 
-export { handleAzureCall, handleGeminiCall, handleGeminiRefineResults, handleAzureURL, handleGeminiURL }
+  const deploymentId = "test_deployment";
+
+  const messages = [
+    { role: "system", content: "You are a helpful assistant. You will talk like a pirate." },
+    { role: "user", content: "Can you help me?" },
+    { role: "assistant", content: "Arrrr! Of course, me hearty! What can I do for ye?" },
+    { role: "user", content: "What's the best way to train a parrot?" },
+  ];
+
+  console.log(`Messages: ${messages.map((m) => m.content).join("\n")}`);
+
+  const events = await client.streamChatCompletions(deploymentId, messages, { maxTokens: 128 });
+  for await (const event of events) {
+    for (const choice of event.choices) {
+      const delta = choice.delta?.content;
+      if (delta !== undefined) {
+        console.log(`Chatbot: ${delta}`);
+      }
+    }
+  }
+}
+
+
+export { handleAzureCall, handleGeminiCall, handleGeminiRefineResults, handleAzureURL, handleGeminiURL, handleOpenAICall }
