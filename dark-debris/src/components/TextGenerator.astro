@@ -15,33 +15,35 @@ import UrlUpload from "./UrlUpload.jsx";
 			</form>
 		</dialog>
 		<dialog id="evaluate-loading">
-			<img src="/loading.gif" alt="Loading gif" style="width:100px;height:100px;">
+			<img
+				src="/loading.gif"
+				alt="Loading Your Image, Please Wait. "
+				style="width:100px;height:100px;"
+			/>
 		</dialog>
 		<wwu-switcher-item label="File Upload">
 			<Upload />
 		</wwu-switcher-item>
 		<wwu-switcher-item label="Link to Image *WIP*">
-			<UrlUpload client:load/>
+			<UrlUpload client:load />
 		</wwu-switcher-item>
 	</wwu-switcher>
-	<!-- Once the image is loaded, place a data table with the XIFF data here. Something to do if you have time. Not a priority -->
-	<!-- Don't activate the evaluation button until after the image is loaded completely -->
 
-	<!-- When the evaluation is complete, populate the page with the results from the AI engines -->
 	<h2 id="results-section">Results</h2>
-	<!-- radio group that the user can select suggested alt text from, or just present all of the information and let the user decide what to use. It's up to you. -->
-	<label  for="gemini-area"><h3>Gemini</h3></label>
+
+	<label for="gemini-area"><h3>Gemini</h3></label>
 	<textarea
 		id="gemini-area"
 		placeholder="Results from Gemini"
 		wrap="hard"
 		rows="5"
 		style={{ width: "100%" }}></textarea>
-	<!-- <p id="gemini-caption">Results from Gemini</p> -->
-	<RefineResults model_id="refine-gemini" button_id="refine-gemini-button"/>
-	<!-- <button>Refine Results</button> -->
+	<RefineResults
+		model_id="refine-gemini"
+		button_id="refine-gemini-button"
+	/>
 
-	<label  for="azure-area"><h3>Azure</h3></label>
+	<label for="azure-area"><h3>Azure</h3></label>
 	<textarea
 		id="azure-area"
 		placeholder="Results from Azure"
