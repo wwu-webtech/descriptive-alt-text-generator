@@ -1,0 +1,60 @@
+---
+import { PublicClientApplication, Configuration, InteractionRequiredAuthError} from "@azure/msal-browser";
+
+const cID = import.meta.env.AZURE_CLIENT_ID;
+
+const config: Configuration = {
+		auth: {
+				clientId: cID,
+				authority: "https://login.microsoftonline.com/dc46140c-e26f-43ef-b0ae-00f257f478ff/v2.0",
+				redirectUri: "https://purple-sea-023abc91e-5.westus2.4.azurestaticapps.net"
+		}
+};
+
+const msalInstance = new PublicClientApplication(config);
+
+let account = null;
+
+async function login() {
+	try {
+				await msalInstance.loginPopup();
+				account = msalInstance.getActiveAccount();
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+async function logout() {
+	await msalInstance.logoutPopup();
+	account = null;
+}
+
+async function getToken() {
+	if (!account) {
+		throw new Error('No active account')
+	}
+	const request = {
+		scopes: ["user.read"],
+		account: account
+	};
+	
+	try {
+		const response = await msalInstance.acquireTokenSilent(request);
+		return response.accessToken;
+	} catch (error) {
+		if (error instanceof InteractionRequiredAuthError) {
+			const response = await msalInstance.acquireTokenPopup(request);
+			return response.accessToken;
+		} else {
+			console.log(error);
+		}
+	}
+}
+---
+<button onclick={login}>Login</button>
+{account ? (
+	<p>Logged in as: {account.username}</p>
+	<button onclick={logout}>Logout</button>
+	)
+	: null
+}

@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@astrojs/react": "^3.0.10",
+    "@azure/msal-browser": "^3.11.1",
+    "@azure/msal-react": "^2.0.14",
     "@azure/openai": "^1.0.0-beta.12",
     "@google/generative-ai": "^0.2.1",
     "@types/react": "^18.2.57",
