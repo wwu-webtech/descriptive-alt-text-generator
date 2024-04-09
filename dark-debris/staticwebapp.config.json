@@ -9,5 +9,18 @@
         }
       }
     }
+  },
+  "routes": [
+    {
+      "route": "/index.html",
+      "allowedRoles": ["authenticated"],
+      "redirect": "/ContactUs.html"
+    }
+  ],
+  "responseOverrides": {
+    "401": {
+      "statusCode": 302,
+      "redirect": "/.auth/login/aad?post_login_redirect_uri=.referrer&post_logout_redirect_uri=.&prompt=login"
+    }
   }
 }
