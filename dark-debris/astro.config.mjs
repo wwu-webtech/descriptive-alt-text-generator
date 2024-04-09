@@ -10,4 +10,7 @@ export default defineConfig({
   images: {
     extensions: ['jpg', 'jpeg', 'png', 'gif'],
   },
+  server: {
+    open: "/index.html"
+  }
 });
