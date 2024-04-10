@@ -54,7 +54,8 @@ const handleGeminiCall = async () => {
     const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
-    const promptFieldValue = document.getElementById("prompt").value
+    // const promptFieldValue = document.getElementById("prompt").value
+    const promptFieldValue = ""
 
     let prompt = "Compose a detailed description in English for this image.";
     if (promptFieldValue !== "") {
