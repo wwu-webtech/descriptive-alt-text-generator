@@ -40,7 +40,7 @@ export default function UrlUpload() {
 					{url && (
 						<img
 							role="img"
-							aria-label="Image to generate"
+							aria-label="Generate Results"
 							src={url}
 							alt="Image failed to load. Did you submit the correct link?"
 							style={{ objectFit: "contain", margin: "10px", width: "95%" }}
