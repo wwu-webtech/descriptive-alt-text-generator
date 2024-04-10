@@ -21,7 +21,7 @@ export default function UrlUpload() {
 							onInput={handleChange}
 							required
 						/>
-						<label htmlFor="prompt">
+						<!-- <label htmlFor="prompt">
 							<h3>Prompt<i style={{ fontSize: "18px", float:"right", color:"#d5e381" }}>* Optional</i></h3>
 						</label>
 						<textarea
@@ -30,7 +30,7 @@ export default function UrlUpload() {
 							rows="5"
 							wrap="hard"
 							style={{ width: "100%" }}
-						/>
+						/> -->
 					</form>
 					<button id="evaluate-url" style={{ marginBottom: "10px" }}>
 						Evaluate URL
