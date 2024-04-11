@@ -4,6 +4,7 @@ import RefineResults from "../components/RefineResults.astro";
 import Upload from "../components/FileUpload.astro";
 import UrlUpload from "../components/UrlUpload.jsx";
 import "../CSS/index.css";
+import TextGenerator from "../components/TextGenerator.astro";
 ---
 
 <Layout
@@ -48,54 +49,7 @@ import "../CSS/index.css";
 				If you have suggestions as to how to make this service better then please
 				send comments to <a href="mailto:engebrd2@wwu.edu">David Engebretson</a>
 			</p>
-			<h2 id="#input-form">Input An Image</h2>
-			<wwu-switcher label="Upload Type">
-				<dialog id="evaluate-error">
-					<p id="evaluate-error-message"></p>
-					<form method="dialog">
-						<button>OK</button>
-					</form>
-				</dialog>
-				<dialog id="evaluate-loading">
-					<img
-						id="loading-gif"
-						src="/loading.gif"
-						alt="Loading Your Image, Please Wait. "
-					/>
-				</dialog>
-				<wwu-switcher-item label="File Upload">
-					<Upload />
-				</wwu-switcher-item>
-				<wwu-switcher-item label="Link to Image *WIP*">
-					<UrlUpload client:load />
-				</wwu-switcher-item>
-			</wwu-switcher>
-
-			<h2 id="results-section">Results</h2>
-
-			<label for="gemini-area"><h3>Gemini</h3></label>
-			<textarea
-				id="gemini-area"
-				placeholder="Results from Gemini"
-				wrap="hard"
-				rows="5"></textarea>
-			<RefineResults
-				model_id="refine-gemini"
-				button_id="refine-gemini-button"
-			/>
-
-			<label for="azure-area"><h3>Azure</h3></label>
-			<textarea
-				id="azure-area"
-				placeholder="Results from Azure"
-				wrap="hard"
-				rows="5"></textarea>
-
-			<!-- checkbox here to mark image as decorative instead of using one of the AI created suggestions. To set the image as decorative. You set alt="" on the <img> element -->
-			<!-- If the user selects the "mark as decorative" checkbox then we verify again with the user, using a modal dialog, "Are you certain you want to mark this image as decorative?" -->
-			<!-- id="AltTextOnMyImage" It would be nice to have a text field where folks could enter their alt text into, have it spell checked, and then saved into a database that correlates their image with their written alt text. -->
-			<!-- It might be cool to add a "Copy to Clipboard" button where the code required to implement the adjusted alt text for id="AltTextOnMyImage" would be provided -->
-		</div>
+			<TextGenerator />
 		<!-- class region-wrapper -->
 	</div>
 	<!-- class page-content -->
