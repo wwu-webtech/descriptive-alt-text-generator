@@ -1,5 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { db, Inputs } from 'astro:db';
+
+const inputs = await db.select().from(Inputs);
 ---
 
 <Layout
@@ -14,7 +17,26 @@ import Layout from "../layouts/Layout.astro";
 				A data table here to present cost and usage information along a
 				predictive timeline
 			</p>
-
+			<wwu-accordion>
+			{
+				inputs.map(({ id, user, image, createdAt, generatedAltText }) => (
+					<wwu-accordion-item label={user} title={user}>
+						<div class="wwu-card horizontal blue-bg">
+							<h2>{user}</h2>
+							<div class="image">
+								<img src={image} alt={generatedAltText} />
+							</div>
+							<div class="taxonomy-terms">
+								<p>Created At: {createdAt}</p>
+							</div>
+							<div class="body">
+								<p>Generated Alt Text: {generatedAltText}</p>
+							</div>
+						</div>
+					</wwu-accordion-item>
+				))
+			}
+				</wwu-accordion>
 			<button>Download CSV</button>
 		</div>
 	</div>
