@@ -1,6 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { OpenAIClient, AzureKeyCredential } from "@azure/openai"
-// const { OpenAIClient, AzureKeyCredential } = require("@azure/openai");
 
 const showErrorDialog = (msg) => {
   const dialog = document.getElementById("evaluate-error")
@@ -54,7 +53,8 @@ const handleGeminiCall = async () => {
     const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
-    const promptFieldValue = document.getElementById("prompt").value
+    // const promptFieldValue = document.getElementById("prompt").value
+    const promptFieldValue = ""
 
     let prompt = "Compose a detailed description in English for this image.";
     if (promptFieldValue !== "") {
@@ -242,7 +242,6 @@ const handleGeminiURL = async () => {
 };
 
 const handleOpenAICall = async () => {
-  // Replace with your Azure OpenAI key
   const key = import.meta.env.PUBLIC_CHATGPT_KEY;
   const endpoint = import.meta.env.PUBLIC_OPENAI_ENDPOINT;
   const client = new OpenAIClient(endpoint, new AzureKeyCredential(key));

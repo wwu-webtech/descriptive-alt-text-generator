@@ -8,22 +8,15 @@ const { model_id, button_id } = Astro.props;
 ---
 
 <details id="refine-detail">
-    <summary style="border: none;">Refine results</summary>
+    <summary>Refine results</summary>
   <label for={model_id}><h4>Additional information</h4></label>
   <textarea
     id={model_id}
     placeholder="Enter additional information"
     wrap="hard"
-    rows="2"
-    style={{ width: "100%" }}></textarea>
+    rows="2"></textarea>
   <button id={button_id}>Refine</button>
 </details>
 
 <script src="../js/RefineHelper.js"></script>
 
-<style>
-    #refine-detail{
-        width: 75%;
-        border-color: transparent;
-    }
-</style>
