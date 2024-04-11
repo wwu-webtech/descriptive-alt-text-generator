@@ -3,6 +3,10 @@ import MainNav from "../components/MainNav.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
+import "../CSS/index.css";
+import "../CSS/FileUpload.css"
+import "../CSS/UrlUpload.css"
+import "../CSS/RefineResults.css"
 
 interface Props {
 	title: string;
@@ -14,88 +18,89 @@ const { title } = Astro.props;
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8" />
 
 		<!-- Favicon -->
-		<link  rel="shortcut icon" href="/datg.ico"/>
-		
+		<link rel="shortcut icon" href="/datg.ico" />
+
 		<!-- add CSS includes here -->
 		<!-- <link rel="stylesheet" type="text/css" href="./css/main.css" /> -->
 		<!-- <link rel="stylesheet" type="text/css" href="./css/ultimenu-extras.css" /> -->
-		
+
 		<!-- meta include inside of the head region -->
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description"
-		content="This is a Proof of Concept application to help Western Washington University digital outreach editors create better alt text using artificial intelligence graphical recognition engines">
-		<meta name="keywords"
-		content="">
-		<meta name="robots" content="index, follow">
-		
+		<meta
+			name="description"
+			content="This is a Proof of Concept application to help Western Washington University digital outreach editors create better alt text using artificial intelligence graphical recognition engines"
+		/>
+		<meta name="keywords" content="" />
+		<meta name="robots" content="index, follow" />
+
 		<!-- OpenGraph tags for social media -->
-		<meta property="og:title" content="">
-		<meta property="og:description"
-		content="">
-		<meta property="og:url" content="">
-		
+		<meta property="og:title" content="" />
+		<meta property="og:description" content="" />
+		<meta property="og:url" content="" />
+
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
 	<body>
 		<header>
-			<Header title="Descriptive Alt Text Generator"/>
-			<MainNav/>
+			<Header title="Descriptive Alt Text Generator" />
+			<MainNav />
 		</header>
 		<main id="main-content">
-				<slot />
-				</main>
+			<slot />
+		</main>
 		<footer>
-			<Footer/>
+			<Footer />
 		</footer>
 		<!-- scripts for ashlar components -->
-<script is:inline src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<!-- Uncomment the above line to use submenu items in the main nav -->
-		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/search.js"></script>
-		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/pre-header.js"></script>
-		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/logo.js"></script>
-		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/wwu-header.js"></script>
-		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/social-media-icons.js"></script>
-		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/wwu-footer.js"></script>
-		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/main-navigation.js"></script>
-		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/accessible-mega-menu.js"></script>
-		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/menu-extras.js"></script>
-		<script is:inline src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/switcher.js"></script>
+		<script
+			is:inline
+			src="https://code.jquery.com/jquery-3.7.1.min.js"
+			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+			crossorigin="anonymous"></script>
+		<!-- Uncomment the above line to use submenu items in the main nav -->
+		<script
+			is:inline
+			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/search.js"
+		></script>
+		<script
+			is:inline
+			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/pre-header.js"
+		></script>
+		<script
+			is:inline
+			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/logo.js"
+		></script>
+		<script
+			is:inline
+			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/wwu-header.js"
+		></script>
+		<script
+			is:inline
+			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/social-media-icons.js"
+		></script>
+		<script
+			is:inline
+			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/wwu-footer.js"
+		></script>
+		<script
+			is:inline
+			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/main-navigation.js"
+		></script>
+		<script
+			is:inline
+			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/accessible-mega-menu.js"
+		></script>
+		<script
+			is:inline
+			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/menu-extras.js"
+		></script>
+		<script
+			is:inline
+			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/switcher.js"
+		></script>
 	</body>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-		scroll-behavior: smooth;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
-	#gemini-area, #azure-area{
-		font-size: 1em;
-	}
-</style>

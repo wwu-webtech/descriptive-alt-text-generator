@@ -1,0 +1,12 @@
+#refine-detail{
+    width: 75%;
+    border-color: transparent;
+}
+
+#refine-detail summary {
+    border: none;
+}
+
+#refine-detail textarea {
+    width: 100%;
+}

@@ -1,0 +1,25 @@
+<astro-upload>
+	<div class="wwu-card horizontal dark-blue-bg">
+		<div class="body">
+			<form id="file-upload-form">
+				<label for="file-input"><h3>File</h3></label>
+				<input type="file" id="file-input" accept=".png,.jpg,.jpeg,.webp" />
+			</form>
+
+			<button id="evaluate-image">Evaluate Image</button>
+		</div>
+		<canvas aria-label="Image to generate" id="canvas"></canvas>
+	</div>
+</astro-upload>
+
+<script>
+	class AstroUpload extends HTMLElement {
+		constructor() {
+			super();
+		}
+	}
+	document.getElementById("prompt").value = "";
+	customElements.define("astro-upload", AstroUpload);
+</script>
+
+<script src="../js/UploadHelper.js"></script>
