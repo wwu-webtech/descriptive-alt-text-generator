@@ -32,7 +32,7 @@ const handleAzureCall = async () => {
         console.log(data);
         let captionText = ""
 
-        for (let i = 0; i < data.denseCaptionsResult.values.length; i++ ) {
+        for (let i = 0; i < data.denseCaptionsResult.values.length; i++) {
           captionText += data.denseCaptionsResult.values[i].text + "\n"
         }
         document.getElementById("azure-area").value = captionText + "\n"
@@ -83,10 +83,6 @@ const handleGeminiCall = async () => {
       const result = await model.generateContent(payload);
       const response = await result.response;
       const text = await response.text();
-
-      // Update the p tag
-      // const captionElement = document.getElementById("gemini-caption");
-      // captionElement.textContent = text;
 
       // Update the text area
       document.getElementById("gemini-area").value = text;
@@ -246,26 +242,20 @@ const handleOpenAICall = async () => {
   const endpoint = import.meta.env.PUBLIC_OPENAI_ENDPOINT;
   const client = new OpenAIClient(endpoint, new AzureKeyCredential(key));
 
-  const deploymentId = "test_deployment";
-
-  const messages = [
-    { role: "system", content: "You are a helpful assistant. You will talk like a pirate." },
-    { role: "user", content: "Can you help me?" },
-    { role: "assistant", content: "Arrrr! Of course, me hearty! What can I do for ye?" },
-    { role: "user", content: "What's the best way to train a parrot?" },
-  ];
-
-  console.log(`Messages: ${messages.map((m) => m.content).join("\n")}`);
-
-  const events = await client.streamChatCompletions(deploymentId, messages, { maxTokens: 128 });
-  for await (const event of events) {
-    for (const choice of event.choices) {
-      const delta = choice.delta?.content;
-      if (delta !== undefined) {
-        console.log(`Chatbot: ${delta}`);
+  const url = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg";
+  const deploymentName = import.meta.env.PUBLIC_OPENAI_DEPLOYMENT_NAME;
+  const messages = [{
+    role: "user", content: [{
+      type: "image_url",
+      imageUrl: {
+        url,
+        detail: "auto"
       }
-    }
-  }
+    }]
+  }];
+const result = await client.getChatCompletions(deploymentName, messages);
+console.log(result);
+console.log(`Chatbot: ${result.choices[0].message?.content}`);
 }
 
 
