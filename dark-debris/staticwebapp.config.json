@@ -14,6 +14,18 @@
     {
       "route": "/index.html",
       "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/UsageData.html",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/PersonalSettings.html",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route" : "/AdministrationTools.html",
+      "allowedRoles": ["authenticated"]
     }
   ],
   "responseOverrides": {
