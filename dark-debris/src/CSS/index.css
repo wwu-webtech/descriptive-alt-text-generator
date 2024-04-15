@@ -3,7 +3,7 @@
     height: 100px;
 }
 
-#gemini-area, #azure-area{
+#gemini-area, #azure-area, #chatgpt-area{
     font-size: 1em;
     width: 100%;
 }

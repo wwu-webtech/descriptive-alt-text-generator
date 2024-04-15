@@ -32,7 +32,7 @@ const handleAzureCall = async () => {
         console.log(data);
         let captionText = ""
 
-        for (let i = 0; i < data.denseCaptionsResult.values.length; i++ ) {
+        for (let i = 0; i < data.denseCaptionsResult.values.length; i++) {
           captionText += data.denseCaptionsResult.values[i].text + "\n"
         }
         document.getElementById("azure-area").value = captionText + "\n"
@@ -84,14 +84,8 @@ const handleGeminiCall = async () => {
       const response = await result.response;
       const text = await response.text();
 
-      // Update the p tag
-      // const captionElement = document.getElementById("gemini-caption");
-      // captionElement.textContent = text;
-
       // Update the text area
       document.getElementById("gemini-area").value = text;
-
-      document.getElementById("results-section").scrollIntoView();
 
     } catch (error) {
       showErrorDialog("Gemini API Error.")
@@ -184,7 +178,6 @@ const handleAzureURL = async () => {
 
         // Update the text area
         document.getElementById("azure-area").value = captionText;
-        document.getElementById("results-section").scrollIntoView();
       })
       .catch(error => {
         showErrorDialog("Azure API Error.")
@@ -230,7 +223,6 @@ const handleGeminiURL = async () => {
       // Update the text area
       document.getElementById("gemini-area").value = text;
 
-      document.getElementById("results-section").scrollIntoView();
     } catch (error) {
       showErrorDialog("Gemini API Error.");
       console.error("Error during API request:", error.message);
@@ -245,26 +237,42 @@ const handleOpenAICall = async () => {
   const key = import.meta.env.PUBLIC_CHATGPT_KEY;
   const endpoint = import.meta.env.PUBLIC_OPENAI_ENDPOINT;
   const client = new OpenAIClient(endpoint, new AzureKeyCredential(key));
+  const deploymentName = import.meta.env.PUBLIC_OPENAI_DEPLOYMENT_NAME;
+  const canvas = document.getElementById("canvas");
 
-  const deploymentId = "test_deployment";
+  const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+  console.log(dataURL)
 
-  const messages = [
-    { role: "system", content: "You are a helpful assistant. You will talk like a pirate." },
-    { role: "user", content: "Can you help me?" },
-    { role: "assistant", content: "Arrrr! Of course, me hearty! What can I do for ye?" },
-    { role: "user", content: "What's the best way to train a parrot?" },
-  ];
+  if (dataURL !== "data:,") {
+    const messages = [{
+      role: "user", 
+      content: [{
+        type: "image_url",
+        imageUrl: {
+          url: dataURL
+        },
+        text: "Give a descriptive alternative text for the image."
+      }]
+    }];
 
-  console.log(`Messages: ${messages.map((m) => m.content).join("\n")}`);
+    try {
+      const result = await client.getChatCompletions(deploymentName, messages, {
+        maxTokens: 250
+      });
+      // console.log(result);
+      // console.log(`Chatbot: ${result.choices[0].message?.content}`);
 
-  const events = await client.streamChatCompletions(deploymentId, messages, { maxTokens: 128 });
-  for await (const event of events) {
-    for (const choice of event.choices) {
-      const delta = choice.delta?.content;
-      if (delta !== undefined) {
-        console.log(`Chatbot: ${delta}`);
-      }
+      document.getElementById("chatgpt-area").value = result.choices[0].message?.content
+    } catch (error) {
+      showErrorDialog("ChatGPT API Error.")
+      console.log(error)
+      console.error("Error during API request:", error.message);
     }
+
+  } else {
+    showErrorDialog("No image to evaluate. (GPT)")
+    console.error("There is no image to evaluate!");
+
   }
 }
 

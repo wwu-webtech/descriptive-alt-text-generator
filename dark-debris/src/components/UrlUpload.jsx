@@ -12,7 +12,7 @@ export default function UrlUpload() {
 			<div className="wwu-card horizontal dark-blue-bg">
 				<div className="body">
 					<form id="url-upload-form ">
-						<label for="url-upload"><h3>URL</h3></label>
+						<label htmlFor="url-upload"><h3>URL</h3></label>
 						<input
 							id="url-upload"
 							type="url"
