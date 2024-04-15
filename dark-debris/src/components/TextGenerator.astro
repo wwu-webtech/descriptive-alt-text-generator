@@ -4,7 +4,6 @@ import RefineResults from "./RefineResults.astro";
 import Upload from "./FileUpload.astro";
 import UrlUpload from "./UrlUpload.jsx";
 ---
-<div>
 <h2 id="#input-form">Input An Image</h2>
 <wwu-switcher label="Upload Type">
 	<dialog id="evaluate-error">
@@ -47,6 +46,17 @@ import UrlUpload from "./UrlUpload.jsx";
 	placeholder="Results from Azure"
 	wrap="hard"
 	rows="5"></textarea>
+
+<label for="chatgpt-area"><h3>ChatGPT</h3></label>
+<textarea
+	id="chatgpt-area"
+	placeholder="Results from ChatGPT"
+	wrap="hard"
+	rows="5"></textarea>
+<RefineResults
+	model_id="refine-chatgpt"
+	button_id="refine-chatgpt-button"
+/>
 
 <!-- checkbox here to mark image as decorative instead of using one of the AI created suggestions. To set the image as decorative. You set alt="" on the <img> element -->
 <!-- If the user selects the "mark as decorative" checkbox then we verify again with the user, using a modal dialog, "Are you certain you want to mark this image as decorative?" -->
