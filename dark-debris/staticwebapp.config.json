@@ -13,8 +13,7 @@
   "routes": [
     {
       "route": "/index.html",
-      "allowedRoles": ["authenticated"],
-      "redirect": "/ContactUs.html"
+      "allowedRoles": ["authenticated"]
     }
   ],
   "responseOverrides": {
