@@ -87,8 +87,6 @@ const handleGeminiCall = async () => {
       // Update the text area
       document.getElementById("gemini-area").value = text;
 
-      document.getElementById("results-section").scrollIntoView();
-
     } catch (error) {
       showErrorDialog("Gemini API Error.")
       console.error("Error during API request:", error.message);
@@ -180,7 +178,6 @@ const handleAzureURL = async () => {
 
         // Update the text area
         document.getElementById("azure-area").value = captionText;
-        document.getElementById("results-section").scrollIntoView();
       })
       .catch(error => {
         showErrorDialog("Azure API Error.")
@@ -226,7 +223,6 @@ const handleGeminiURL = async () => {
       // Update the text area
       document.getElementById("gemini-area").value = text;
 
-      document.getElementById("results-section").scrollIntoView();
     } catch (error) {
       showErrorDialog("Gemini API Error.");
       console.error("Error during API request:", error.message);
@@ -241,21 +237,43 @@ const handleOpenAICall = async () => {
   const key = import.meta.env.PUBLIC_CHATGPT_KEY;
   const endpoint = import.meta.env.PUBLIC_OPENAI_ENDPOINT;
   const client = new OpenAIClient(endpoint, new AzureKeyCredential(key));
-
-  const url = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg";
   const deploymentName = import.meta.env.PUBLIC_OPENAI_DEPLOYMENT_NAME;
-  const messages = [{
-    role: "user", content: [{
-      type: "image_url",
-      imageUrl: {
-        url,
-        detail: "auto"
-      }
-    }]
-  }];
-const result = await client.getChatCompletions(deploymentName, messages);
-console.log(result);
-console.log(`Chatbot: ${result.choices[0].message?.content}`);
+  const canvas = document.getElementById("canvas");
+
+  const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+  console.log(dataURL)
+
+  if (dataURL !== "data:,") {
+    const messages = [{
+      role: "user", 
+      content: [{
+        type: "image_url",
+        imageUrl: {
+          url: dataURL
+        },
+        text: "Give a descriptive alternative text for the image."
+      }]
+    }];
+
+    try {
+      const result = await client.getChatCompletions(deploymentName, messages, {
+        maxTokens: 250
+      });
+      // console.log(result);
+      // console.log(`Chatbot: ${result.choices[0].message?.content}`);
+
+      document.getElementById("chatgpt-area").value = result.choices[0].message?.content
+    } catch (error) {
+      showErrorDialog("ChatGPT API Error.")
+      console.log(error)
+      console.error("Error during API request:", error.message);
+    }
+
+  } else {
+    showErrorDialog("No image to evaluate. (GPT)")
+    console.error("There is no image to evaluate!");
+
+  }
 }
 
 
