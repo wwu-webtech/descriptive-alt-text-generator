@@ -15,7 +15,7 @@ file_button.addEventListener("click", async () => {
   try {
     handleAzureCall();
     handleGeminiCall();
-    handleOpenAICall().catch((err) => {
+    await handleOpenAICall().catch((err) => {
       console.error("The sample encountered an error:", err);
     });
 
