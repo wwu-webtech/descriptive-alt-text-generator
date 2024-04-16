@@ -14,7 +14,7 @@ const requestOptions = {
 
 async function getUserInfo() {
 	try {
-		const response = await fetch('/api/user', {
+		const response = await fetch('/.auth/me', {
 			method: 'GET',
 			headers: headers,
 			credentials: 'same-origin'
