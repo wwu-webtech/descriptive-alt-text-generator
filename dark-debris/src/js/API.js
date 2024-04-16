@@ -1,5 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { OpenAIClient, AzureKeyCredential } from "@azure/openai"
+import OpenAI from "openai";
+
 
 const showErrorDialog = (msg) => {
   const dialog = document.getElementById("evaluate-error")
@@ -233,35 +235,80 @@ const handleGeminiURL = async () => {
   }
 };
 
+// const handleOpenAICall = async () => {
+//   const key = import.meta.env.PUBLIC_CHATGPT_KEY;
+//   const endpoint = import.meta.env.PUBLIC_OPENAI_ENDPOINT;
+//   const client = new OpenAIClient(endpoint, new AzureKeyCredential(key));
+//   const deploymentName = import.meta.env.PUBLIC_OPENAI_DEPLOYMENT_NAME;
+//   const canvas = document.getElementById("canvas");
+
+//   const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+//   console.log(dataURL)
+
+//   if (dataURL !== "data:,") {
+//     const messages = [{
+//       role: "user", 
+//       content: [{
+//         type: "image_url",
+//         imageUrl: {
+//           url: dataURL
+//         },
+//         text: "Give a descriptive alternative text for the image."
+//       }]
+//     }];
+
+//     try {
+//       const result = await client.getChatCompletions(deploymentName, messages, {
+//         maxTokens: 250
+//       });
+//       // console.log(result);
+//       // console.log(`Chatbot: ${result.choices[0].message?.content}`);
+
+//       document.getElementById("chatgpt-area").value = result.choices[0].message?.content
+//     } catch (error) {
+//       showErrorDialog("ChatGPT API Error.")
+//       console.log(error)
+//       console.error("Error during API request:", error.message);
+//     }
+
+//   } else {
+//     showErrorDialog("No image to evaluate. (GPT)")
+//     console.error("There is no image to evaluate!");
+
+//   }
+// }
+
 const handleOpenAICall = async () => {
-  const key = import.meta.env.PUBLIC_CHATGPT_KEY;
-  const endpoint = import.meta.env.PUBLIC_OPENAI_ENDPOINT;
-  const client = new OpenAIClient(endpoint, new AzureKeyCredential(key));
-  const deploymentName = import.meta.env.PUBLIC_OPENAI_DEPLOYMENT_NAME;
+  const openai = new OpenAI({
+    apiKey: import.meta.env.PUBLIC_CHATGPT_KEY,
+    dangerouslyAllowBrowser: true
+  });
   const canvas = document.getElementById("canvas");
 
   const dataURL = canvas.toDataURL("image/jpeg", 0.5);
-  console.log(dataURL)
 
   if (dataURL !== "data:,") {
-    const messages = [{
-      role: "user", 
-      content: [{
-        type: "image_url",
-        imageUrl: {
-          url: dataURL
-        },
-        text: "Give a descriptive alternative text for the image."
-      }]
-    }];
-
     try {
-      const result = await client.getChatCompletions(deploymentName, messages, {
-        maxTokens: 250
+      const result = await openai.chat.completions.create({
+        messages: [{
+          role: "user",
+          content: [
+            {
+              type: "image_url",
+              image_url: {
+                url: dataURL
+              },
+            }, 
+            {
+              type: "text",
+              text: "Give a descriptive alternative text for the image."
+            }
+          ]
+        }],
+        model: 'gpt-4-turbo',
       });
-      // console.log(result);
-      // console.log(`Chatbot: ${result.choices[0].message?.content}`);
 
+      console.log(result)
       document.getElementById("chatgpt-area").value = result.choices[0].message?.content
     } catch (error) {
       showErrorDialog("ChatGPT API Error.")
