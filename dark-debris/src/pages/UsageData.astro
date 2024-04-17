@@ -28,7 +28,9 @@ import Layout from "../layouts/Layout.astro";
 	async function getUserInfo() {
 		try {
 			const response = await fetch('/.auth/me');
-			return response.json();
+			const userData = response.json();
+			console.log(userData);
+			return userData;
 		} catch (error) {
 			console.error('Error fetching user data:', error);
 			return null;
