@@ -51,7 +51,9 @@ import TextGenerator from "../components/TextGenerator.astro";
 				send comments to <a href="mailto:engebrd2@wwu.edu">David Engebretson</a>
 			</p>
 <h2>Get Started!</h2>
-<button>Login</button>
+<form action=".auth/login/aad" method="post">
+	<button type="submit" class="btn btn-primary">Login with your Western ID</button>
+</form>
 
 		<!-- class region-wrapper -->
 	</div> <!-- class page-content -->
