@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-
 ---
 
 <Layout
@@ -17,24 +16,11 @@ import Layout from "../layouts/Layout.astro";
 				A data table here to present cost and usage information along a
 				predictive timeline
 			</p>
-
 			<button>Download CSV</button>
 		</div>
 	</div>
 
 	<!-- main ends here according to the layout.astro file -->
 </Layout>
-<script>
-	async function getUserInfo() {
-		try {
-			const response = await fetch('/.auth/me');
-			return response.json();
-		} catch (error) {
-			console.error('Error fetching user data:', error);
-			return null;
-		}
-	}
 
-	// Call the function when needed, e.g., on button click
-	document.getElementById("getUserInfo").addEventListener("click", getUserInfo);
-</script>
+<script src="../js/authHelper.js"></script>
