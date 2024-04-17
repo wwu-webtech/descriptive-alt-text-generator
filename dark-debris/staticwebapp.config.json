@@ -12,7 +12,7 @@
   },
   "routes": [
     {
-      "route": "/index.html",
+      "route": "/Generate.html",
       "allowedRoles": ["authenticated"]
     },
     {

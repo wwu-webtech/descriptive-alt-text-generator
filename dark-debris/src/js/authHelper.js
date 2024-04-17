@@ -15,7 +15,6 @@ export const authHelper = {
 
 document.getElementById("getUserInfo").addEventListener('click', async () => {
 	const userInfo = await authHelper.getUserInfo();
-	console.log(userInfo);
 	const username = authHelper.getUsername(userInfo);
 	console.log(username);
 });
