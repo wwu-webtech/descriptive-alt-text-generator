@@ -1,35 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-const headers = {
-	'Accept': 'application/json, text/plain, */*',
-	'Content-Type': 'application/json'
-};
 
-const requestOptions = {
-	method: 'GET',
-	headers: headers,
-	'credentials': 'same-origin'  //credentials go here!!!
-};
-
-async function getUserInfo() {
-	try {
-		const response = await fetch('/.auth/me', {
-			method: 'GET',
-			headers: headers,
-			credentials: 'same-origin'
-		});
-		return await response.json();
-	} catch (error) {
-		console.error('Error:', error);
-		return null;
-	}
-}
-
-(async () => {
-	const user = await getUserInfo();
-	console.log(user);
-})();
 ---
 
 <Layout
@@ -40,6 +12,7 @@ async function getUserInfo() {
 		<div class="region-wrapper">
 			<h1>Descriptive Alt Text Generator Usage And Cost Data</h1>
 			<h2>Data Usage</h2>
+			<input value="getUserInfo" type="button" id="getUserInfo" />
 			<p>
 				A data table here to present cost and usage information along a
 				predictive timeline
@@ -51,3 +24,18 @@ async function getUserInfo() {
 
 	<!-- main ends here according to the layout.astro file -->
 </Layout>
+<script>
+	async function getUserInfo() {
+		try {
+			const response = await fetch('/.auth/me');
+			const userData = response.json();
+			// Do something with userData
+		} catch (error) {
+			console.error('Error fetching user data:', error);
+		}
+	}
+
+	// Call the function when needed, e.g., on button click
+	console.log(getUserInfo());
+	document.getElementById("getUserInfo").addEventListener("click", getUserInfo);
+</script>
