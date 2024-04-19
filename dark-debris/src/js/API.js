@@ -2,6 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { OpenAIClient, AzureKeyCredential } from "@azure/openai"
 import OpenAI from "openai";
 
+var limit_response = document.getElementById("limit-response").checked
 
 const showErrorDialog = (msg) => {
   const dialog = document.getElementById("evaluate-error")
@@ -54,15 +55,12 @@ const handleGeminiCall = async () => {
   if (dataURL !== "data:,") {
     const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
-
-    // const promptFieldValue = document.getElementById("prompt").value
-    const promptFieldValue = ""
-
+    var limit_response = document.getElementById("limit-response").checked
+    
     let prompt = "Compose a detailed description in English for this image.";
-    if (promptFieldValue !== "") {
-      prompt = prompt + " This is additional information from the user: " + promptFieldValue;
+    if (limit_response) {
+      prompt += " Limit the response to under 260 characters."
     }
-
     console.log(prompt)
 
     const payload = {
@@ -197,6 +195,11 @@ const handleGeminiURL = async () => {
 
     const promptFieldValue = document.getElementById("prompt").value;
     let prompt = "Compose a detailed description in English for this image.";
+
+    if (limit_response) {
+      prompt += " Limit the response to under 260 characters."
+    }
+
     if (promptFieldValue !== "") {
       prompt += " This is additional information from the user: " + promptFieldValue;
     }
@@ -279,6 +282,7 @@ const handleGeminiURL = async () => {
 // }
 
 const handleOpenAICall = async () => {
+  var limit_response = document.getElementById("limit-response").checked
   const openai = new OpenAI({
     apiKey: import.meta.env.PUBLIC_CHATGPT_KEY,
     dangerouslyAllowBrowser: true
@@ -286,6 +290,11 @@ const handleOpenAICall = async () => {
   const canvas = document.getElementById("canvas");
 
   const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+
+  let prompt = "Give a descriptive alternative text for the image.";
+  if (limit_response) {
+    prompt += " Limit the response to under 260 characters."
+  }
 
   if (dataURL !== "data:,") {
     try {
@@ -301,7 +310,7 @@ const handleOpenAICall = async () => {
             }, 
             {
               type: "text",
-              text: "Give a descriptive alternative text for the image."
+              text: prompt
             }
           ]
         }],

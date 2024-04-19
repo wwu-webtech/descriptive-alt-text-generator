@@ -17,3 +17,7 @@
     object-fit: contain;
     width: 95%;
 }
+
+#advanced-options summary {
+    border: none;
+}

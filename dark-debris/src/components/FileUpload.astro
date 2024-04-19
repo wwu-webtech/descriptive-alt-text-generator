@@ -4,6 +4,19 @@
 			<form id="file-upload-form">
 				<label for="file-input"><h3>File</h3></label>
 				<input type="file" id="file-input" accept=".png,.jpg,.jpeg,.webp" />
+
+				<details id="advanced-options">
+					<summary>Advanced Options</summary>
+					<div class="checkbox">
+						<input
+							type="checkbox"
+							id="limit-response"
+							name="limit"
+							value="First"
+						/><label for="limit-response"
+							>Limit responses to under 260 characters.</label>
+					</div>
+				</details>
 			</form>
 
 			<button id="evaluate-image">Evaluate Image</button>
@@ -25,4 +38,3 @@
 <script src="../js/UploadHelper.js"></script>
 
 <!-- "Requests to the ChatCompletions_Create Operation under Azure OpenAI API version 2024-03-01-preview have exceeded call rate limit of your current OpenAI S0 pricing tier. Please retry after 18 seconds. Please go here: https://aka.ms/oai/quotaincrease if you would like to further increase the default rate limit." -->
-
