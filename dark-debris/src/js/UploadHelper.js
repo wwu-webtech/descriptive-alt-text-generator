@@ -20,6 +20,7 @@ file_button.addEventListener("click", async () => {
     });
 
     document.getElementById("results-section").scrollIntoView();
+
   } catch (error) {
     console.error(error);
   } finally {
