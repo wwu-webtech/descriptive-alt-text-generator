@@ -13,6 +13,7 @@ const inputs = await db.select().from(Inputs);
 		<div class="region-wrapper">
 			<h1>Descriptive Alt Text Generator Usage And Cost Data</h1>
 			<h2>Data Usage</h2>
+			<input value="getUserInfo" type="button" id="getUserInfo" />
 			<p>
 				A data table here to present cost and usage information along a
 				predictive timeline
@@ -43,3 +44,5 @@ const inputs = await db.select().from(Inputs);
 
 	<!-- main ends here according to the layout.astro file -->
 </Layout>
+
+<script src="../js/authHelper.js"></script>

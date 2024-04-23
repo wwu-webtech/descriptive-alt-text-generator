@@ -13,11 +13,14 @@ file_button.addEventListener("click", async () => {
   console.log("Evaluating...");
 
   try {
-    await handleAzureCall();
-    await handleGeminiCall();
-    // await handleOpenAICall().catch((err) => {
-    //   console.error("The sample encountered an error:", err);
-    // });
+    handleAzureCall();
+    handleGeminiCall();
+    await handleOpenAICall().catch((err) => {
+      console.error("The sample encountered an error:", err);
+    });
+
+    document.getElementById("results-section").scrollIntoView();
+
   } catch (error) {
     console.error(error);
   } finally {

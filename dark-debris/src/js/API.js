@@ -1,5 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { OpenAIClient, AzureKeyCredential } from "@azure/openai"
+import OpenAI from "openai";
+
+var limit_response = document.getElementById("limit-response").checked
 
 const showErrorDialog = (msg) => {
   const dialog = document.getElementById("evaluate-error")
@@ -32,7 +34,7 @@ const handleAzureCall = async () => {
         console.log(data);
         let captionText = ""
 
-        for (let i = 0; i < data.denseCaptionsResult.values.length; i++ ) {
+        for (let i = 0; i < data.denseCaptionsResult.values.length; i++) {
           captionText += data.denseCaptionsResult.values[i].text + "\n"
         }
         document.getElementById("azure-area").value = captionText + "\n"
@@ -52,16 +54,12 @@ const handleGeminiCall = async () => {
   if (dataURL !== "data:,") {
     const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
-
-    // const promptFieldValue = document.getElementById("prompt").value
-    const promptFieldValue = ""
-
+    var limit_response = document.getElementById("limit-response").checked
+    
     let prompt = "Compose a detailed description in English for this image.";
-    if (promptFieldValue !== "") {
-      prompt = prompt + " This is additional information from the user: " + promptFieldValue;
+    if (limit_response) {
+      prompt += " Limit the response to under 260 characters."
     }
-
-    console.log(prompt)
 
     const payload = {
       contents: [
@@ -84,14 +82,8 @@ const handleGeminiCall = async () => {
       const response = await result.response;
       const text = await response.text();
 
-      // Update the p tag
-      // const captionElement = document.getElementById("gemini-caption");
-      // captionElement.textContent = text;
-
       // Update the text area
       document.getElementById("gemini-area").value = text;
-
-      document.getElementById("results-section").scrollIntoView();
 
     } catch (error) {
       showErrorDialog("Gemini API Error.")
@@ -104,6 +96,7 @@ const handleGeminiCall = async () => {
 };
 
 const handleGeminiRefineResults = async () => {
+  var limit_response = document.getElementById("limit-response").checked
   const initialResponse = document.getElementById("gemini-area").value;
   const additionalInfo = document.getElementById("refine-gemini").value;
 
@@ -114,9 +107,11 @@ const handleGeminiRefineResults = async () => {
   if (dataURL !== "data:," && additionalInfo != "") {
     const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
-    let prompt = `Building on the intial response of ${initialResponse}, enhance the caption by incorporating the following additional information: ${additionalInfo}`;
-
-    console.log(prompt)
+    let prompt = `Building on the intial response of ${initialResponse}, enhance the caption by incorporating the following additional information: ${additionalInfo}.`;
+    if (limit_response) {
+      prompt += " Limit the response to under 260 characters."
+    }
+    console.log("Gemini Refine: ", prompt)
 
     const payload = {
       contents: [
@@ -184,7 +179,6 @@ const handleAzureURL = async () => {
 
         // Update the text area
         document.getElementById("azure-area").value = captionText;
-        document.getElementById("results-section").scrollIntoView();
       })
       .catch(error => {
         showErrorDialog("Azure API Error.")
@@ -202,6 +196,11 @@ const handleGeminiURL = async () => {
 
     const promptFieldValue = document.getElementById("prompt").value;
     let prompt = "Compose a detailed description in English for this image.";
+
+    if (limit_response) {
+      prompt += " Limit the response to under 260 characters."
+    }
+
     if (promptFieldValue !== "") {
       prompt += " This is additional information from the user: " + promptFieldValue;
     }
@@ -230,7 +229,6 @@ const handleGeminiURL = async () => {
       // Update the text area
       document.getElementById("gemini-area").value = text;
 
-      document.getElementById("results-section").scrollIntoView();
     } catch (error) {
       showErrorDialog("Gemini API Error.");
       console.error("Error during API request:", error.message);
@@ -242,31 +240,114 @@ const handleGeminiURL = async () => {
 };
 
 const handleOpenAICall = async () => {
-  const key = import.meta.env.PUBLIC_CHATGPT_KEY;
-  const endpoint = import.meta.env.PUBLIC_OPENAI_ENDPOINT;
-  const client = new OpenAIClient(endpoint, new AzureKeyCredential(key));
+  var limit_response = document.getElementById("limit-response").checked
+  const openai = new OpenAI({
+    apiKey: import.meta.env.PUBLIC_CHATGPT_KEY,
+    dangerouslyAllowBrowser: true
+  });
+  const canvas = document.getElementById("canvas");
 
-  const deploymentId = "test_deployment";
+  const dataURL = canvas.toDataURL("image/jpeg", 0.5);
 
-  const messages = [
-    { role: "system", content: "You are a helpful assistant. You will talk like a pirate." },
-    { role: "user", content: "Can you help me?" },
-    { role: "assistant", content: "Arrrr! Of course, me hearty! What can I do for ye?" },
-    { role: "user", content: "What's the best way to train a parrot?" },
-  ];
+  let prompt = "Give a descriptive alternative text for the image.";
+  if (limit_response) {
+    prompt += " Limit the response to under 260 characters."
+  }
 
-  console.log(`Messages: ${messages.map((m) => m.content).join("\n")}`);
+  if (dataURL !== "data:,") {
+    try {
+      const result = await openai.chat.completions.create({
+        messages: [{
+          role: "user",
+          content: [
+            {
+              type: "image_url",
+              image_url: {
+                url: dataURL
+              },
+            }, 
+            {
+              type: "text",
+              text: prompt
+            }
+          ]
+        }],
+        model: 'gpt-4-turbo',
+      });
 
-  const events = await client.streamChatCompletions(deploymentId, messages, { maxTokens: 128 });
-  for await (const event of events) {
-    for (const choice of event.choices) {
-      const delta = choice.delta?.content;
-      if (delta !== undefined) {
-        console.log(`Chatbot: ${delta}`);
-      }
+      console.log(result)
+      document.getElementById("chatgpt-area").value = result.choices[0].message?.content
+    } catch (error) {
+      showErrorDialog("ChatGPT API Error.")
+      console.log(error)
+      console.error("Error during API request:", error.message);
+    }
+
+  } else {
+    showErrorDialog("No image to evaluate. (GPT)")
+    console.error("There is no image to evaluate!");
+
+  }
+}
+
+const handleOpenAIRefineResults = async () => {
+  var limit_response = document.getElementById("limit-response").checked
+  
+  const initialResponse = document.getElementById("chatgpt-area").value;
+  const additionalInfo = document.getElementById("refine-chatgpt").value;
+
+  const canvas = document.getElementById("canvas");
+  const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+
+  let prompt = `Building on the initial response of ${initialResponse}, enhance the caption by incorporating the following additional information: ${additionalInfo}.`;
+  if (limit_response) {
+    prompt += " Limit the response to under 260 characters."
+  }
+
+  console.log("GPT Refine: ", prompt)
+
+  if (dataURL !== "data:," && additionalInfo != "") {
+    const openai = new OpenAI({
+      apiKey: import.meta.env.PUBLIC_CHATGPT_KEY,
+      dangerouslyAllowBrowser: true
+    });
+    try {
+      const result = await openai.chat.completions.create({
+        messages: [{
+          role: "user",
+          content: [
+            {
+              type: "image_url",
+              image_url: {
+                url: dataURL
+              },
+            }, 
+            {
+              type: "text",
+              text: prompt
+            }
+          ]
+        }],
+        model: 'gpt-4-turbo',
+      });
+
+      console.log(result)
+      document.getElementById("chatgpt-area").value = result.choices[0].message?.content
+
+    } catch (error) {
+      showErrorDialog("ChatGPT API Error.")
+      console.log(error)
+      console.error("Error during API request:", error.message);
+    }
+  } else {
+    if (additionalInfo == "" && dataURL !== "data:,"){
+      showErrorDialog("Please insert some additional information.")
+      console.error("There is additional information.");
+    } else {
+      showErrorDialog("There is no image to evaluate!")
+      console.error("There is no image to evaluate!");
     }
   }
 }
 
-
-export { handleAzureCall, handleGeminiCall, handleGeminiRefineResults, handleAzureURL, handleGeminiURL, handleOpenAICall }
+export { handleAzureCall, handleGeminiCall, handleGeminiRefineResults, handleAzureURL, handleGeminiURL, handleOpenAICall, handleOpenAIRefineResults }

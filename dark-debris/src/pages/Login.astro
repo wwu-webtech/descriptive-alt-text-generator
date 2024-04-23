@@ -9,7 +9,10 @@ import Layout from "../layouts/Layout.astro";
 	<div class="page-content">
 		<div class="region-wrapper">
 			<h1>Descriptive Alt Text Generator Login</h1>
-			<button>Login</button>
+			<form action=".auth/login/aad" method="post">
+				<button type="submit">Login with your Western ID</button>
+			</form>
+			<p>*User must have an account with Western Washington University to access.</p>
 		</div>
 	</div>
 
