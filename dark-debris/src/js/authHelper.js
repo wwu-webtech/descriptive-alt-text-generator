@@ -1,7 +1,7 @@
 export const authHelper = {
 	async getUserInfo() {
 		try {
-			const response = await fetch('/.auth/me');
+			const response= await fetch('/.auth/me');
 			return response.json();
 		} catch (error) {
 			console.error('Error fetching user data:', error);

@@ -6,7 +6,7 @@ const Inputs = defineTable({
 		user: column.text(),
 		image: column.text(),
 		createdAt: column.date(),
-		generatedAltText: column.text(),
+		generatedAltText: column.json(),
 		refineAttempts: column.number(),
 	}
 })

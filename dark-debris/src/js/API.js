@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import OpenAI from "openai";
+import { handleGeminiResults, handleOpenAIResults } from "./dbHelper.js";
 
 var limit_response = document.getElementById("limit-response").checked
 
@@ -82,6 +83,9 @@ const handleGeminiCall = async () => {
       const response = await result.response;
       const text = await response.text();
 
+			/* Dispatch an event to notify the completion of the API call */
+			handleGeminiResults(response);
+			
       // Update the text area
       document.getElementById("gemini-area").value = text;
 
@@ -225,7 +229,6 @@ const handleGeminiURL = async () => {
       const result = await model.generateContent(payload);
       const response = await result.response;
       const text = await response.text();
-
       // Update the text area
       document.getElementById("gemini-area").value = text;
 
@@ -276,6 +279,10 @@ const handleOpenAICall = async () => {
       });
 
       console.log(result)
+			
+			/* Dispatch an event to notify the completion of the API call */
+			handleOpenAIResults(result);
+			
       document.getElementById("chatgpt-area").value = result.choices[0].message?.content
     } catch (error) {
       showErrorDialog("ChatGPT API Error.")
