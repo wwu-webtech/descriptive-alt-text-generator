@@ -53,7 +53,7 @@ const handleGeminiCall = async () => {
 
   const dataURL = canvas.toDataURL("image/jpeg", 0.5);
   if (dataURL !== "data:,") {
-    const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KE);
+    const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
     var limit_response = document.getElementById("limit-response").checked
     
@@ -88,7 +88,7 @@ const handleGeminiCall = async () => {
 
     } catch (error) {
       showErrorDialog(`Oops! There was an error with the Gemini API. Please try again later or contact support for assistance.\n Error Message: ${error.message}`)
-      console.error("Error during API request:", error.message);
+      console.error("Error during Gemini request:", error.message);
     }
   } else {
     showErrorDialog("No image to evaluate. (Gemini)")
@@ -137,7 +137,8 @@ const handleGeminiRefineResults = async () => {
 
       document.getElementById("gemini-area").value = text;
     } catch (error) {
-      console.error("Error during API request:", error.message);
+      showErrorDialog(`Oops! There was an error with Gemini's refine feature. Please try again later or contact support for assistance.\n Error Message: ${error.message}`)
+      console.error("Error during Gemini request:", error.message);
     }
   } else {
     if (additionalInfo == "" && dataURL !== "data:,") {
@@ -336,9 +337,8 @@ const handleOpenAIRefineResults = async () => {
       document.getElementById("chatgpt-area").value = result.choices[0].message?.content
 
     } catch (error) {
-      showErrorDialog("ChatGPT API Error.")
-      console.log(error)
-      console.error("Error during API request:", error.message);
+      showErrorDialog(`Oops! There was an error with the OpenAI refine feature. Please try again later or contact support for assistance.\n Error Message: ${error.message}`)
+      console.error("Error during OpenAI request:", error.message);
     }
   } else {
     if (additionalInfo == "" && dataURL !== "data:,"){

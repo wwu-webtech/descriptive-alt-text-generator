@@ -23,7 +23,7 @@ file_button.addEventListener("click", async () => {
       // handleAzureCall();
 
       handleGeminiCall(); // Gemini Call
-      // await handleOpenAICall(); // OpenAI Call
+      await handleOpenAICall(); // OpenAI Call
     }
 
   } catch (error) {
