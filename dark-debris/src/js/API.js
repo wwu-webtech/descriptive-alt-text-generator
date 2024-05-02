@@ -1,26 +1,27 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import OpenAI from "openai";
+import { showErrorDialog } from "./ModalHelper";
 
 var limit_response = document.getElementById("limit-response").checked
 
-const showErrorDialog = (msg) => {
-  const dialog = document.getElementById("evaluate-error")
-  const message = document.getElementById("evaluate-error-message")
-  message.textContent = msg
-  dialog.showModal();
-}
+// const showErrorDialog = (msg) => {
+//   const dialog = document.getElementById("evaluate-error")
+//   const message = document.getElementById("evaluate-error-message")
+//   message.textContent = msg
+//   dialog.showModal();
+// }
 
 const handleAzureCall = async () => {
   const canvas = document.getElementById("canvas");
   const headers = {
     "Content-Type": "application/octet-stream",
-    "Ocp-Apim-Subscription-Key": import.meta.env.PUBLIC_MSFT_COGNITIVE_AI,
+    "Ocp-Apim-Subscription-Key": import.meta.env.PUBLIC_MSFT_COGNITIVE_A,
   };
 
 
   canvas.toBlob((blob) => {
     if (!blob) {
-      showErrorDialog("No image to evaluate")
+      showErrorDialog("No image to evaluate. (Azure)")
       console.error("Error: No image blob available");
       return;
     }
@@ -41,7 +42,7 @@ const handleAzureCall = async () => {
 
       })
       .catch((error) => {
-        showErrorDialog("Azure API Error.")
+        showErrorDialog(`Azure API Error. Error: ${error}`)
         console.error("Error: ", error);
       });
   });
@@ -86,11 +87,11 @@ const handleGeminiCall = async () => {
       document.getElementById("gemini-area").value = text;
 
     } catch (error) {
-      showErrorDialog("Gemini API Error.")
-      console.error("Error during API request:", error.message);
+      showErrorDialog(`Oops! There was an error with the Gemini API. Please try again later or contact support for assistance.\n Error Message: ${error.message}`)
+      console.error("Error during Gemini request:", error.message);
     }
   } else {
-    showErrorDialog("No image to evaluate.")
+    showErrorDialog("No image to evaluate. (Gemini)")
     console.error("There is no image to evaluate!");
   }
 };
@@ -136,7 +137,8 @@ const handleGeminiRefineResults = async () => {
 
       document.getElementById("gemini-area").value = text;
     } catch (error) {
-      console.error("Error during API request:", error.message);
+      showErrorDialog(`Oops! There was an error with Gemini's refine feature. Please try again later or contact support for assistance.\n Error Message: ${error.message}`)
+      console.error("Error during Gemini request:", error.message);
     }
   } else {
     if (additionalInfo == "" && dataURL !== "data:,") {
@@ -335,9 +337,8 @@ const handleOpenAIRefineResults = async () => {
       document.getElementById("chatgpt-area").value = result.choices[0].message?.content
 
     } catch (error) {
-      showErrorDialog("ChatGPT API Error.")
-      console.log(error)
-      console.error("Error during API request:", error.message);
+      showErrorDialog(`Oops! There was an error with the OpenAI refine feature. Please try again later or contact support for assistance.\n Error Message: ${error.message}`)
+      console.error("Error during OpenAI request:", error.message);
     }
   } else {
     if (additionalInfo == "" && dataURL !== "data:,"){

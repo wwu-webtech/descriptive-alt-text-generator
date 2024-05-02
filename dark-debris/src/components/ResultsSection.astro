@@ -1,0 +1,28 @@
+---
+import RefineResults from  "./RefineResults.astro";
+---
+
+<h2 id="results-section">Results</h2>
+
+<label for="gemini-area"><h3>Gemini</h3></label>
+<textarea
+	id="gemini-area"
+	placeholder="Results from Gemini"
+	wrap="hard"
+	rows="8"></textarea>
+<RefineResults model_id="refine-gemini" button_id="refine-gemini-button" />
+<!-- 
+<label for="azure-area"><h3>Azure</h3></label>
+<textarea
+	id="azure-area"
+	placeholder="Results from Azure"
+	wrap="hard"
+	rows="5"></textarea> -->
+
+<label for="chatgpt-area"><h3>ChatGPT</h3></label>
+<textarea
+	id="chatgpt-area"
+	placeholder="Results from ChatGPT"
+	wrap="hard"
+	rows="8"></textarea>
+<RefineResults model_id="refine-chatgpt" button_id="refine-chatgpt-button" />

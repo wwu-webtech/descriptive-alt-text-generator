@@ -4,9 +4,10 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
 import "../CSS/index.css";
-import "../CSS/FileUpload.css"
-import "../CSS/UrlUpload.css"
-import "../CSS/RefineResults.css"
+import "../CSS/FileUpload.css";
+import "../CSS/UrlUpload.css";
+import "../CSS/RefineResults.css";
+import "../CSS/Dialog.css";
 
 interface Props {
 	title: string;
@@ -21,7 +22,11 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 
 		<!-- Favicon -->
-		<link rel="icon" type="image/x-icon" href="https://www.wwu.edu/themes/contrib/ashlar/favicon.ico">
+		<link
+			rel="icon"
+			type="image/x-icon"
+			href="https://www.wwu.edu/themes/contrib/ashlar/favicon.ico"
+		/>
 
 		<!-- add CSS includes here -->
 		<!-- <link rel="stylesheet" type="text/css" href="./css/main.css" /> -->
@@ -101,6 +106,10 @@ const { title } = Astro.props;
 		<script
 			is:inline
 			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/switcher.js"
+		></script>
+		<script
+			is:inline
+			src="https://ashlar.blob.core.windows.net/ashlar-theme-files/js/dialog.js"
 		></script>
 	</body>
 </html>

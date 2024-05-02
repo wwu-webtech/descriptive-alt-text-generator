@@ -1,0 +1,14 @@
+#evaluate-error {
+    max-width: 50%;
+}
+#evaluate-error-message {
+    margin: auto;
+    word-break: break-word;
+    white-space: normal;
+}
+
+#dialog-close-button {
+    margin: auto;
+    width: 5em;
+    display: block;
+}
