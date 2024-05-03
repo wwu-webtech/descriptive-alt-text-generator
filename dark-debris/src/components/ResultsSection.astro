@@ -1,15 +1,19 @@
 ---
 import RefineResults from  "./RefineResults.astro";
+import Clipboard from  "./Clipboard.astro";
 ---
 
 <h2 id="results-section">Results</h2>
 
 <label for="gemini-area"><h3>Gemini</h3></label>
+<div class="resultsWithClipboard">
 <textarea
 	id="gemini-area"
 	placeholder="Results from Gemini"
 	wrap="hard"
 	rows="8"></textarea>
+<Clipboard copy_button_id="copy-gemini-button" />
+</div>
 <RefineResults model_id="refine-gemini" button_id="refine-gemini-button" />
 <!-- 
 <label for="azure-area"><h3>Azure</h3></label>
@@ -20,9 +24,12 @@ import RefineResults from  "./RefineResults.astro";
 	rows="5"></textarea> -->
 
 <label for="chatgpt-area"><h3>ChatGPT</h3></label>
+<div class="resultsWithClipboard">
 <textarea
 	id="chatgpt-area"
 	placeholder="Results from ChatGPT"
 	wrap="hard"
 	rows="8"></textarea>
+<Clipboard copy_button_id="copy-chatgpt-button" />
+</div>
 <RefineResults model_id="refine-chatgpt" button_id="refine-chatgpt-button" />

@@ -1,0 +1,24 @@
+.copy-button {
+	box-shadow: none;
+	color : -moz-default-color;
+	font-size: 1.4em;
+}
+
+#copy-gemini-button:hover, #copy-chatgpt-button:hover {
+	scale: 1.05;
+}
+
+.resultsWithClipboard {
+	position: relative;
+}
+
+.resultsWithClipboard textarea {
+	width: 100%;
+	resize: none;
+}
+
+.resultsWithClipboard button {
+	position: absolute;
+	bottom: 25px;
+	right: 0;
+}
