@@ -20,18 +20,18 @@ const inputs = await db.select().from(Inputs);
 			</p>
 			<wwu-accordion>
 			{
-				inputs.map(({ id, user, image, createdAt, generatedAltText }) => (
+				inputs.map(({ id, user, image, createdAt, geminiResults }) => (
 					<wwu-accordion-item label={user} title={user}>
 						<div class="wwu-card horizontal blue-bg">
 							<h2>{user}</h2>
 							<div class="image">
-								<img src={image} alt={generatedAltText} />
+								<img src={image} alt={geminiResults} />
 							</div>
 							<div class="taxonomy-terms">
 								<p>Created At: {createdAt}</p>
 							</div>
 							<div class="body">
-								<p>Generated Alt Text: {generatedAltText}</p>
+								<p>Generated Alt Text: {geminiResults}</p>
 							</div>
 						</div>
 					</wwu-accordion-item>

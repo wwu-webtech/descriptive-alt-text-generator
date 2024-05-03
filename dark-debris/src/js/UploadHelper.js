@@ -1,4 +1,5 @@
 import { handleAzureCall, handleGeminiCall, handleAzureURL, handleGeminiURL, handleOpenAICall } from "./API";
+import Database from "../pages/api/dbHelper.astro";
 
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
@@ -15,7 +16,8 @@ file_button.addEventListener("click", async () => {
   try {
     handleAzureCall();
     handleGeminiCall();
-    await handleOpenAICall().catch((err) => {
+		await Database.receiveAPIListeners();
+    handleOpenAICall().catch((err) => {
       console.error("The sample encountered an error:", err);
     });
 
@@ -41,7 +43,7 @@ url_button.addEventListener("click", async () => {
     console.error(error);
   } finally {
     loading.close();
-  }
+	}
 });
 
 fileInput.addEventListener("change", () => {

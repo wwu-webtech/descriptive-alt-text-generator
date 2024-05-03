@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import OpenAI from "openai";
-import { handleGeminiResults, handleOpenAIResults } from "./dbHelper.js";
+import Database from "../pages/api/dbHelper.astro";
 
 var limit_response = document.getElementById("limit-response").checked
 
@@ -84,7 +84,7 @@ const handleGeminiCall = async () => {
       const text = await response.text();
 
 			/* Dispatch an event to notify the completion of the API call */
-			handleGeminiResults(response);
+			Database.handleGeminiResults(response);
 			
       // Update the text area
       document.getElementById("gemini-area").value = text;

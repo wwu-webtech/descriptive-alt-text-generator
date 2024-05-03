@@ -1,0 +1,89 @@
+---
+import {authHelper} from "../../js/authHelper.js";
+import { db, Inputs } from 'astro:db';
+
+const inputs = await db.select().from(Inputs);
+// Functions to interact with the database
+const Database =  {
+	// Function to receive Gemini API results from custom event
+	async handleGeminiResults(response) {
+		const geminiFulfilled = new CustomEvent("geminiFulfilled", {
+			detail: {response},
+		});
+		document.dispatchEvent(geminiFulfilled);
+		return response;
+	},
+	// Function to receive OpenAI API results from custom event
+	async handleOpenAIResults(result) {
+		const OpenAIFulfilled = new CustomEvent("openAIFulfilled", {
+			detail: {result},
+		});
+		document.dispatchEvent(OpenAIFulfilled);
+	},
+	async receiveAPIListeners() {
+		let geminiOutput;
+		// Event listener for Gemini API results
+		document.addEventListener("geminiFulfilled", (event) => {
+			geminiOutput = event["detail"].response;
+		});
+		let openAIOutput;
+		// Event listener for OpenAI API results
+		document.addEventListener("openAIFulfilled", (event) => {
+			openAIOutput = event["detail"].result;
+		});
+		while (geminiOutput === undefined || openAIOutput === undefined) {
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+		}
+		await this.InsertIntoDatabase(geminiOutput, openAIOutput, false);
+	},
+	async InsertIntoDatabase(geminiOutput, openAIOutput, isRefine) {
+		// Insert the results into the astro database
+		const user = authHelper.getUsername();
+		const image = document.getElementById("canvas");
+		const createdAt = new Date().toISOString();
+		const geminiResults = geminiOutput.text();
+		// const geminiTokensUsed -- Needs to be filled in if we can get tokens from API
+		const openAIResults = openAIOutput.choices[0].message.content;
+		const openAITokensUsed = openAIOutput.usage;
+		console.log("Inserting into database...");
+		console.log({user, image, createdAt, geminiResults, openAIResults, openAITokensUsed, isRefine});
+		/*await db.insert(Inputs).values({
+			id: undefined,
+			user,
+			image,
+			createdAt,
+			geminiResults,
+			geminiTokensUsed: 0,
+			openAIResults,
+			openAITokensUsed,
+			isRefine
+		}).then(() => {
+				console.log("Inserted into database");
+			}
+		).catch((error) => {
+			console.error("Error inserting into database:", error);
+		});*/
+	}
+};
+---
+
+<wwu-accordion>
+	{
+		inputs.map(({ id, user, image, createdAt, geminiResults }) => (
+			<wwu-accordion-item label={user} title={user}>
+				<div class="wwu-card horizontal blue-bg">
+					<h2>{user}</h2>
+					<div class="image">
+						<img src={image} alt={geminiResults} />
+					</div>
+					<div class="taxonomy-terms">
+						<p>Created At: {createdAt}</p>
+					</div>
+					<div class="body">
+						<p>Generated Alt Text: {geminiResults}</p>
+					</div>
+				</div>
+			</wwu-accordion-item>
+		))
+	}
+</wwu-accordion>

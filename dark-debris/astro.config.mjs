@@ -11,5 +11,6 @@ export default defineConfig({
   },
   images: {
     extensions: ['jpg', 'jpeg', 'png', 'gif']
-  }
+  },
+	output: "static"
 });

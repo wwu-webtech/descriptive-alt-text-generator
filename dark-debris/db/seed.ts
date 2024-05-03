@@ -1,4 +1,4 @@
-import { db, Inputs } from 'astro:db';
+import {column, db, Inputs} from 'astro:db';
 import { faker } from '@faker-js/faker';
 
 export default async function() {
@@ -9,8 +9,11 @@ export default async function() {
 				user: faker.internet.userName(),
 				image: faker.image.url(),
 				createdAt: faker.date.recent(),
-				generatedAltText: faker.lorem.text(),
-				refineAttempts: faker.number.int({ min: 0, max: 10})
+				geminiResults: faker.lorem.sentence(),
+				geminiTokensUsed: faker.number.int(),
+				openAIResults: faker.lorem.sentence(),
+				openAITokensUsed: faker.getMetadata(),
+				isRefine: false,
 			}
 		])
 	}

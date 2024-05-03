@@ -8,13 +8,12 @@ export const authHelper = {
 			return null;
 		}
 	},
-	getUsername(userInfo) {
+	getUsername() {
+		const userInfo = this.getUserInfo();
+		if (!userInfo) {
+			console.error('No user info provided, must be testing locally');
+			return "testuser";
+		}
 		return userInfo["clientPrincipal"]["userDetails"];
 	}
 };
-
-document.getElementById("getUserInfo").addEventListener('click', async () => {
-	const userInfo = await authHelper.getUserInfo();
-	const username = authHelper.getUsername(userInfo);
-	console.log(username);
-});
