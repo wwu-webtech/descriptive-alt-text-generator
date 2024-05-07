@@ -8,12 +8,12 @@ export const AuthHelper = {
 			return null;
 		}
 	},
-	getUsername() {
+	async getUsername() {
 		// If running locally, return a default username as /.auth/me does not exist
 		if (window.location.hostname === "localhost") {
 			return "localUser@test.com";
 		} else {
-			const userInfo = this.getUserInfo();
+			const userInfo = await this.getUserInfo();
 			console.log(userInfo);
 			return userInfo["clientPrincipal"]["userDetails"];
 		}
