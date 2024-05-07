@@ -24,4 +24,4 @@ document.getElementById("getUserInfo").addEventListener("click", async () => {
 	return AuthHelper.getUsername();
 });*/
 
-document.getElementById("username").innerHTML = AuthHelper.getUsername();
+document.getElementById("username").innerHTML = await AuthHelper.getUsername();
