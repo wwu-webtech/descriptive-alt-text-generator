@@ -14,6 +14,7 @@ export const AuthHelper = {
 			return "localUser@test.com";
 		} else {
 			const userInfo = this.getUserInfo();
+			console.log(userInfo);
 			return userInfo["clientPrincipal"]["userDetails"];
 		}
 	},
