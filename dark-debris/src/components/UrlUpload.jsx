@@ -12,7 +12,9 @@ export default function UrlUpload() {
 			<div className="wwu-card horizontal dark-blue-bg">
 				<div className="body">
 					<form id="url-upload-form ">
-						<label htmlFor="url-upload"><h3>URL</h3></label>
+						<label htmlFor="url-upload">
+							<h3>URL</h3>
+						</label>
 						<input
 							id="url-upload"
 							type="url"
@@ -21,11 +23,9 @@ export default function UrlUpload() {
 							required
 						/>
 					</form>
-					<button id="evaluate-url">
-						Evaluate URL
-					</button>
+					<button id="evaluate-url">Evaluate URL</button>
 				</div>
-				<div id="url-img" >
+				<div id="url-img">
 					{url && (
 						<img
 							role="img"

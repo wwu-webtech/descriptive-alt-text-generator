@@ -24,7 +24,7 @@
       "allowedRoles": ["authenticated"]
     },
     {
-      "route" : "/AdministrationTools.html",
+      "route": "/AdministrationTools.html",
       "allowedRoles": ["authenticated"]
     }
   ],

@@ -4,20 +4,23 @@ import RefineResults from "../components/RefineResults.astro";
 import Upload from "../components/FileUpload.astro";
 import UrlUpload from "../components/UrlUpload.jsx";
 import ResultsSection from "../components/ResultsSection.astro";
-
 import TextGenerator from "../components/TextGenerator.astro";
-
+import LoginStatus from "../components/LoginStatus.astro";
+import Login from "./Login.astro";
 ---
 <Layout
 	title="Generate | Descriptive Alt Text Generator | Western Washington University">
-	
+
 	<div class="page-content">
 		<div class="region-wrapper">
-			<h1>Generate!</h1>
-			<TextGenerator />
+			<div class="two-col-80-20">
+				<h1>Generate</h1>
+				<LoginStatus/>
+			</div>
+			<TextGenerator/>
 			<ResultsSection/>
 			<br>
-		<!-- class region-wrapper -->
-	</div> <!-- class page-content -->
-	
+			<!-- class region-wrapper -->
+		</div> <!-- class page-content -->
+	</div> <!-- class region-wrapper -->
 </Layout>
