@@ -40,7 +40,7 @@ url_button.addEventListener("click", async () => {
   console.log("Evaluating...");
   try {
     // This still needs a bit of work:
-    // await handleGeminiURL();
+    await handleGeminiURL();
     // await handleAzureURL();
   } catch (error) {
     console.error(error);

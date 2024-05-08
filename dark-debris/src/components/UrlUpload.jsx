@@ -22,13 +22,13 @@ export default function UrlUpload() {
 						/>
 						<details id="advanced-options">
 							<summary>Advanced Options</summary>
-							<div class="checkbox-url">
+							<div className="checkbox-url">
 								<input
 									type="checkbox"
 									id="limit-response-url"
 									name="limit-url"
 									value="Second"
-								/><label for="limit-response-url"
+								/><label htmlFor="limit-response-url"
 								>Limit responses to under 260 characters.</label>
 							</div>
 						</details>

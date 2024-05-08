@@ -1,15 +1,9 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import OpenAI from "openai";
 import { showErrorDialog } from "./ModalHelper";
+import axios from "axios";
 
 var limit_response = document.getElementById("limit-response").checked
-
-// const showErrorDialog = (msg) => {
-//   const dialog = document.getElementById("evaluate-error")
-//   const message = document.getElementById("evaluate-error-message")
-//   message.textContent = msg
-//   dialog.showModal();
-// }
 
 const handleAzureCall = async () => {
   const canvas = document.getElementById("canvas");
@@ -151,6 +145,11 @@ const handleGeminiRefineResults = async () => {
   }
 }
 
+async function getBase64(url) {
+  const image = await axios.get(url, {responseType: 'arraybuffer'});
+  return Buffer.from(image.data).toString('base64');
+}
+
 const handleAzureURL = async () => {
   const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
   const url = document.getElementById("url-upload").value;
@@ -189,6 +188,7 @@ const handleAzureURL = async () => {
   }
 }
 
+
 const handleGeminiURL = async () => {
   const imageUrl = document.getElementById("url-upload").value;
 
@@ -196,16 +196,32 @@ const handleGeminiURL = async () => {
     const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
-    const promptFieldValue = document.getElementById("prompt").value;
+    // const promptFieldValue = document.getElementById("prompt").value;
     let prompt = "Compose a detailed description in English for this image.";
 
     if (limit_response) {
       prompt += " Limit the response to under 260 characters."
     }
 
-    if (promptFieldValue !== "") {
-      prompt += " This is additional information from the user: " + promptFieldValue;
-    }
+    // if (promptFieldValue !== "") {
+    //   prompt += " This is additional information from the user: " + promptFieldValue;
+    // }
+
+    // const payload = {
+    //   contents: [
+    //     {
+    //       parts: [
+    //         { text: prompt },
+    //         {
+    //           url_data: {
+    //             mime_type: "image/jpeg",
+    //             url: imageUrl,
+    //           },
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // };
 
     const payload = {
       contents: [
@@ -213,9 +229,9 @@ const handleGeminiURL = async () => {
           parts: [
             { text: prompt },
             {
-              url_data: {
+              inline_data: {
                 mime_type: "image/jpeg",
-                url: imageUrl,
+                data: getBase64(imageUrl),
               },
             },
           ],
