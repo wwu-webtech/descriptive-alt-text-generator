@@ -5,7 +5,6 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 canvas.width = 0;
 canvas.height = 0;
-const fileInput = document.getElementById("file-input");
 
 const file_button = document.getElementById("evaluate-image");
 file_button.addEventListener("click", async () => {
@@ -22,8 +21,8 @@ file_button.addEventListener("click", async () => {
       // Azure Call
       // handleAzureCall();
 
-      handleGeminiCall(); // Gemini Call
-      await handleOpenAICall(); // OpenAI Call
+      handleGeminiCall(true); // Gemini Call
+      await handleOpenAICall(true); // OpenAI Call
     }
 
   } catch (error) {
@@ -40,7 +39,8 @@ url_button.addEventListener("click", async () => {
   console.log("Evaluating...");
   try {
     // This still needs a bit of work:
-    await handleGeminiURL();
+    handleGeminiCall(false);
+    await handleOpenAICall(false);
     // await handleAzureURL();
   } catch (error) {
     console.error(error);
@@ -49,6 +49,7 @@ url_button.addEventListener("click", async () => {
   }
 });
 
+const fileInput = document.getElementById("file-input");
 fileInput.addEventListener("change", () => {
   // Clear the results
   document.getElementById("gemini-area").value = ""
@@ -74,5 +75,31 @@ fileInput.addEventListener("change", () => {
       img.src = e.target.result;
     };
     reader.readAsDataURL(selectedFile);
+  }
+});
+
+const urlCanvas = document.getElementById("url-canvas");
+const urlContext = urlCanvas.getContext("2d");
+
+const urlInput = document.getElementById("url-upload");
+urlInput.addEventListener("input", () => {
+
+  document.getElementById("gemini-area").value = ""
+  document.getElementById("chatgpt-area").value = ""
+  // document.getElementById("azure-area").value = ""
+  const url = urlInput.value;
+  if (url) {
+    const img = new Image();
+    img.onload = function () {
+
+      // Adjust canvas size to the new dimensions
+      urlCanvas.width = img.width;
+      urlCanvas.height = img.height;
+
+      // Draw the image on the canvas
+      urlContext.drawImage(img, 0, 0, img.width, img.height);
+    };
+    img.setAttribute('crossOrigin', 'anonymous');
+    img.src = url; // Set the image source directly to the URL
   }
 });

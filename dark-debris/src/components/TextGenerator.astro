@@ -1,7 +1,8 @@
 ---
 import RefineResults from "./RefineResults.astro";
 import Upload from "./FileUpload.astro";
-import UrlUpload from "./UrlUpload.jsx";
+// import UrlUpload from "./UrlUpload.jsx";
+import UrlUpload from "./UrlUpload.astro";
 import Dialog from "../components/Dialog.astro";
 import ResultsSection from "../components/ResultsSection.astro";
 ---
@@ -13,7 +14,7 @@ import ResultsSection from "../components/ResultsSection.astro";
 		<Upload />
 	</wwu-switcher-item>
 	<wwu-switcher-item label="Link to Image *WIP*">
-		<UrlUpload client:load />
+		<UrlUpload />
 	</wwu-switcher-item>
 </wwu-switcher>
 

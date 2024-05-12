@@ -21,3 +21,9 @@
     margin: 10px;
     width: 95%;
 }
+
+#url-canvas {
+    margin: 10px;
+    object-fit: contain;
+    width: 95%;
+}

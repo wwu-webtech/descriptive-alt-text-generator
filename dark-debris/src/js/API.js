@@ -42,8 +42,15 @@ const handleAzureCall = async () => {
   });
 };
 
-const handleGeminiCall = async () => {
-  const canvas = document.getElementById("canvas");
+const handleGeminiCall = async (isFile) => {
+  let canvas;
+  if (isFile) {
+    console.log("file canvas")
+    canvas = document.getElementById("canvas");
+  } else {
+    console.log("url canvas")
+    canvas = document.getElementById("url-canvas");
+  }
 
   const dataURL = canvas.toDataURL("image/jpeg", 0.5);
   if (dataURL !== "data:,") {
@@ -90,12 +97,19 @@ const handleGeminiCall = async () => {
   }
 };
 
-const handleGeminiRefineResults = async () => {
+const handleGeminiRefineResults = async (isFile) => {
   var limit_response = document.getElementById("limit-response").checked
   const initialResponse = document.getElementById("gemini-area").value;
   const additionalInfo = document.getElementById("refine-gemini").value;
 
-  const canvas = document.getElementById("canvas");
+  let canvas;
+  if (isFile) {
+    console.log("file canvas refine")
+    canvas = document.getElementById("canvas");
+  } else {
+    console.log("url canvas refine")
+    canvas = document.getElementById("url-canvas");
+  }
 
   const dataURL = canvas.toDataURL("image/jpeg", 0.5);
 
@@ -139,16 +153,12 @@ const handleGeminiRefineResults = async () => {
       showErrorDialog("Please insert some additional information.")
       console.error("There is additional information.");
     } else {
-      showErrorDialog("There is no image to evaluate!")
+      showErrorDialog("There is no image to evaluate! (Gemini)")
       console.error("There is no image to evaluate!");
     }
   }
 }
 
-async function getBase64(url) {
-  const image = await axios.get(url, {responseType: 'arraybuffer'});
-  return Buffer.from(image.data).toString('base64');
-}
 
 const handleAzureURL = async () => {
   const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
@@ -187,7 +197,6 @@ const handleAzureURL = async () => {
       })
   }
 }
-
 
 const handleGeminiURL = async () => {
   const imageUrl = document.getElementById("url-upload").value;
@@ -231,7 +240,7 @@ const handleGeminiURL = async () => {
             {
               inline_data: {
                 mime_type: "image/jpeg",
-                data: getBase64(imageUrl),
+                data: imageUrl,
               },
             },
           ],
@@ -257,13 +266,19 @@ const handleGeminiURL = async () => {
   }
 };
 
-const handleOpenAICall = async () => {
+const handleOpenAICall = async (isFile) => {
   var limit_response = document.getElementById("limit-response").checked
   const openai = new OpenAI({
     apiKey: import.meta.env.PUBLIC_CHATGPT_KEY,
     dangerouslyAllowBrowser: true
   });
-  const canvas = document.getElementById("canvas");
+
+  let canvas;
+  if (isFile) {
+    canvas = document.getElementById("canvas");
+  } else {
+    canvas = document.getElementById("url-canvas");
+  }
 
   const dataURL = canvas.toDataURL("image/jpeg", 0.5);
 

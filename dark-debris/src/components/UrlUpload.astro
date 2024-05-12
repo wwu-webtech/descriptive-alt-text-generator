@@ -1,0 +1,29 @@
+<astro-upload>
+	<div class="wwu-card horizontal dark-blue-bg">
+		<div class="body">
+			<form id="url-upload-form ">
+				<label for="url-upload"><h3>URL</h3></label>
+				<input id="url-upload" type="url" placeholder="Enter a URL" required />
+				<details id="advanced-options">
+					<summary>Advanced Options</summary>
+					<div class="checkbox-url">
+						<input
+							type="checkbox"
+							id="limit-response-url"
+							name="limit-url"
+							value="Second"
+						/><label for="limit-response-url"
+							>Limit responses to under 260 characters.</label
+						>
+					</div>
+				</details>
+			</form>
+			<button id="evaluate-url"> Evaluate URL </button>
+		</div>
+		<div id="url-img">
+      <canvas aria-label="Image to generate" id="url-canvas"></canvas>
+		</div>
+	</div>
+</astro-upload>
+
+<script src="../js/UploadHelper.js"></script>

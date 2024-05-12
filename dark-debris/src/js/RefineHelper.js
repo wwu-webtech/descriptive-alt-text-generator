@@ -8,7 +8,7 @@ gemini_refine.addEventListener("click", async () => {
   console.log("Refining...");
 
   try {
-    await handleGeminiRefineResults();
+    await handleGeminiRefineResults(true);
   } catch (error) {
     console.error(error);
   } finally {
