@@ -1,16 +1,6 @@
-<<<<<<< HEAD
 // import { handleAzureCall, handleGeminiCall, handleAzureURL, handleGeminiURL, handleOpenAICall } from "./API";
 import { handleGeminiCall, handleGeminiURL } from "./Gemini";
 import { handleOpenAICall } from "./OpenAI";
-=======
-import {
-	handleAzureCall,
-	handleGeminiCall,
-	handleAzureURL,
-	handleGeminiURL,
-	handleOpenAICall,
-} from "./API";
->>>>>>> 09dd65356ab1bc8e206a556702272703f14272f8
 import { showErrorDialog } from "./ModalHelper";
 
 const canvas = document.getElementById("canvas");
@@ -27,7 +17,6 @@ file_button.addEventListener("click", async () => {
 	try {
 		const dataURL = canvas.toDataURL("image/jpeg", 0.5);
 
-<<<<<<< HEAD
     if (dataURL === "data:,") {
       showErrorDialog("Oops! Looks like there's no image to evaluate. Please upload an image to continue.");
     } else {
@@ -40,29 +29,10 @@ file_button.addEventListener("click", async () => {
   } finally {
     loading.close();
   }
-=======
-		if (dataURL === "data:,") {
-			showErrorDialog(
-				"Oops! Looks like there's no image to evaluate. Please upload an image to continue.",
-			);
-		} else {
-			// Azure Call
-			// handleAzureCall();
-
-			handleGeminiCall(); // Gemini Call
-			await handleOpenAICall(); // OpenAI Call
-		}
-	} catch (error) {
-		console.error(error);
-	} finally {
-		loading.close();
-	}
->>>>>>> 09dd65356ab1bc8e206a556702272703f14272f8
 });
 
 const url_button = document.getElementById("evaluate-url");
 url_button.addEventListener("click", async () => {
-<<<<<<< HEAD
   const loading = document.getElementById("evaluate-loading");
   loading.showModal();
   console.log("Evaluating...");
@@ -74,20 +44,6 @@ url_button.addEventListener("click", async () => {
   } finally {
     loading.close();
   }
-=======
-	const loading = document.getElementById("evaluate-loading");
-	loading.showModal();
-	console.log("Evaluating...");
-	try {
-		// This still needs a bit of work:
-		// await handleGeminiURL();
-		// await handleAzureURL();
-	} catch (error) {
-		console.error(error);
-	} finally {
-		loading.close();
-	}
->>>>>>> 09dd65356ab1bc8e206a556702272703f14272f8
 });
 
 const fileInput = document.getElementById("file-input");
