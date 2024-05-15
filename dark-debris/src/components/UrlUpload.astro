@@ -1,0 +1,46 @@
+<astro-upload>
+	<div class="wwu-card horizontal dark-blue-bg">
+		<div class="body">
+			<form id="url-upload-form ">
+				<label for="url-upload"><h3>URL</h3></label>
+				<input id="url-upload" type="url" placeholder="Enter a URL" required />
+				<details id="advanced-options">
+					<summary>Advanced Options</summary>
+					<div class="radio">
+						<input
+							type="radio"
+							id="limit-response-140-url"
+							name="limit"
+							value="140"
+						/><label for="limit-response-140-url"
+							>Limit responses to under 140 characters.</label>
+					</div>
+					<div class="radio">
+						<input
+							type="radio"
+							id="limit-response-280-url"
+							name="limit"
+							value="280"
+						/><label for="limit-response-280-url"
+							>Limit responses to under 280 characters.</label>
+					</div>
+					<div class="radio">
+						<input
+							type="radio"
+							id="limit-response-none-url"
+							name="limit"
+							value="no-limit"
+						/><label for="limit-response-none-url"
+							>No character limit.</label>
+					</div>
+				</details>
+			</form>
+			<button id="evaluate-url"> Evaluate URL </button>
+		</div>
+		<div id="url-img">
+      <canvas aria-label="Image to generate" id="url-canvas"></canvas>
+		</div>
+	</div>
+</astro-upload>
+
+<script src="../js/UploadHelper.js"></script>

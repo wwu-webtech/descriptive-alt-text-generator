@@ -7,14 +7,32 @@
 
 				<details id="advanced-options">
 					<summary>Advanced Options</summary>
-					<div class="checkbox">
+					<div class="radio">
 						<input
-							type="checkbox"
-							id="limit-response"
+							type="radio"
+							id="limit-response-140"
 							name="limit"
-							value="First"
-						/><label for="limit-response"
-							>Limit responses to under 260 characters.</label>
+							value="140"
+						/><label for="limit-response-140"
+							>Limit responses to under 140 characters.</label>
+					</div>
+					<div class="radio">
+						<input
+							type="radio"
+							id="limit-response-280"
+							name="limit"
+							value="280"
+						/><label for="limit-response-280"
+							>Limit responses to under 280 characters.</label>
+					</div>
+					<div class="radio">
+						<input
+							type="radio"
+							id="limit-response-none"
+							name="limit"
+							value="no-limit"
+						/><label for="limit-response-none"
+							>No character limit.</label>
 					</div>
 				</details>
 			</form>

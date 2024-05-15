@@ -16,8 +16,22 @@
 	object-fit: contain;
 }
 
+<<<<<<< HEAD
+#url-img img{
+    object-fit: contain;
+    margin: 10px;
+    width: 95%;
+}
+
+#url-canvas {
+    margin: 10px;
+    object-fit: contain;
+    width: 95%;
+}
+=======
 #url-img img {
 	object-fit: contain;
 	margin: 10px;
 	width: 95%;
 }
+>>>>>>> 09dd65356ab1bc8e206a556702272703f14272f8

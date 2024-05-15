@@ -22,6 +22,18 @@ export default function UrlUpload() {
 							onInput={handleChange}
 							required
 						/>
+						<details id="advanced-options">
+							<summary>Advanced Options</summary>
+							<div className="checkbox-url">
+								<input
+									type="checkbox"
+									id="limit-response-url"
+									name="limit-url"
+									value="Second"
+								/><label htmlFor="limit-response-url"
+								>Limit responses to under 260 characters.</label>
+							</div>
+						</details>
 					</form>
 					<button id="evaluate-url">Evaluate URL</button>
 				</div>

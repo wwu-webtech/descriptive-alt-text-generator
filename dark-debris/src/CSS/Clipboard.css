@@ -19,7 +19,7 @@
 }
 
 .resultsWithClipboard button {
-	position: absolute;
+	position: absolute; 
 	bottom: 25px;
 	right: 0;
 }
