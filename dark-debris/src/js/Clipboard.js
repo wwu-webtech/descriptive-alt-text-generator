@@ -24,3 +24,21 @@ function copyTextFromTextArea(textAreaId) {
 			console.error("Error copying text: ", error);
 		});
 }
+
+function getCharacterCount(textAreaId) {
+	const textArea = document.getElementById(textAreaId);
+	return textArea.value.length;
+}
+
+document.getElementById("gemini-area").addEventListener("input", () => {
+	document.getElementById("gemini-char-count").textContent = getCharacterCount("gemini-area");
+});
+
+document.getElementById("chatgpt-area").addEventListener("input", () => {
+	document.getElementById("chatgpt-char-count").textContent = getCharacterCount("chatgpt-area");
+});
+
+window.onload = () => {
+	document.getElementById("gemini-char-count").textContent = getCharacterCount("gemini-area");
+	document.getElementById("chatgpt-char-count").textContent = getCharacterCount("chatgpt-area");
+}

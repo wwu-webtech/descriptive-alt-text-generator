@@ -1,7 +1,9 @@
 .copy-button {
 	box-shadow: none;
 	color: -moz-default-color;
-	font-size: 1.4em;
+	color: -webkit-link;
+	cursor: pointer;
+	font-size: 1.2em;
 }
 
 #copy-gemini-button:hover,
@@ -18,8 +20,25 @@
 	resize: none;
 }
 
-.resultsWithClipboard button {
-	position: absolute; 
-	bottom: 25px;
+.bottom-right {
+	display: flex;
+	flex-direction: row;
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 20px;
 	right: 0;
+	gap: 8px;
 }
+
+.character-count {
+	font-size: 1.2em;
+	color: rgba(255, 255, 255, 0.80);
+	padding-top: 4px;
+	padding-left: 8px;
+	padding-right: 8px;
+	background-color: rgba(0, 0, 0, 0.15);
+	border-radius: 10px;
+	height: 48px;
+}
+
+

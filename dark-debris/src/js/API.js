@@ -1,6 +1,6 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import {GoogleGenerativeAI} from "@google/generative-ai";
 import OpenAI from "openai";
-import { showErrorDialog } from "./ModalHelper";
+import {showErrorDialog} from "./ModalHelper";
 
 var limit_response = document.getElementById("limit-response").checked;
 
@@ -55,7 +55,7 @@ const handleGeminiCall = async () => {
 	const dataURL = canvas.toDataURL("image/jpeg", 0.5);
 	if (dataURL !== "data:,") {
 		const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
-		const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+		const model = genAI.getGenerativeModel({model: "gemini-pro-vision"});
 		var limit_response = document.getElementById("limit-response").checked;
 
 		let prompt = "Compose a detailed description in English for this image.";
@@ -67,7 +67,7 @@ const handleGeminiCall = async () => {
 			contents: [
 				{
 					parts: [
-						{ text: prompt },
+						{text: prompt},
 						{
 							inline_data: {
 								mime_type: "image/jpeg",
@@ -109,7 +109,7 @@ const handleGeminiRefineResults = async () => {
 
 	if (dataURL !== "data:," && additionalInfo != "") {
 		const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
-		const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+		const model = genAI.getGenerativeModel({model: "gemini-pro-vision"});
 		let prompt = `Building on the intial response of ${initialResponse}, enhance the caption by incorporating the following additional information: ${additionalInfo}.`;
 		if (limit_response) {
 			prompt += " Limit the response to under 260 characters.";
@@ -120,7 +120,7 @@ const handleGeminiRefineResults = async () => {
 			contents: [
 				{
 					parts: [
-						{ text: prompt },
+						{text: prompt},
 						{
 							inline_data: {
 								mime_type: "image/jpeg",
@@ -201,7 +201,7 @@ const handleGeminiURL = async () => {
 
 	if (imageUrl.trim() !== "") {
 		const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
-		const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+		const model = genAI.getGenerativeModel({model: "gemini-pro-vision"});
 
 		const promptFieldValue = document.getElementById("prompt").value;
 		let prompt = "Compose a detailed description in English for this image.";
@@ -219,7 +219,7 @@ const handleGeminiURL = async () => {
 			contents: [
 				{
 					parts: [
-						{ text: prompt },
+						{text: prompt},
 						{
 							url_data: {
 								mime_type: "image/jpeg",
