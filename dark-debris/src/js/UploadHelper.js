@@ -1,4 +1,6 @@
-import { handleAzureCall, handleGeminiCall, handleAzureURL, handleGeminiURL, handleOpenAICall } from "./API";
+// import { handleAzureCall, handleGeminiCall, handleAzureURL, handleGeminiURL, handleOpenAICall } from "./API";
+import { handleGeminiCall, handleGeminiURL } from "./Gemini";
+import { handleOpenAICall } from "./OpenAI";
 import { showErrorDialog } from "./ModalHelper";
 
 const canvas = document.getElementById("canvas");
@@ -18,11 +20,8 @@ file_button.addEventListener("click", async () => {
     if (dataURL === "data:,") {
       showErrorDialog("Oops! Looks like there's no image to evaluate. Please upload an image to continue.");
     } else {
-      // Azure Call
-      // handleAzureCall();
-
-      handleGeminiCall(true); // Gemini Call
-      await handleOpenAICall(true); // OpenAI Call
+      handleGeminiCall(true);
+      await handleOpenAICall(true);
     }
 
   } catch (error) {
@@ -38,10 +37,8 @@ url_button.addEventListener("click", async () => {
   loading.showModal();
   console.log("Evaluating...");
   try {
-    // This still needs a bit of work:
     handleGeminiCall(false);
     await handleOpenAICall(false);
-    // await handleAzureURL();
   } catch (error) {
     console.error(error);
   } finally {

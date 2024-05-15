@@ -1,4 +1,5 @@
-import { handleGeminiRefineResults, handleOpenAIRefineResults } from "./API";
+import { handleGeminiRefineResults } from "./Gemini";
+import { handleOpenAIRefineResults } from "./OpenAI";
 import { showErrorDialog } from "./ModalHelper";
 
 const gemini_refine = document.getElementById("refine-gemini-button");
@@ -24,7 +25,7 @@ chatgpt_refine.addEventListener("click", async () => {
   console.log("Refining...");
 
   try {
-    await handleOpenAIRefineResults();
+    await handleOpenAIRefineResults(true);
   } catch (error) {
     showErrorDialog(`Oops! There was an error with the OpenAI refine feature. Please try again later or contact support for assistance.\n Error Message: ${error.message}`)
     console.error(error)
