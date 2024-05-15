@@ -1,10 +1,11 @@
 .copy-button {
 	box-shadow: none;
-	color : -moz-default-color;
+	color: -moz-default-color;
 	font-size: 1.4em;
 }
 
-#copy-gemini-button:hover, #copy-chatgpt-button:hover {
+#copy-gemini-button:hover,
+#copy-chatgpt-button:hover {
 	scale: 1.05;
 }
 

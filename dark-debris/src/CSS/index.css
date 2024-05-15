@@ -1,10 +1,39 @@
 #loading-gif {
-    width: 100px;
-    height: 100px;
+	width: 100px;
+	height: 100px;
 }
 
-#gemini-area, #azure-area, #chatgpt-area{
-    font-size: 1em;
-    width: 100%;
+#gemini-area,
+#azure-area,
+#chatgpt-area {
+	font-size: 1em;
+	width: 100%;
 }
 
+.two-col-80-20 {
+	display: grid;
+	grid-template-columns: 60% 40%;
+	grid-gap: 10px;
+}
+
+.login-status {
+	font-size: 1.2em;
+	margin-top: 2.5px;
+	color: #00c500;
+	border-color: black;
+}
+
+.horizontal-row {
+	display: flex;
+	flex-direction: row;
+	gap: 4px;
+	font-size: 18px;
+	margin-top: 8px;
+	margin-right: 4px;
+	padding: 0 8px;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	height: 32px;
+	width: fit-content;
+	float: right;
+}

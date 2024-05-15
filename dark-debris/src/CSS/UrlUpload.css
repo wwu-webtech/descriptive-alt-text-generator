@@ -1,21 +1,22 @@
 #url-upload-form {
-    margin-top: 20px;
-    margin-bottom: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 #url-upload {
-    width: 100%;
-    line-height: 1.5em;
+	width: 100%;
+	line-height: 1.5em;
 }
 
 #evaluate-url {
-    margin-top: 19.5px;
-    margin-bottom: 10px;
+	margin-top: 19.5px;
+	margin-bottom: 10px;
 }
 #url-img {
-    object-fit: contain;
+	object-fit: contain;
 }
 
+<<<<<<< HEAD
 #url-img img{
     object-fit: contain;
     margin: 10px;
@@ -27,3 +28,10 @@
     object-fit: contain;
     width: 95%;
 }
+=======
+#url-img img {
+	object-fit: contain;
+	margin: 10px;
+	width: 95%;
+}
+>>>>>>> 09dd65356ab1bc8e206a556702272703f14272f8
