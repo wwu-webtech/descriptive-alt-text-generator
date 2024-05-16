@@ -1,5 +1,7 @@
 const chatgptCopy = document.getElementById("copy-chatgpt-button");
-chatgptCopy.addEventListener("click", () => copyTextFromTextArea("chatgpt-area"));
+chatgptCopy.addEventListener("click", () =>
+	copyTextFromTextArea("chatgpt-area"),
+);
 
 const geminiCopy = document.getElementById("copy-gemini-button");
 geminiCopy.addEventListener("click", () => copyTextFromTextArea("gemini-area"));
@@ -13,7 +15,8 @@ function copyTextFromTextArea(textAreaId) {
 		console.log("Nothing to copy!");
 		return;
 	}
-	navigator.clipboard.writeText(textArea.value)
+	navigator.clipboard
+		.writeText(textArea.value)
 		.then(() => {
 			console.log("Copied the text: " + textArea.value);
 		})
@@ -22,3 +25,20 @@ function copyTextFromTextArea(textAreaId) {
 		});
 }
 
+function getCharacterCount(textAreaId) {
+	const textArea = document.getElementById(textAreaId);
+	return textArea.value.length;
+}
+
+document.getElementById("gemini-area").addEventListener("input", () => {
+	document.getElementById("gemini-char-count").textContent = getCharacterCount("gemini-area");
+});
+
+document.getElementById("chatgpt-area").addEventListener("input", () => {
+	document.getElementById("chatgpt-char-count").textContent = getCharacterCount("chatgpt-area");
+});
+
+window.onload = () => {
+	document.getElementById("gemini-char-count").textContent = getCharacterCount("gemini-area");
+	document.getElementById("chatgpt-char-count").textContent = getCharacterCount("chatgpt-area");
+}

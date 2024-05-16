@@ -1,21 +1,24 @@
 ---
 import RefineResults from "./RefineResults.astro";
 import Upload from "./FileUpload.astro";
-import UrlUpload from "./UrlUpload.jsx";
+// import UrlUpload from "./UrlUpload.jsx";
+import UrlUpload from "./UrlUpload.astro";
 import Dialog from "../components/Dialog.astro";
+import ResultsSection from "../components/ResultsSection.astro";
 ---
 
 <h2 id="#input-form">Input An Image</h2>
-<wwu-switcher label="Upload Type">
+<wwu-switcher label="Upload Type" >
 	<Dialog/>
 	<wwu-switcher-item label="File Upload">
 		<Upload />
 	</wwu-switcher-item>
 	<wwu-switcher-item label="Link to Image *WIP*">
-		<UrlUpload client:load />
+		<UrlUpload />
 	</wwu-switcher-item>
 </wwu-switcher>
 
+<script src="../js/FormSwap.js"></script>
 <!-- checkbox here to mark image as decorative instead of using one of the AI created suggestions. To set the image as decorative. You set alt="" on the <img> element -->
 <!-- If the user selects the "mark as decorative" checkbox then we verify again with the user, using a modal dialog, "Are you certain you want to mark this image as decorative?" -->
 <!-- id="AltTextOnMyImage" It would be nice to have a text field where folks could enter their alt text into, have it spell checked, and then saved into a database that correlates their image with their written alt text. -->

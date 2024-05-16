@@ -1,0 +1,11 @@
+---
+// Component to display the character count of the text in the editor
+const {charCount_id} = Astro.props;
+---
+
+<div class="character-count">
+	<h4 class="visually-hidden">Character Count:</h4>
+	<p id={charCount_id}>0</p>
+</div>
+
+<script src="../js/Clipboard.js"></script>
