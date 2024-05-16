@@ -20,7 +20,7 @@ const handleGeminiCall = async (isFile) => {
 
 		let prompt = "Compose a detailed description in English for this image.";
 		if (limit_response != -1) {
-			prompt += ` Limit the response to under ${limit_response} characters.`
+			prompt += ` Limit the description to under ${limit_response} characters.`
 		}
 
 		console.log(prompt)
@@ -71,7 +71,7 @@ const handleGeminiURL = async () => {
 		let prompt = "Compose a detailed description in English for this image.";
 
 		if (limit_response) {
-			prompt += " Limit the response to under 260 characters."
+			prompt += " Limit the description to under 260 characters."
 		}
 
 		// if (promptFieldValue !== "") {
@@ -150,7 +150,7 @@ const handleGeminiRefineResults = async (isFile) => {
 		const model = genAI.getGenerativeModel({model: "gemini-pro-vision"});
 		let prompt = `Building on the intial response of ${initialResponse}, enhance the caption by incorporating the following additional information: ${additionalInfo}.`;
 		if (limit_response != -1) {
-			prompt += ` Limit the response to under ${limit_response} characters.`
+			prompt += ` Limit the description to under ${limit_response} characters.`
 		}
 		console.log("Gemini Refine: ", prompt)
 

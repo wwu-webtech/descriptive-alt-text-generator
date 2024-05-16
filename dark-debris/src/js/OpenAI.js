@@ -21,7 +21,7 @@ const handleOpenAICall = async (isFile) => {
 
 	let prompt = "Compose a detailed description in English for this image.";
 	if (limit_response != -1) {
-		prompt += ` Limit the response to under ${limit_response} characters.`
+		prompt += ` Limit the description to under ${limit_response} characters.`
 	}
 	console.log(prompt)
 
@@ -74,7 +74,7 @@ const handleOpenAIRefineResults = async (isFile) => {
 
 	let prompt = `Building on the initial response of ${initialResponse}, enhance the caption by incorporating the following additional information: ${additionalInfo}.`;
 	if (limit_response != -1) {
-		prompt += ` Limit the response to under ${limit_response} characters.`
+		prompt += ` Limit the description to under ${limit_response} characters.`
 	}
 
 	console.log("GPT Refine: ", prompt)
