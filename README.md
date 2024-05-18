@@ -1,4 +1,4 @@
-# descriptive-alt-text-generator
+# Descriptive Alt Text Generator
 
 ## How to run the project
 
