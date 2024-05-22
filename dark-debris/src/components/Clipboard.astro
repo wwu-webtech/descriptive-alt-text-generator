@@ -2,7 +2,7 @@
 // Component to copy text area content to clipboard on click
 const { copy_button_id } = Astro.props;
 ---
-<button class="copy-button" id={copy_button_id} aria-label="Copy text">
+<button class="copy-button" id={copy_button_id} aria-label="Copy text" disabled>
 	<i class="material-icons">content_copy</i>
 </button>
 
