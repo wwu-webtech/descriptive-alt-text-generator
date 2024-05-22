@@ -2,6 +2,7 @@
 import { handleGeminiCall, handleGeminiURL } from "./Gemini";
 import { handleOpenAICall } from "./OpenAI";
 import { showErrorDialog } from "./ModalHelper";
+import { updateCharacterCount } from "./Clipboard";
 
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
@@ -20,8 +21,10 @@ file_button.addEventListener("click", async () => {
     if (dataURL === "data:,") {
       showErrorDialog("Oops! Looks like there's no image to evaluate. Please upload an image to continue.");
     } else {
-      handleGeminiCall(true);
+      await handleGeminiCall(true);
+      updateCharacterCount("gemini-area", "copy-gemini-button", "gemini-char-count");
       await handleOpenAICall(true);
+      updateCharacterCount("chatgpt-area", "copy-chatgpt-button", "chatgpt-char-count");
     }
 
   } catch (error) {
@@ -37,8 +40,10 @@ url_button.addEventListener("click", async () => {
   loading.showModal();
   console.log("Evaluating...");
   try {
-    handleGeminiCall(false);
+    await handleGeminiCall(false);
+    updateCharacterCount("gemini-area", "copy-gemini-button", "gemini-char-count");
     await handleOpenAICall(false);
+    updateCharacterCount("chatgpt-area", "copy-chatgpt-button", "chatgpt-char-count");
   } catch (error) {
     console.error(error);
   } finally {
