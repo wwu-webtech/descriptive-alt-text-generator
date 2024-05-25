@@ -18,6 +18,9 @@
 	width: 95%;
 }
 
-#advanced-options summary {
+#advanced-options summary,#character-limit summary, #other-options summary{
 	border: none;
+	padding: 0;
 }
+
+

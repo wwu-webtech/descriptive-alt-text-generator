@@ -12,3 +12,11 @@
 	width: 5em;
 	display: block;
 }
+
+#responsible-use-modal {
+	max-width: 50%;
+}
+
+#responsible-use-modal {
+	text-align: center;
+}
