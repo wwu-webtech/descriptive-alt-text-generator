@@ -8,5 +8,3 @@
     * In a development environment: `npm run dev`
     * Create a build directory with a production build of your app: `npm run build`
     * Boot up a local static web server that serves the files from dist: `npm run preview`
-
-test
