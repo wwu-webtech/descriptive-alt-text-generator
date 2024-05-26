@@ -1,12 +1,26 @@
+const dialog = document.getElementById("responsible-use-modal")
+
 const chatgptCopy = document.getElementById("copy-chatgpt-button");
-chatgptCopy.addEventListener("click", () =>
-	copyTextFromTextArea("chatgpt-area"),
-);
+chatgptCopy.addEventListener("click", () => {
+	copyTextFromTextArea("chatgpt-area")
+	
+	const modalOff = document.getElementById("responsible-use").checked;
+	console.log(modalOff)
+	if (!modalOff) {
+		dialog.showModal()
+	}
+});
 
 const geminiCopy = document.getElementById("copy-gemini-button");
-geminiCopy.addEventListener("click", () => 
+geminiCopy.addEventListener("click", () => {
 	copyTextFromTextArea("gemini-area")
-);
+
+	const modalOff = document.getElementById("responsible-use").checked;
+	console.log(modalOff)
+	if (!modalOff) {
+		dialog.showModal()
+	}
+});
 
 function copyTextFromTextArea(textAreaId) {
 	const textArea = document.getElementById(textAreaId);
@@ -33,7 +47,7 @@ function getCharacterCount(textAreaId) {
 }
 
 const updateCharacterCount = (areaName, buttonName, countName) => {
-	let count = getCharacterCount(areaName);	
+	let count = getCharacterCount(areaName);
 
 	if (count != 0) {
 		document.getElementById(buttonName).removeAttribute('disabled')
@@ -57,4 +71,4 @@ window.onload = () => {
 	document.getElementById("chatgpt-char-count").textContent = getCharacterCount("chatgpt-area");
 }
 
-export {updateCharacterCount}
+export { updateCharacterCount }
