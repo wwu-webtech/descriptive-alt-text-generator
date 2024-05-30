@@ -1,9 +1,12 @@
+---
+import Metadata from "./Metadata.astro";
+---
 <astro-upload>
 	<div class="wwu-card horizontal dark-blue-bg">
 		<div class="body">
 			<form id="file-upload-form">
 				<label for="file-input"><h3>File</h3></label>
-				<input type="file" id="file-input" accept=".png,.jpg,.jpeg,.webp" />
+				<input type="file" id="file-input" accept=".png,.jpg,.jpeg,.webp"/>
 
 				<details id="advanced-options">
 					<summary>Advanced Options</summary>
@@ -17,8 +20,8 @@
 								value="140"
 								checked
 							/><label for="limit-response-140"
-								>Limit responses to under 140 characters.</label
-							>
+						>Limit responses to under 140 characters.</label
+						>
 						</div>
 						<div class="radio">
 							<input
@@ -27,8 +30,8 @@
 								name="limit"
 								value="280"
 							/><label for="limit-response-280"
-								>Limit responses to under 280 characters.</label
-							>
+						>Limit responses to under 280 characters.</label
+						>
 						</div>
 						<div class="radio">
 							<input
@@ -44,7 +47,11 @@
 						<div class="checkbox">
 							<input type="checkbox" id="responsible-use" name="responsible-use"/>
 							<label for="responsible-use">Turn off responsible use modal</label>
-							
+
+						</div>
+						<div class="checkbox">
+							<input type="checkbox" id="show-metadata" name="show-metadata" checked="checked"/>
+							<label for="show-metadata">Enable download metadata button</label>
 						</div>
 					</details>
 				</details>
@@ -52,7 +59,13 @@
 
 			<button id="evaluate-image">Evaluate Image</button>
 		</div>
-		<canvas aria-label="Image to generate" id="canvas"></canvas>
+		<div class="image-area">
+			<canvas aria-label="Image to generate" id="canvas">
+			</canvas>
+			<div class="bottom-right-metadata">
+				<Metadata/>
+			</div>
+		</div>
 	</div>
 </astro-upload>
 
@@ -60,10 +73,11 @@
 	class AstroUpload extends HTMLElement {
 		constructor() {
 			super();
+			}
 		}
-	}
-	// document.getElementById("prompt").value = "";
-	customElements.define("astro-upload", AstroUpload);
+
+		// document.getElementById("prompt").value = "";
+		customElements.define("astro-upload", AstroUpload);
 </script>
 
 <script src="../js/UploadHelper.js"></script>

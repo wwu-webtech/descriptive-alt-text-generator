@@ -16,11 +16,21 @@
 	margin: 10px;
 	object-fit: contain;
 	width: 95%;
+
 }
 
-#advanced-options summary,#character-limit summary, #other-options summary{
+#advanced-options summary, #character-limit summary, #other-options summary {
 	border: none;
 	padding: 0;
+}
+
+#other-options {
+	flex-direction: column;
+}
+
+#other-options div {
+	display: flex;
+	flex-direction: row;
 }
 
 
