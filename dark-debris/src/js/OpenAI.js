@@ -2,7 +2,10 @@ import {getCharLimit} from "./apiHelper";
 import OpenAI from "openai";
 import {showErrorDialog} from "./ModalHelper";
 
-
+/**
+ * Function to handle the OpenAI API call for generating image descriptions using GPT models.
+ * @param {boolean} isFile - Determines if the input is a file or a URL.
+ */
 const handleOpenAICall = async (isFile) => {
 	var limit_response = getCharLimit(isFile);
 	const openai = new OpenAI({
@@ -63,6 +66,10 @@ const handleOpenAICall = async (isFile) => {
 	}
 }
 
+/**
+ * Function to refine the OpenAI API results with additional information.
+ * @param {boolean} isFile - Determines if the input is a file or a URL.
+ */
 const handleOpenAIRefineResults = async (isFile) => {
 	var limit_response = getCharLimit(isFile);
 

@@ -2,6 +2,10 @@ import {getCharLimit} from "./apiHelper";
 import {GoogleGenerativeAI} from "@google/generative-ai";
 import {showErrorDialog} from "./ModalHelper";
 
+/**
+ * Function to handle the Gemini API call for image analysis using a canvas blob or a URL.
+ * @param {boolean} isFile - Determines if the input is a file or a URL.
+ */
 const handleGeminiCall = async (isFile) => {
 	let limit_response = getCharLimit(isFile);
 	let canvas;
@@ -60,6 +64,9 @@ const handleGeminiCall = async (isFile) => {
 	}
 };
 
+/**
+ * Function to handle the Gemini API call for image analysis using an image URL.
+ */
 const handleGeminiURL = async () => {
 	const imageUrl = document.getElementById("url-upload").value;
 
@@ -129,6 +136,10 @@ const handleGeminiURL = async () => {
 	}
 };
 
+/**
+ * Function to refine the Gemini API results with additional information.
+ * @param {boolean} isFile - Determines if the input is a file or a URL.
+ */
 const handleGeminiRefineResults = async (isFile) => {
 	var limit_response = getCharLimit(isFile);
 	const initialResponse = document.getElementById("gemini-area").value;

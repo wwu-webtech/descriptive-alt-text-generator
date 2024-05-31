@@ -1,3 +1,8 @@
+/**
+ * Function to get the character limit based on the user's selection.
+ * @param {boolean} isFile - Determines if the input is a file or a URL.
+ * @returns {number} - The character limit (140, 280, or -1 for no limit).
+ */
 const getCharLimit = (isFile) => {
     let limit = 0;
 
