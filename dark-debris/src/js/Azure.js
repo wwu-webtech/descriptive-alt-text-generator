@@ -1,5 +1,8 @@
 import { getCharLimit } from "./apiHelper";
 
+/**
+ * Function to handle the Azure API call for image analysis using a canvas blob.
+ */
 const handleAzureCall = async () => {
     const canvas = document.getElementById("canvas");
     const headers = {
@@ -37,6 +40,9 @@ const handleAzureCall = async () => {
     });
 };
 
+/**
+ * Function to handle the Azure API call for image analysis using a URL.
+ */
 const handleAzureURL = async () => {
     const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
     const url = document.getElementById("url-upload").value;

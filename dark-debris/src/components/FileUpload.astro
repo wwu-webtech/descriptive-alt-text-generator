@@ -1,6 +1,3 @@
----
-import Metadata from "./Metadata.astro";
----
 <astro-upload>
 	<div class="wwu-card horizontal dark-blue-bg">
 		<div class="body">
@@ -8,8 +5,11 @@ import Metadata from "./Metadata.astro";
 				<label for="file-input"><h3>File</h3></label>
 				<input type="file" id="file-input" accept=".png,.jpg,.jpeg,.webp"/>
 
+				<!-- Expandable section for advanced options: Contains two submenus: character limit and other -->
 				<details id="advanced-options">
 					<summary>Advanced Options</summary>
+
+					 <!-- Expandable section for character limit settings -->
 					<details id="character-limit" open>
 						<summary>Character Limit</summary>
 						<div class="radio">
@@ -19,9 +19,10 @@ import Metadata from "./Metadata.astro";
 								name="limit"
 								value="140"
 								checked
-							/><label for="limit-response-140"
-						>Limit responses to under 140 characters.</label
-						>
+							/>
+							<label for="limit-response-140">
+								Limit responses to under 140 characters.
+							</label>
 						</div>
 						<div class="radio">
 							<input
@@ -29,9 +30,9 @@ import Metadata from "./Metadata.astro";
 								id="limit-response-280"
 								name="limit"
 								value="280"
-							/><label for="limit-response-280"
-						>Limit responses to under 280 characters.</label
-						>
+							/><label for="limit-response-280">
+							Limit responses to under 280 characters.
+						</label>
 						</div>
 						<div class="radio">
 							<input
@@ -39,15 +40,19 @@ import Metadata from "./Metadata.astro";
 								id="limit-response-none"
 								name="limit"
 								value="no-limit"
-							/><label for="limit-response-none">No character limit.</label>
+							/>
+							<label for="limit-response-none">
+								No character limit.
+							</label>
 						</div>
 					</details>
+
+					<!-- Expandable section for other options -->
 					<details id="other-options">
 						<summary>Other</summary>
 						<div class="checkbox">
 							<input type="checkbox" id="responsible-use" name="responsible-use"/>
 							<label for="responsible-use">Turn off responsible use modal</label>
-
 						</div>
 						<div class="checkbox">
 							<input type="checkbox" id="show-metadata" name="show-metadata" checked="checked"/>
@@ -77,11 +82,7 @@ import Metadata from "./Metadata.astro";
 			super();
 		}
 	}
-
-	// document.getElementById("prompt").value = "";
 	customElements.define("astro-upload", AstroUpload);
 </script>
 
 <script src="../js/UploadHelper.js"></script>
-
-<!-- "Requests to the ChatCompletions_Create Operation under Azure OpenAI API version 2024-03-01-preview have exceeded call rate limit of your current OpenAI S0 pricing tier. Please retry after 18 seconds. Please go here: https://aka.ms/oai/quotaincrease if you would like to further increase the default rate limit." -->

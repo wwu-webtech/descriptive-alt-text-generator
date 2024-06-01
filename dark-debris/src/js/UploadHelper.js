@@ -10,6 +10,7 @@ const context = canvas.getContext("2d");
 canvas.width = 0;
 canvas.height = 0;
 
+// Event listener for clicking the "Evaluate Image" button for file uploads
 const file_button = document.getElementById("evaluate-image");
 file_button.addEventListener("click", async () => {
 	const loading = document.getElementById("evaluate-loading");
@@ -35,6 +36,7 @@ file_button.addEventListener("click", async () => {
 	}
 });
 
+// Event listener for clicking the "Evaluate URL" button for URL uploads
 const url_button = document.getElementById("evaluate-url");
 url_button.addEventListener("click", async () => {
 	const loading = document.getElementById("evaluate-loading");
@@ -52,6 +54,7 @@ url_button.addEventListener("click", async () => {
 	}
 });
 
+// Event listener for file input changes
 const fileInput = document.getElementById("file-input");
 fileInput.addEventListener("change", () => {
 	// Clear the results
@@ -83,6 +86,7 @@ fileInput.addEventListener("change", () => {
 const urlCanvas = document.getElementById("url-canvas");
 const urlContext = urlCanvas.getContext("2d");
 
+// Event listener for URL input changes
 const urlInput = document.getElementById("url-upload");
 urlInput.addEventListener("input", () => {
 
