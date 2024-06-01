@@ -1,3 +1,6 @@
+---
+import Metadata from './Metadata.astro'
+---
 <astro-upload>
 	<div class="wwu-card horizontal dark-blue-bg">
 		<div class="body">
@@ -9,7 +12,7 @@
 				<details id="advanced-options">
 					<summary>Advanced Options</summary>
 
-					 <!-- Expandable section for character limit settings -->
+					<!-- Expandable section for character limit settings -->
 					<details id="character-limit" open>
 						<summary>Character Limit</summary>
 						<div class="radio">
@@ -82,6 +85,7 @@
 			super();
 		}
 	}
+
 	customElements.define("astro-upload", AstroUpload);
 </script>
 
