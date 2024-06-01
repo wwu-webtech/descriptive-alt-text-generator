@@ -12,11 +12,22 @@
 	margin-bottom: 10px;
 }
 
-#canvas {
+.image-area {
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: center;
+}
+
+.image-area-content {
 	margin: 10px;
+	display: flex;
+	flex-direction: row-reverse;
+	position: relative;
+}
+
+#canvas {
 	object-fit: contain;
 	width: 95%;
-
 }
 
 #advanced-options summary, #character-limit summary, #other-options summary {

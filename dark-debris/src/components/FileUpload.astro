@@ -60,10 +60,12 @@ import Metadata from "./Metadata.astro";
 			<button id="evaluate-image">Evaluate Image</button>
 		</div>
 		<div class="image-area">
-			<canvas aria-label="Image to generate" id="canvas">
-			</canvas>
-			<div class="bottom-right-metadata">
-				<Metadata/>
+			<div class="image-area-content">
+				<canvas aria-label="Image to generate" id="canvas">
+				</canvas>
+				<div class="bottom-right-metadata">
+					<Metadata/>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -73,11 +75,11 @@ import Metadata from "./Metadata.astro";
 	class AstroUpload extends HTMLElement {
 		constructor() {
 			super();
-			}
 		}
+	}
 
-		// document.getElementById("prompt").value = "";
-		customElements.define("astro-upload", AstroUpload);
+	// document.getElementById("prompt").value = "";
+	customElements.define("astro-upload", AstroUpload);
 </script>
 
 <script src="../js/UploadHelper.js"></script>

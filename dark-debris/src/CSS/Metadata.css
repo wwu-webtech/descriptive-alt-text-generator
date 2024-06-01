@@ -12,6 +12,7 @@
 	background-image: none;
 	background-color: rgba(28, 32, 35, 1);
 	color: white;
+	box-shadow: none;
 }
 
 .download-button:active {
@@ -30,12 +31,10 @@
 	display: flex;
 	flex-direction: row;
 	position: absolute;
-	bottom: 1em;
-	right: 1em;
-}
-
-.image-area {
-	width: 100%;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	bottom: 0;
+	right: 0;
 }
 
 
