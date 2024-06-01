@@ -5,7 +5,7 @@
 	cursor: pointer;
 	font-size: 1.4em;
 	background-color: rgba(28, 32, 35, 0.50);
-	border-radius: 14px;
+	border-radius: 12px;
 }
 
 .download-button:hover {

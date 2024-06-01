@@ -55,7 +55,9 @@ function downloadCSV(csv, filename) {
 async function exportDataAsCSV() {
 	try {
 		const csv = await convertToCSV(metadata);      // Step 2: Convert data to CSV format
-		downloadCSV(csv, 'metadata.csv');    // Step 3: Download the CSV file
+		const file = document.getElementById("file-input").files[0].name;
+		const filename = file.slice(0, file.indexOf('.')) + "-metadata.csv";
+		downloadCSV(csv, filename);    // Step 3: Download the CSV file
 	} catch (error) {
 		console.error("Error exporting data:", error);
 	}
