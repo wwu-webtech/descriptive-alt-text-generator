@@ -5,12 +5,16 @@
 	margin: auto;
 	word-break: break-word;
 	white-space: normal;
+	text-align: center;
 }
 
 #dialog-close-button {
 	margin: auto;
+	margin-top: 1em;
 	width: 5em;
 	display: block;
+	background-color: var(--button-background-color);
+	color: white;
 }
 
 #responsible-use-modal {
