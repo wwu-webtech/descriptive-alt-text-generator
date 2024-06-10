@@ -13,25 +13,33 @@
   "routes": [
     {
       "route": "/Generate.html",
-      "allowedRoles": ["authenticated"]
+      "allowedRoles": [
+        "authenticated"
+      ]
     },
     {
       "route": "/UsageData.html",
-      "allowedRoles": ["authenticated"]
+      "allowedRoles": [
+        "authenticated"
+      ]
     },
     {
       "route": "/PersonalSettings.html",
-      "allowedRoles": ["authenticated"]
+      "allowedRoles": [
+        "authenticated"
+      ]
     },
     {
       "route": "/AdministrationTools.html",
-      "allowedRoles": ["authenticated"]
+      "allowedRoles": [
+        "authenticated"
+      ]
     }
   ],
   "responseOverrides": {
     "401": {
       "statusCode": 302,
-      "redirect": "/Login.html"
+      "redirect": "/.auth/login/aad/github?post_login_redirect_uri=.referrer"
     }
   }
 }
