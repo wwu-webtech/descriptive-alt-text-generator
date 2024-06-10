@@ -10,6 +10,11 @@
 
 #evaluate-image {
 	margin-bottom: 10px;
+	width: 100%;
+	background-color: var(--button-background-color);
+	border-radius: 3px;
+	color: white;
+	border: none;
 }
 
 .image-area {

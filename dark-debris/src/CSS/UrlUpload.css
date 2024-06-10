@@ -1,29 +1,30 @@
 #url-upload-form {
 	margin-top: 20px;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 }
 
 #url-upload {
 	width: 100%;
-	line-height: 1.5em;
+	/* line-height: 1.5em; */
 }
 
 #evaluate-url {
-	margin-top: 19.5px;
+	/* margin-top: 20px; */
 	margin-bottom: 10px;
-}
-#url-img {
-	object-fit: contain;
-}
-
-#url-img img{
-    object-fit: contain;
-    margin: 10px;
-    width: 95%;
+	width: 100%;
+	background-color: var(--button-background-color);
+	border-radius: 3px;
+	color: white;
+	border: none;
 }
 
 #url-canvas {
     margin: 10px;
     object-fit: contain;
     width: 95%;
+}
+
+#advanced-options summary,#character-limit summary, #other-options summary{
+	border: none;
+	padding: 0;
 }
