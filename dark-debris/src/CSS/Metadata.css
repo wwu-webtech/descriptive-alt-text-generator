@@ -1,0 +1,40 @@
+.download-button {
+	border: none;
+	box-shadow: none;
+	color: white;
+	cursor: pointer;
+	font-size: 1.4em;
+	background-color: rgba(28, 32, 35, 0.50);
+	border-radius: 12px;
+}
+
+.download-button:hover {
+	background-image: none;
+	background-color: rgba(28, 32, 35, 1);
+	color: white;
+	box-shadow: none;
+}
+
+.download-button:active {
+	background-image: none;
+	background-color: rgba(28, 32, 35, 1);
+	color: white
+}
+
+.download-button:focus {
+	background-image: none;
+	background-color: rgba(28, 32, 35, 1);
+	color: white
+}
+
+.bottom-right-metadata {
+	display: flex;
+	flex-direction: row;
+	position: absolute;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	bottom: 0;
+	right: 0;
+}
+
+
