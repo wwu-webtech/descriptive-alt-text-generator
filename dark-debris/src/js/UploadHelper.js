@@ -14,8 +14,12 @@ canvas.height = 0;
 const file_button = document.getElementById("evaluate-image");
 file_button.addEventListener("click", async () => {
 	const loading = document.getElementById("evaluate-loading");
+
+	// Close advanced options detail
+	document.getElementById("advanced-options").removeAttribute("open")
+
+	// Open loading modal
 	loading.showModal();
-	console.log("Evaluating...");
 
 	try {
 		const dataURL = canvas.toDataURL("image/jpeg", 0.5);
