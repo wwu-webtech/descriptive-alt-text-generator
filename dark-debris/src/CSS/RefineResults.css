@@ -1,12 +1,12 @@
-#refine-detail {
+#refine-gemini-detail, #refine-chatgpt-detail {
 	width: 75%;
 	border-color: transparent;
 }
 
-#refine-detail summary {
+#refine-gemini-detail summary, #refine-chatgpt-detail summary {
 	border: none;
 }
 
-#refine-detail textarea {
+#refine-gemini-detail textarea, #refine-chatgpt-detail textarea {
 	width: 100%;
 }

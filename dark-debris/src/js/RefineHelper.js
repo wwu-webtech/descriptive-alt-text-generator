@@ -8,6 +8,7 @@ const gemini_refine = document.getElementById("refine-gemini-button");
 gemini_refine.addEventListener("click", async () => {
     // Show loading modal while refining
     const loading = document.getElementById("evaluate-loading");
+    document.getElementById("refine-gemini-detail").removeAttribute("open");
     loading.showModal();
     console.log("Refining...");
 
@@ -30,6 +31,9 @@ const chatgpt_refine = document.getElementById("refine-chatgpt-button");
 chatgpt_refine.addEventListener("click", async () => {
     // Show loading modal while refining
     const loading = document.getElementById("evaluate-loading");
+
+    document.getElementById("refine-chatgpt-detail").removeAttribute("open");
+    
     loading.showModal();
     console.log("Refining...");
 

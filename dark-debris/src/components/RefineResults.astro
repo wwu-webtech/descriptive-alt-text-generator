@@ -1,13 +1,14 @@
 ---
 interface Props {
+  detail_id: string;
   model_id: string;
   button_id: string;
 }
 
-const { model_id, button_id } = Astro.props;
+const { detail_id, model_id, button_id } = Astro.props;
 ---
 
-<details id="refine-detail">
+<details id={detail_id}>
     <summary>Refine results</summary>
   <label for={model_id}><h4>Additional information</h4></label>
   <textarea
