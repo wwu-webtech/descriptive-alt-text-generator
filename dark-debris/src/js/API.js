@@ -109,7 +109,7 @@ const handleGeminiRefineResults = async () => {
 
 	if (dataURL !== "data:," && additionalInfo != "") {
 		const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
-		const model = genAI.getGenerativeModel({model: "gemini-pro-vision"});
+		const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
 		let prompt = `Building on the intial response of ${initialResponse}, enhance the caption by incorporating the following additional information: ${additionalInfo}.`;
 		if (limit_response) {
 			prompt += " Limit the response to under 260 characters.";
@@ -201,7 +201,7 @@ const handleGeminiURL = async () => {
 
 	if (imageUrl.trim() !== "") {
 		const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
-		const model = genAI.getGenerativeModel({model: "gemini-pro-vision"});
+		const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
 
 		const promptFieldValue = document.getElementById("prompt").value;
 		let prompt = "Compose a detailed description in English for this image.";
