@@ -55,7 +55,7 @@ const handleGeminiCall = async () => {
 	const dataURL = canvas.toDataURL("image/jpeg", 0.5);
 	if (dataURL !== "data:,") {
 		const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
-		const model = genAI.getGenerativeModel({model: "gemini-pro-vision"});
+		const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
 		var limit_response = document.getElementById("limit-response").checked;
 
 		let prompt = "Compose a detailed description in English for this image.";
