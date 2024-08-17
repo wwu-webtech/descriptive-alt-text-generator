@@ -5,10 +5,11 @@ import Metadata from './Metadata.astro'
 	<div class="wwu-card horizontal dark-blue-bg">
 		<div class="body">
 			<form id="file-upload-form">
-				<label for="file-input"><h3>File</h3></label>
+				<label for="file-input"><h3>Name of File</h3></label>
 				<input type="file" id="file-input" accept=".png,.jpg,.jpeg,.webp"/>
 
 				<!-- Expandable section for advanced options: Contains two submenus: character limit and other -->
+<h2>Advanced</h2>
 				<details id="advanced-options">
 					<summary>Advanced Options</summary>
 
@@ -50,6 +51,7 @@ import Metadata from './Metadata.astro'
 						</div>
 					</details>
 
+					
 					<!-- Expandable section for other options -->
 					<details id="other-options">
 						<summary>Other</summary>
@@ -59,7 +61,7 @@ import Metadata from './Metadata.astro'
 						</div>
 						<div class="checkbox">
 							<input type="checkbox" id="show-metadata" name="show-metadata" checked="checked"/>
-							<label for="show-metadata">Enable download metadata button</label>
+							<label for="show-metadata">Enable the download of metadata button</label>
 						</div>
 					</details>
 				</details>

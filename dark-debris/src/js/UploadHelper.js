@@ -25,7 +25,7 @@ file_button.addEventListener("click", async () => {
 		const dataURL = canvas.toDataURL("image/jpeg", 0.5);
 
 		if (dataURL === "data:,") {
-			showErrorDialog("Oops! Looks like there's no image to evaluate. Please upload an image to continue.");
+			showErrorDialog("Oh no! Looks like there's no image to evaluate. Please upload an image to continue with this software.");
 		} else {
 			await handleGeminiCall(true);
 			updateCharacterCount("gemini-area", "copy-gemini-button", "gemini-char-count");
@@ -45,7 +45,7 @@ const url_button = document.getElementById("evaluate-url");
 url_button.addEventListener("click", async () => {
 	const loading = document.getElementById("evaluate-loading");
 	loading.showModal();
-	console.log("Evaluating...");
+	console.log("Evaluating the URL...");
 	try {
 		await handleGeminiCall(false);
 		updateCharacterCount("gemini-area", "copy-gemini-button", "gemini-char-count");
