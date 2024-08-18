@@ -1,11 +1,12 @@
 ---
+import { fileFromPath } from 'openai'
 import Metadata from './Metadata.astro'
 ---
 <astro-upload>
 	<div class="wwu-card horizontal dark-blue-bg">
 		<div class="body">
 			<form id="file-upload-form">
-				<label for="file-input"><h3>Name of File</h3></label>
+	<label for="		"><h3>Name of File</h3></label>
 				<input type="file" id="file-input" accept=".png,.jpg,.jpeg,.webp"/>
 
 				<!-- Expandable section for advanced options: Contains two submenus: character limit and other -->
@@ -67,7 +68,7 @@ import Metadata from './Metadata.astro'
 				</details>
 			</form>
 
-			<button id="evaluate-image">Evaluate Image</button>
+			<button id="evaluate-image">Evaluate {fileFromPath.name}</button>
 		</div>
 		<div class="image-area">
 			<div class="image-area-content">

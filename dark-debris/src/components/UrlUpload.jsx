@@ -13,7 +13,7 @@ export default function UrlUpload() {
 				<div className="body">
 					<form id="url-upload-form ">
 						<label htmlFor="url-upload">
-							<h3>URL</h3>
+							<h3>URL to evaluate:</h3>
 						</label>
 						<input
 							id="url-upload"
@@ -40,7 +40,6 @@ export default function UrlUpload() {
 				<div id="url-img">
 					{url && (
 						<img
-							role="img"
 							aria-label="Generate Results"
 							src={url}
 							alt="Image failed to load. Did you submit the correct link?"
