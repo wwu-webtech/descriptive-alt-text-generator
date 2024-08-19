@@ -6,14 +6,14 @@ import Metadata from './Metadata.astro'
 	<div class="wwu-card horizontal dark-blue-bg">
 		<div class="body">
 			<form id="file-upload-form">
-	<label for="		"><h3>Name of File</h3></label>
+	<label for="		"><h3>Name of File, please.</h3></label>
 				<input type="file" id="file-input" accept=".png,.jpg,.jpeg,.webp"/>
 
-				<!-- Expandable section for advanced options: Contains two submenus: character limit and other -->
-<h2>Advanced</h2>
+				<!-- Expandable section for advanced options: Contains two submenus currently: character limit, and other -->
+<h3>Advanced Options</h3>
 				<details id="advanced-options">
-					<summary>Advanced Options</summary>
-
+<summary>A place for individuals to store their individual settings.</summary>
+				
 					<!-- Expandable section for character limit settings -->
 					<details id="character-limit" open>
 						<summary>Character Limit</summary>
@@ -56,6 +56,7 @@ import Metadata from './Metadata.astro'
 					<!-- Expandable section for other options -->
 					<details id="other-options">
 						<summary>Other</summary>
+
 						<div class="checkbox">
 							<input type="checkbox" id="responsible-use" name="responsible-use"/>
 							<label for="responsible-use">Turn off responsible use modal</label>
@@ -68,12 +69,12 @@ import Metadata from './Metadata.astro'
 				</details>
 			</form>
 
-			<button id="evaluate-image">Evaluate {fileFromPath.name}</button>
+			<button id="evaluate-image">Evaluate Selected Image</button>
 		</div>
 		<div class="image-area">
 			<div class="image-area-content">
-				<canvas aria-label="filename" id="canvas">
-				</canvas>
+				<canvas  id="canvas" aria-label="i'm hoping the filename will go here"></canvas>
+				
 				<div class="bottom-right-metadata">
 					<Metadata/>
 				</div>
