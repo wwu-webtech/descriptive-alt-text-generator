@@ -1,19 +1,19 @@
 ---
-import { fileFromPath } from 'openai'
+import {fileFromPath} from 'openai'
 import Metadata from './Metadata.astro'
 ---
 <astro-upload>
 	<div class="wwu-card horizontal dark-blue-bg">
 		<div class="body">
 			<form id="file-upload-form">
-	<label for="		"><h3>Name of File, please.</h3></label>
+				<label for="		"><h3>Name of File, please.</h3></label>
 				<input type="file" id="file-input" accept=".png,.jpg,.jpeg,.webp"/>
 
 				<!-- Expandable section for advanced options: Contains two submenus currently: character limit, and other -->
-<h3>Advanced Options</h3>
+				<h3>Advanced Options</h3>
 				<details id="advanced-options">
-<summary>A place for individuals to store their individual settings.</summary>
-				
+					<summary>A place for individuals to store their individual settings.</summary>
+
 					<!-- Expandable section for character limit settings -->
 					<details id="character-limit" open>
 						<summary>Character Limit</summary>
@@ -52,7 +52,7 @@ import Metadata from './Metadata.astro'
 						</div>
 					</details>
 
-					
+
 					<!-- Expandable section for other options -->
 					<details id="other-options">
 						<summary>Other</summary>
@@ -73,8 +73,8 @@ import Metadata from './Metadata.astro'
 		</div>
 		<div class="image-area">
 			<div class="image-area-content">
-				<canvas  id="canvas" aria-label="i'm hoping the filename will go here"></canvas>
-				
+				<canvas id="canvas" aria-label=""></canvas>
+
 				<div class="bottom-right-metadata">
 					<Metadata/>
 				</div>
