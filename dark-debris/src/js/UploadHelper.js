@@ -76,7 +76,7 @@ fileInput.addEventListener("change", () => {
 				// Adjust canvas size to the new dimensions
 				canvas.width = img.width;
 				canvas.height = img.height;
-
+				canvas.ariaLabel = trimFakePathPrefix(document.getElementById("file-input").value);
 				// Draw the image on the canvas
 				context.drawImage(img, 0, 0, img.width, img.height);
 				showMetadataButton();
@@ -86,6 +86,12 @@ fileInput.addEventListener("change", () => {
 		reader.readAsDataURL(selectedFile);
 	}
 });
+
+// trims C:\\fakepath\\ from the prefix of the filename 
+const trimFakePathPrefix = (path) => {
+	const fakePathPrefix = "C:\\fakepath\\";
+	return path.startsWith(fakePathPrefix) ? path.slice(fakePathPrefix.length) : path;
+}
 
 const urlCanvas = document.getElementById("url-canvas");
 const urlContext = urlCanvas.getContext("2d");
