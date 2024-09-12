@@ -10,14 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^3.0.10",
+    "@astrojs/react": "^3.6.2",
     "@azure/msal-browser": "^3.11.1",
     "@azure/msal-react": "^2.0.14",
     "@azure/openai": "^1.0.0-beta.12",
     "@google/generative-ai": "^0.2.1",
     "@types/react": "^18.2.57",
     "@types/react-dom": "^18.2.19",
-    "astro": "^0.17.3",
+    "astro": "^4.15.4",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "exifreader": "^4.23.1",
