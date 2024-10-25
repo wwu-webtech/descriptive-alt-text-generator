@@ -1,5 +1,5 @@
 import {getCharLimit} from "./apiHelper";
-import OpenAI from "openai";
+import {AzureOpenAI} from 'openai';
 import {showErrorDialog} from "./ModalHelper";
 
 /**
@@ -8,11 +8,11 @@ import {showErrorDialog} from "./ModalHelper";
  */
 const handleOpenAICall = async (isFile) => {
 	var limit_response = getCharLimit(isFile);
-	const openai = new OpenAI({
+
+	const openai = new AzureOpenAI({
 		apiKey: import.meta.env.PUBLIC_CHATGPT_KEY,
 		dangerouslyAllowBrowser: true
 	});
-
 	let canvas;
 	if (isFile) {
 		canvas = document.getElementById("canvas");
@@ -87,7 +87,7 @@ const handleOpenAIRefineResults = async (isFile) => {
 	console.log("GPT Refine: ", prompt)
 
 	if (dataURL !== "data:," && additionalInfo != "") {
-		const openai = new OpenAI({
+		const openai = new AzureOpenAI({
 			apiKey: import.meta.env.PUBLIC_CHATGPT_KEY,
 			dangerouslyAllowBrowser: true
 		});
