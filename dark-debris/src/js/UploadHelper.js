@@ -15,6 +15,9 @@ const file_button = document.getElementById("evaluate-image");
 file_button.addEventListener("click", async () => {
 	const loading = document.getElementById("evaluate-loading");
 
+	//Only show results upon clicking "Evaluate Image"
+	document.getElementById("results-container").style.display = "block";
+
 	// Close advanced options detail
 	document.getElementById("advanced-options").removeAttribute("open")
 
