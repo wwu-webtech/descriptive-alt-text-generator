@@ -1,4 +1,4 @@
-const dialog = document.getElementById("responsible-use-modal")
+
 
 /**
  * Adding an event listener to the copy text button in the chatgpt text area.
@@ -8,11 +8,6 @@ const chatgptCopy = document.getElementById("copy-chatgpt-button");
 chatgptCopy.addEventListener("click", () => {
 	copyTextFromTextArea("chatgpt-area")
 	
-	const modalOff = document.getElementById("responsible-use").checked;
-	console.log(modalOff)
-	if (!modalOff) {
-		dialog.showModal()
-	}
 });
 
 /**
@@ -23,11 +18,7 @@ const geminiCopy = document.getElementById("copy-gemini-button");
 geminiCopy.addEventListener("click", () => {
 	copyTextFromTextArea("gemini-area")
 
-	const modalOff = document.getElementById("responsible-use").checked;
-	console.log(modalOff)
-	if (!modalOff) {
-		dialog.showModal()
-	}
+
 });
 
 /**
