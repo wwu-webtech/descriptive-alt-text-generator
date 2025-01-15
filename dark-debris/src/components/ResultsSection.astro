@@ -2,10 +2,17 @@
 import RefineResults from "./RefineResults.astro";
 import Clipboard from "./Clipboard.astro";
 import CharacterCount from "./CharacterCount.astro";
+
+//gives init val to fileName
+let fileName = 'None';
 ---
+
+
 
 <div id="results-container" style="display: none;">
 	<h2 id="results-section">Results</h2>
+	<!--trying to add a selected image text for accesability, seems to work -->
+	<p>Selected file: <span id="file-name">{fileName}</span></p>
 
 	<label for="gemini-area"><h3>Gemini</h3></label>
 	<div class="resultsWithClipboard">
@@ -47,3 +54,11 @@ import CharacterCount from "./CharacterCount.astro";
 	</div>
 	<RefineResults detail_id="refine-chatgpt-detail" model_id="refine-chatgpt" button_id="refine-chatgpt-button"/>
 </div>
+
+<script type="module">
+	document.addEventListener('fileSelected', (event) => {
+	  const fileName = event.detail;
+	  const fileNameElement = document.querySelector('#file-name');
+	  fileNameElement.textContent = fileName;
+	});
+</script>

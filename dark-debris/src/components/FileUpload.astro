@@ -1,7 +1,14 @@
 ---
 import {fileFromPath} from 'openai'
 import Metadata from './Metadata.astro'
+
+// gets fileName
+const handleFileSelect = (event) => {
+  const fileName = event.target.files[0]?.name || 'None';
+  document.dispatchEvent(new CustomEvent('fileSelected', { detail: fileName }));
+};
 ---
+
 <astro-upload>
 	<div class="wwu-card horizontal dark-blue-bg">
 		<div class="body">
@@ -79,6 +86,15 @@ import Metadata from './Metadata.astro'
 	</div>
 </astro-upload>
 
+<!--Listener for fileName change from 'None' -->
+<script type="module">
+	const fileInput = document.querySelector('#file-input');
+	fileInput.addEventListener('change', (event) => {
+	  const fileName = event.target.files[0]?.name || 'None';
+	  document.dispatchEvent(new CustomEvent('fileSelected', { detail: fileName }));
+	});
+  </script>
+
 <script>
 	class AstroUpload extends HTMLElement {
 		constructor() {
@@ -88,5 +104,6 @@ import Metadata from './Metadata.astro'
 
 	customElements.define("astro-upload", AstroUpload);
 </script>
+
 
 <script src="../js/UploadHelper.js"></script>
