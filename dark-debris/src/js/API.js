@@ -190,7 +190,7 @@ const handleAzureURL = async () => {
 				document.getElementById("azure-area").value = captionText;
 			})
 			.catch((error) => {
-				showErrorDialog("Azure API Error.");
+				showErrorDialog("Azure API Error.", error);
 				console.error("Error: ", error);
 			});
 	}
@@ -239,7 +239,7 @@ const handleGeminiURL = async () => {
 			// Update the text area
 			document.getElementById("gemini-area").value = text;
 		} catch (error) {
-			showErrorDialog("Gemini API Error.");
+			showErrorDialog("Gemini API Error.", error.message);
 			console.error("Error during API request:", error.message);
 		}
 	} else {
@@ -290,7 +290,7 @@ const handleOpenAICall = async () => {
 			document.getElementById("chatgpt-area").value =
 				result.choices[0].message?.content;
 		} catch (error) {
-			showErrorDialog("ChatGPT API Error.");
+			showErrorDialog("ChatGPT API Error.", error.message);
 			console.log(error);
 			console.error("Error during API request:", error.message);
 		}
