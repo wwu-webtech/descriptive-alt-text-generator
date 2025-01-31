@@ -14,6 +14,7 @@ canvas.height = 0;
 const file_button = document.getElementById("evaluate-image");
 file_button.addEventListener("click", async () => {
 	const loading = document.getElementById("evaluate-loading");
+	const responsible_use = document.getElementById("responsible-use-modal");
 
 	//Only show results upon clicking "Evaluate Image"
 	document.getElementById("results-container").style.display = "block";
@@ -40,6 +41,8 @@ file_button.addEventListener("click", async () => {
 		console.error(error);
 	} finally {
 		loading.close();
+		// upon loading modal closing, opens responsible_use modal
+		responsible_use.showModal();
 	}
 });
 
