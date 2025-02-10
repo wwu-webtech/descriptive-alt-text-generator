@@ -1,23 +1,31 @@
 ---
 interface Props {
+  dialog_id: string; // seems like alot of variables, I'll ty cutting it back later..
   detail_id: string;
   model_id: string;
   button_id: string;
+  modal_id: string; // New dynamic modal id
 }
 
-const { detail_id, model_id, button_id } = Astro.props;
+const { dialog_id, detail_id, model_id, button_id, modal_id } = Astro.props;
 ---
+<button id={modal_id}>Refine Results</button>
 
-<details id={detail_id}>
-    <summary>Refine results</summary>
+<!-- Modal of refine results, might move to Dialog.astro -->
+<dialog id={dialog_id}>
+  <form id={detail_id}>
   <label for={model_id}><h4>Additional information</h4></label>
   <textarea
     id={model_id}
     placeholder="Enter additional information"
     wrap="hard"
     rows="2"></textarea>
-  <button id={button_id}>Refine</button>
-</details>
+    <form method="dialog">
+      <button id="dialog-close-button">Close</button>
+      <button id={button_id} autofocus>Refine</button>
+    </form>
+  </form>
+  </dialog>
 
+<!-- it was in the original so put it over here -->
 <script src="../js/RefineHelper.js"></script>
-

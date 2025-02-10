@@ -8,15 +8,6 @@
 	text-align: center;
 }
 
-#dialog-close-button {
-	margin: auto;
-	margin-top: 1em;
-	width: 5em;
-	display: block;
-	background-color: var(--button-background-color);
-	color: white;
-}
-
 #responsible-use-modal {
 	max-width: 50%;
 }

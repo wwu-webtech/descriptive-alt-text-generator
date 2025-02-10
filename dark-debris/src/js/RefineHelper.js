@@ -3,6 +3,28 @@ import { handleOpenAIRefineResults } from "./OpenAI";
 import { showErrorDialog } from "./ModalHelper";
 import { updateCharacterCount } from "./Clipboard";
 
+// TODO: Currently the refine results button doesn't do anything..
+// Event listener for the refine results for gemini button to pop up modal
+const refine_button_gemini = document.getElementById("refine-gemini-modal");
+refine_button_gemini.addEventListener("click", async () => {
+    try {
+        const refine_results_gemini = document.getElementById("refine-results-gemini");
+        refine_results_gemini.showModal(); // Show the modal
+    } catch (error) {
+        console.error("Error showing modal:", error);
+    }
+});
+
+// Event listener for the refine results for gemini button to pop up modal
+const refine_button_gpt = document.getElementById("refine-chatgpt-modal");
+refine_button_gpt.addEventListener("click", async () => {
+    try {
+        const refine_results_gpt = document.getElementById("refine-results-gpt");
+        refine_results_gpt.showModal(); // Show the modal
+    } catch (error) {
+        console.error("Error showing modal:", error);
+    }
+});
 // Event listener for the "Refine" button for Gemini refinement
 const gemini_refine = document.getElementById("refine-gemini-button");
 gemini_refine.addEventListener("click", async () => {

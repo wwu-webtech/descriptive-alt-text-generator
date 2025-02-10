@@ -43,6 +43,13 @@ file_button.addEventListener("click", async () => {
 		loading.close();
 		// upon loading modal closing, opens responsible_use modal
 		responsible_use.showModal();
+		// using it here to debug
+		//try {
+		//	const refine_results = document.getElementById("refine-results");
+		//	refine_results.showModal(); // Show the modal
+		//} catch (error) {
+		//	console.error("Error showing modal:", error);
+		//}
 	}
 });
 
