@@ -107,9 +107,16 @@ const handleFileSelect = (event) => {
 	</div>
 </astro-upload>
 
+<p>Selected file: <span id="file-name">No file selected</span></p>
+
+<ul id="image-list">
+	<!-- Dynamically populated list items will go here -->
+</ul>
+
 <script type="module">
 	const fileInput = document.querySelector("#file-input");
 	const imageList = document.querySelector("#image-list");
+	const fileNameSpan = document.querySelector("#file-name"); // Reference to the span for file name
 	const canvas = document.querySelector("#canvas");
 
 	fileInput.addEventListener("change", (event) => {
@@ -131,12 +138,16 @@ const handleFileSelect = (event) => {
 				img.style.width = "50px";
 				img.style.height = "50px";
 				img.classList.add("preview-image");
+				img.setAttribute("data-name", file.name); // Store the file name in a data attribute
 
 				listItem.appendChild(img);
 				imageList.appendChild(listItem);
 
 				// Add event listener to show image in the canvas when clicked
 				listItem.addEventListener("click", () => {
+					// Update the file name display with the clicked image's name
+					fileNameSpan.textContent = img.getAttribute("data-name");
+
 					const reader = new FileReader();
 					reader.onload = function (e) {
 						const imgElement = new Image();

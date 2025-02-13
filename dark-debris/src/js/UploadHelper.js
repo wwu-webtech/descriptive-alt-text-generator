@@ -73,25 +73,32 @@ url_button.addEventListener("click", async () => {
 
 // Event listener for file input changes
 const fileInput = document.getElementById("file-input");
+const fileNameSpan = document.getElementById("file-name"); // Reference to the span to display file name
+
 fileInput.addEventListener("change", () => {
-	// Clear the results
+	// Clear previous results
 	document.getElementById("gemini-area").value = "";
 	document.getElementById("chatgpt-area").value = "";
-	// document.getElementById("azure-area").value = ""
 
 	const selectedFile = fileInput.files[0];
 	if (selectedFile) {
+		// Update the file name display
+		fileNameSpan.textContent = selectedFile.name; // Display the name of the selected file
+
 		const reader = new FileReader();
 
 		reader.onload = function (e) {
 			const img = new Image();
 			img.onload = function () {
-				// Adjust canvas size to the new dimensions
+				// Adjust canvas size to the new image's dimensions
 				canvas.width = img.width;
 				canvas.height = img.height;
-				canvas.ariaLabel = trimFakePathPrefix(document.getElementById("file-input").value);
+				canvas.ariaLabel = trimFakePathPrefix(fileInput.value); // Clean fake path prefix
+
 				// Draw the image on the canvas
 				context.drawImage(img, 0, 0, img.width, img.height);
+
+				// Show metadata button (if applicable)
 				showMetadataButton();
 			};
 			img.src = e.target.result;
@@ -100,11 +107,12 @@ fileInput.addEventListener("change", () => {
 	}
 });
 
-// trims C:\\fakepath\\ from the prefix of the filename 
+// Function to trim "C:\fakepath\" prefix from the file input path
 const trimFakePathPrefix = (path) => {
 	const fakePathPrefix = "C:\\fakepath\\";
 	return path.startsWith(fakePathPrefix) ? path.slice(fakePathPrefix.length) : path;
 }
+
 
 const urlCanvas = document.getElementById("url-canvas");
 const urlContext = urlCanvas.getContext("2d");
