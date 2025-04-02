@@ -15,3 +15,27 @@
 #responsible-use-modal {
 	text-align: center;
 }
+
+/* General styles for the dialog */
+dialog {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    /*border: none;
+    padding: 20px;
+    border-radius: 10px;*/
+    text-align: center;
+}
+
+/* Light mode styles (default) */
+:root {
+    --background-color: white;
+    --text-color: black;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #333;
+        --text-color: #fff;
+    }
+}
