@@ -1,6 +1,12 @@
 import {getCharLimit} from "./apiHelper";
-import OpenAI from "openai";
 import {showErrorDialog} from "./ModalHelper";
+import { AzureOpenAIClient, AzureKeyCredential } from "@azure/openai";
+
+//AzureOpenAIClient vars and auth:
+const apiKey = new AzureKeyCredential("your API key");
+const endpoint = "https://your-azure-openai-resource.com";
+const apiVersion = "2024-10-21"
+const deployment = "gpt-35-turbo";
 
 /**
  * Function to handle the OpenAI API call for generating image descriptions using GPT models.
@@ -8,10 +14,14 @@ import {showErrorDialog} from "./ModalHelper";
  */
 const handleOpenAICall = async (isFile) => {
 	var limit_response = getCharLimit(isFile);
-	const openai = new OpenAI({
-		apiKey: import.meta.env.PUBLIC_CHATGPT_KEY,
-		dangerouslyAllowBrowser: true
-	});
+
+	// Set up Azure OpenAI client
+	const openai = new AzureOpenAIClient(
+		apiKey, 
+		endpoint, 
+		apiVersion, //might not need api version and deployement?
+		deployment 
+	  );
 
 	let canvas;
 	if (isFile) {
@@ -30,7 +40,7 @@ const handleOpenAICall = async (isFile) => {
 
 	if (dataURL !== "data:,") {
 		try {
-			const result = await openai.chat.completions.create({
+			const result = await openai.chat.completions.create({ // Do we care about max tokens and rempature here?
 				messages: [{
 					role: "user",
 					content: [
@@ -54,7 +64,7 @@ const handleOpenAICall = async (isFile) => {
 			document.getElementById("chatgpt-char-count").textContent = result.choices[0].message?.content.length.toString();
 
 		} catch (error) {
-			showErrorDialog("ChatGPT API Error.")
+			showErrorDialog("ChatGPT API Error.", error.message);
 			console.log(error)
 			console.error("Error during API request:", error.message);
 		}
@@ -87,9 +97,13 @@ const handleOpenAIRefineResults = async (isFile) => {
 	console.log("GPT Refine: ", prompt)
 
 	if (dataURL !== "data:," && additionalInfo != "") {
-		const openai = new OpenAI({
-			apiKey: import.meta.env.PUBLIC_CHATGPT_KEY,
-			dangerouslyAllowBrowser: true
+		const openai = new AzureOpenAIClient({ //should this be made its own func?
+			apiKey, 
+			endpoint, 
+			apiVersion, //might not need api version and deployement?
+			deployment 
+			//apiKey: import.meta.env.PUBLIC_CHATGPT_KEY,
+			//dangerouslyAllowBrowser: true
 		});
 		try {
 			const result = await openai.chat.completions.create({
