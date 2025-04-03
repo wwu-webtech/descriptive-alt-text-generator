@@ -265,7 +265,7 @@ const handleOpenAICall = async () => {
 
 	if (dataURL !== "data:,") {
 		try {
-			const result = await openai.chat.completions.create({
+			const result = await openai.chat.v1.create({
 				messages: [
 					{
 						role: "user",
@@ -322,7 +322,7 @@ const handleOpenAIRefineResults = async () => {
 			dangerouslyAllowBrowser: true,
 		});
 		try {
-			const result = await openai.chat.completions.create({
+			const result = await openai.chat.v1.create({
 				messages: [
 					{
 						role: "user",

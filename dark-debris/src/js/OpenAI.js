@@ -3,8 +3,8 @@ import {showErrorDialog} from "./ModalHelper";
 import { AzureOpenAIClient, AzureKeyCredential } from "@azure/openai";
 
 //AzureOpenAIClient vars and auth:
-const apiKey = new AzureKeyCredential("your API key");
-const endpoint = "https://your-azure-openai-resource.com";
+const apiKey = new AzureKeyCredential(PUBLIC_AZURE_OPENAI_KEY);
+const endpoint = "https://datg.wwu.edu";
 const apiVersion = "2024-10-21"
 const deployment = "gpt-35-turbo";
 
@@ -40,7 +40,7 @@ const handleOpenAICall = async (isFile) => {
 
 	if (dataURL !== "data:,") {
 		try {
-			const result = await openai.chat.completions.create({ // Do we care about max tokens and rempature here?
+			const result = await openai.chat.v1.create({ // Do we care about max tokens and rempature here?
 				messages: [{
 					role: "user",
 					content: [
@@ -106,7 +106,7 @@ const handleOpenAIRefineResults = async (isFile) => {
 			//dangerouslyAllowBrowser: true
 		});
 		try {
-			const result = await openai.chat.completions.create({
+			const result = await openai.chat.v1.create({
 				messages: [{
 					role: "user",
 					content: [
