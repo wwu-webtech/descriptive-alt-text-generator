@@ -13,7 +13,7 @@ on:
 env:
   PUBLIC_MSFT_COGNITIVE_AI: ${{ secrets.MSFT_COGNITIVE_AI }}
   PUBLIC_GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
-  PUBLIC_CHATGPT_KEY: ${{ secrets.PUBLIC_CHATGPT_KEY }}
+  PUBLIC_AZURE_OPENAI_KEY: ${{ secrets.PUBLIC_AZURE_OPENAI_KEY }}
 
 jobs:
   build_and_deploy_job:
