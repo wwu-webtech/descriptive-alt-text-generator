@@ -1,10 +1,13 @@
 import {getCharLimit} from "./apiHelper";
 import {showErrorDialog} from "./ModalHelper";
-import { AzureOpenAIClient, AzureKeyCredential } from "@azure/openai";
+import OpenAI from "openai"; //according to docs this is correct?
+
+
+
 
 //AzureOpenAIClient vars and auth:
-const apiKey = new AzureKeyCredential(PUBLIC_AZURE_OPENAI_KEY);
-const endpoint = "https://datg.wwu.edu";
+const apiKey = process.env.PUBLIC_AZURE_OPENAI_KEY;
+const endpoint = "https://wwuwebtechdev.openai.azure.com/";
 const apiVersion = "2024-10-21"
 const deployment = "gpt-35-turbo";
 
@@ -16,12 +19,14 @@ const handleOpenAICall = async (isFile) => {
 	var limit_response = getCharLimit(isFile);
 
 	// Set up Azure OpenAI client
-	const openai = new AzureOpenAIClient(
-		apiKey, 
-		endpoint, 
-		apiVersion, //might not need api version and deployement?
-		deployment 
-	  );
+	const openai = new OpenAI({
+		apiKey: apiKey,
+		baseURL: `${endpoint}/openai/deployments/${deployment}`,
+		defaultQuery: { "api-version": apiVersion },
+		defaultHeaders: {
+		  "api-key": apiKey,
+		},
+	  });
 
 	let canvas;
 	if (isFile) {
@@ -40,7 +45,7 @@ const handleOpenAICall = async (isFile) => {
 
 	if (dataURL !== "data:,") {
 		try {
-			const result = await openai.chat.v1.create({ // Do we care about max tokens and rempature here?
+			const result = await openai.chat.completions.create({ // Do we care about max tokens and rempature here? Also changed from chat.completion to chat.completions
 				messages: [{
 					role: "user",
 					content: [
@@ -97,7 +102,7 @@ const handleOpenAIRefineResults = async (isFile) => {
 	console.log("GPT Refine: ", prompt)
 
 	if (dataURL !== "data:," && additionalInfo != "") {
-		const openai = new AzureOpenAIClient({ //should this be made its own func?
+		const openai = new AzureOpenAI({ //should this be made its own func?
 			apiKey, 
 			endpoint, 
 			apiVersion, //might not need api version and deployement?
@@ -106,7 +111,7 @@ const handleOpenAIRefineResults = async (isFile) => {
 			//dangerouslyAllowBrowser: true
 		});
 		try {
-			const result = await openai.chat.v1.create({
+			const result = await openai.chat.chat.completions.create({
 				messages: [{
 					role: "user",
 					content: [
