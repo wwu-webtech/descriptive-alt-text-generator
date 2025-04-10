@@ -25,8 +25,12 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Clear npm Cache
-        run: npm cache clean --force && npm install
+      - name: Clean and Install Dependencies
+        run: |
+          npm cache clean --force
+          npm ci
+      - name: Set NPM Registry
+        run: npm config set registry https://registry.npmjs.org/
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
