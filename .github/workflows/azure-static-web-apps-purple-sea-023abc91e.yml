@@ -31,19 +31,25 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Set Environment and Registry
-        run: |
-          echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
-          npm config set registry https://registry.npmjs.org/
+      - name: Set NPM Registry to Cloudflare Mirror
+        run: npm config set registry https://registry.npmmirror.com
 
-      - name: Clean and Install Dependencies
+      - name: Clean and Robust Install
         run: |
           npm cache clean --force
-          npm ci
+          RETRIES=3
+          COUNT=0
+          until npm ci || [ $COUNT -eq $RETRIES ]; do
+            COUNT=$((COUNT+1))
+            echo "Retrying npm ci ($COUNT/$RETRIES)..."
+            sleep 5
+          done
 
-      # OPTIONAL: only if your package.json has a build script
-      # - name: Build App
-      #   run: npm run build
+      - name: Set Node Options (for memory-intensive builds)
+        run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
+
+      - name: Build App
+        run: npm run build
 
       - name: Build And Deploy
         id: builddeploy
@@ -55,7 +61,7 @@ jobs:
           app_location: "/dark-debris"
           api_location: ""
           output_location: "dist"
-          # skip_app_build: true  # Only use this if you manually build
+          skip_app_build: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -63,8 +69,4 @@ jobs:
     name: Close Pull Request Job
     steps:
       - name: Close Pull Request
-        id: closepullrequest
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_SEA_023ABC91E }}
-          action: "close"
+        id: close
