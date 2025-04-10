@@ -21,56 +21,36 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           submodules: true
           lfs: false
 
-      - name: Setup Node
+      - name: Set Node.js version
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
 
-      - name: Set NPM Registry to Cloudflare Mirror
-        run: npm config set registry https://registry.npmmirror.com
-
-      - name: Clean and Robust Install
-        run: |
-          npm cache clean --force
-          RETRIES=3
-          COUNT=0
-          until npm ci || [ $COUNT -eq $RETRIES ]; do
-            COUNT=$((COUNT+1))
-            echo "Retrying npm ci ($COUNT/$RETRIES)..."
-            sleep 5
-          done
+      - name: Set NPM Registry
+        run: npm config set registry https://registry.npmjs.org/
 
       - name: Set Node Options (for memory-intensive builds)
-        run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
+        run: echo NODE_OPTIONS=--max-old-space-size=4096 >> $GITHUB_ENV
+
+      - name: Clean and Install Dependencies
+        run: |
+          npm cache clean --force
+          npm ci
 
       - name: Build App
         run: npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
 
-      - name: Build And Deploy
+      - name: Deploy to Azure Static Web Apps
+        id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_SEA_023ABC91E }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: "upload"
-          app_location: "/dark-debris"
-          api_location: ""
-          output_location: "dist"
-          skip_app_build: true
-
-  close_pull_request_job:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    runs-on: ubuntu-latest
-    name: Close Pull Request Job
-    steps:
-      - name: Close Pull Request
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_SEA_023ABC91E }}
-          action: "close"
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN
