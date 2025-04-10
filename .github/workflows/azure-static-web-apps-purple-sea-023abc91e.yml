@@ -29,6 +29,10 @@ jobs:
         run: |
           npm cache clean --force
           npm ci
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18' # or your project's supported version
+          cache: 'npm'
       - name: Set NPM Registry
         run: npm config set registry https://registry.npmjs.org/
       - name: Build And Deploy
