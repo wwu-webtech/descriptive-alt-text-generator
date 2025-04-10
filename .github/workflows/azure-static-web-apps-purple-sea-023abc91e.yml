@@ -25,12 +25,26 @@ jobs:
         with:
           submodules: true
           lfs: false
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Set Environment and Registry
+        run: |
+          echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
+          npm config set registry https://registry.npmjs.org/
+
       - name: Clean and Install Dependencies
         run: |
           npm cache clean --force
           npm ci
-      - name: Build App
-        run: npm run build
+
+      # OPTIONAL: only if your package.json has a build script
+      # - name: Build App
+      #   run: npm run build
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -40,16 +54,8 @@ jobs:
           action: "upload"
           app_location: "/dark-debris"
           api_location: ""
-          output_location: "dist"  # No leading slash
-          skip_app_build: true     # 👈 prevents Oryx from building again
-      - name: Set Node Options
-        run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18' # or your project's supported version
-          cache: 'npm'
-      - name: Set NPM Registry
-        run: npm config set registry https://registry.npmjs.org/
+          output_location: "dist"
+          # skip_app_build: true  # Only use this if you manually build
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -58,7 +64,7 @@ jobs:
     steps:
       - name: Close Pull Request
         id: closepullrequest
-        uses: Azure/static-web-apps-deploy@chat.completions
+        uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_SEA_023ABC91E }}
           action: "close"
