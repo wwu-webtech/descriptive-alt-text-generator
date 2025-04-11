@@ -58,7 +58,7 @@ jobs:
           action: "upload"
           app_location: "dark-debris"   # Adjust based on your app folder
           api_location: ""               # Set API location if you have one
-          output_location: "dark-debris/dist"        # Adjust output folder as needed
+          output_location: "dist"        # Adjust output folder as needed
           skip_app_build: true           # Skips the build from Azure if you've already built the app
 
   close_pull_request_job:
