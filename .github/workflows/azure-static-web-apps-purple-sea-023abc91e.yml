@@ -37,17 +37,17 @@ jobs:
         run: npm config set registry https://registry.npmjs.org/
 
       - name: Clean npm cache and Install Dependencies
+        working-directory: dark-debris
         run: |
           npm cache clean --force
           npm ci
 
       - name: Set Node Options (for memory-intensive builds)
-        run: |
-          echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
+        run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
 
       - name: Build App
-        run: |
-          npm run build  # Make sure the 'build' script is defined in your package.json
+        working-directory: dark-debris
+        run: npm run build
 
       - name: Deploy to Azure Static Web Apps
         id: builddeploy
@@ -56,10 +56,10 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_SEA_023ABC91E }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "dark-debris"   # Adjust based on your app folder
-          api_location: ""               # Set API location if you have one
-          output_location: "dist"        # Adjust output folder as needed
-          skip_app_build: true           # Skips the build from Azure if you've already built the app
+          app_location: "dark-debris"
+          api_location: ""
+          output_location: "dist"
+          skip_app_build: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
