@@ -13,7 +13,7 @@ on:
 env:
   PUBLIC_MSFT_COGNITIVE_AI: ${{ secrets.MSFT_COGNITIVE_AI }}
   PUBLIC_GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
-  PUBLIC_AZURE_OPENAI_KEY: ${{ secrets.PUBLIC_AZURE_OPENAI_KEY }}
+  PUBLIC_CHATGPT_KEY: ${{ secrets.PUBLIC_CHATGPT_KEY }}
 
 jobs:
   build_and_deploy_job:
@@ -21,47 +21,22 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           submodules: true
           lfs: false
-
-      - name: Set Node.js version
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Set NPM Registry
-        run: npm config set registry https://registry.npmjs.org/
-
-      - name: Clean npm cache and Install Dependencies
-        run: |
-          npm cache clean --force
-          npm ci
-
-      - name: Set Node Options (for memory-intensive builds)
-        run: |
-          echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
-
-      - name: Build App
-        run: |
-          npm run build  # Make sure the 'build' script is defined in your package.json
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
-
-      - name: Deploy to Azure Static Web Apps
+      - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_SEA_023ABC91E }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
-          app_location: "/dark-debris"   # Adjust based on your app folder
-          api_location: ""               # Set API location if you have one
-          output_location: "/dist"        # Adjust output folder as needed
-          skip_app_build: true           # Skips the build from Azure if you've already built the app
+          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+          app_location: "/dark-debris" # App source code path
+          api_location: "" # Api source code path - optional
+          output_location: "/dist" # Built app content directory - optional
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -72,5 +47,5 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_SEA_023ABC91E }}
           action: "close"
