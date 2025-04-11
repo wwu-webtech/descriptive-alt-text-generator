@@ -19,38 +19,49 @@ jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Build and Deploy Astro App
+    name: Build and Deploy Job
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: false
 
-      - name: Setup Node.js
+      - name: Set Node.js version
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
 
-      - name: Set NPM registry
+      - name: Set NPM Registry
         run: npm config set registry https://registry.npmjs.org/
 
-      - name: Install dependencies
-        working-directory: dark-debris
-        run: npm ci
+      - name: Clean npm cache and Install Dependencies
+        run: |
+          npm cache clean --force
+          npm ci
 
-      - name: Build Astro app
-        working-directory: dark-debris
-        run: npm run build
+      - name: Set Node Options (for memory-intensive builds)
+        run: |
+          echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
+
+      - name: Build App
+        run: |
+          npm run build  # Make sure the 'build' script is defined in your package.json
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
 
       - name: Deploy to Azure Static Web Apps
-        id: deploy
+        id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PURPLE_SEA_023ABC91E }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "dark-debris"
-          output_location: "dark-debris/dist"
-          skip_app_build: true
+          app_location: "/dark-debris"   # Adjust based on your app folder
+          api_location: ""               # Set API location if you have one
+          output_location: "/dist"        # Adjust output folder as needed
+          skip_app_build: true           # Skips the build from Azure if you've already built the app
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -58,6 +69,7 @@ jobs:
     name: Close Pull Request Job
     steps:
       - name: Close Pull Request
+        id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
