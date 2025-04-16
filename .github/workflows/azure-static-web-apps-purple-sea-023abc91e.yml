@@ -38,7 +38,6 @@ jobs:
         
       - name: check packages
         run: |
-          npm audit fix 
           npm audit fix --force
           npm install
 
