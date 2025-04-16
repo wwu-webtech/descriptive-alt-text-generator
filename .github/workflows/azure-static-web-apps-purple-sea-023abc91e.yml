@@ -37,7 +37,7 @@ jobs:
         run: npm config set registry https://registry.npmjs.org/
         
       - name: check packages
-        run: using npm audit fix
+        run: npm audit fix
 
       - name: Set Node Options (for memory-intensive builds)
         run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
