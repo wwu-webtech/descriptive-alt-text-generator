@@ -41,6 +41,9 @@ jobs:
       
       - name: check install
         run: npm install
+
+      - name: install dependencies
+        run: npm ci
         
       - name: Build App
         working-directory: dark-debris
