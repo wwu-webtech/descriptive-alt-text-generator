@@ -37,12 +37,10 @@ jobs:
         run: npm config set registry https://registry.npmjs.org/
         
       - name: check packages
-        run: |
-          npm audit fix --force
-          npm install
-
-      - name: Set Node Options (for memory-intensive builds)
-        run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
+        run: npm audit fix --force
+      
+      - name: check install
+        run: npm install
         
       - name: Build App
         working-directory: dark-debris
