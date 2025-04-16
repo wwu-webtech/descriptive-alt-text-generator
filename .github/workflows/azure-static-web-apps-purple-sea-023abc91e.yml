@@ -45,6 +45,7 @@ jobs:
         run: |
           npm install
           npm install @astrojs/react --save
+          npm install exifreader --save
 
       - name: install dependencies
         run: npm ci
