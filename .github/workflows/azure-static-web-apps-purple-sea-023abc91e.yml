@@ -45,6 +45,9 @@ jobs:
       - name: Set Node Options (for memory-intensive builds)
         run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
 
+      - name: check packages
+        run: using npm audit fix
+        
       - name: Build App
         working-directory: dark-debris
         run: npm run build
