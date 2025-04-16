@@ -40,7 +40,9 @@ jobs:
         run: npm audit fix --force
       
       - name: check install
-        run: npm install
+        run: |
+          npm install
+          npm install @astrojs/react --save
 
       - name: install dependencies
         run: npm ci
