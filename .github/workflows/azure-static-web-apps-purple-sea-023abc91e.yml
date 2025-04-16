@@ -35,18 +35,12 @@ jobs:
 
       - name: Set NPM Registry
         run: npm config set registry https://registry.npmjs.org/
-
-      - name: Clean npm cache and Install Dependencies
-        working-directory: dark-debris
-        run: |
-          npm cache clean --force
-          npm ci
+        
+      - name: check packages
+        run: using npm audit fix
 
       - name: Set Node Options (for memory-intensive builds)
         run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
-
-      - name: check packages
-        run: using npm audit fix
         
       - name: Build App
         working-directory: dark-debris
