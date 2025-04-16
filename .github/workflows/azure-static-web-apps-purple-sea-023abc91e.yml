@@ -37,7 +37,9 @@ jobs:
         run: npm config set registry https://registry.npmjs.org/
         
       - name: check packages
-        run: npm audit fix --force
+        run: |
+          npm install
+          npm audit fix --force
       
       - name: check install
         run: |
