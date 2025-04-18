@@ -42,9 +42,6 @@ jobs:
           npm install @astrojs/react exifreader @google/generative-ai --save
           npm audit fix --force
 
-      - name: install dependencies
-        run: npm ci
-        
       - name: Build App
         working-directory: dark-debris
         run: npm run build
