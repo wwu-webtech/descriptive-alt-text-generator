@@ -8,7 +8,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - main
+      - dev
 
 env:
   PUBLIC_MSFT_COGNITIVE_AI: ${{ secrets.MSFT_COGNITIVE_AI }}
