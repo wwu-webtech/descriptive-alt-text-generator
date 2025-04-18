@@ -36,17 +36,10 @@ jobs:
       - name: Set NPM Registry
         run: npm config set registry https://registry.npmjs.org/
         
-      - name: check packages
+      - name: Install dependencies
         run: |
-          npm install
-          npm audit fix --force
-      
-      - name: check install
-        run: |
-          npm install
-          npm install @astrojs/react --save
-          npm install exifreader --save
-          npm install @google/generative-ai --save
+          npm ci
+          npm install @astrojs/react exifreader @google/generative-ai --save
           npm audit fix --force
 
       - name: install dependencies
