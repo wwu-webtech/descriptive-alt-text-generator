@@ -47,6 +47,7 @@ jobs:
           npm install @astrojs/react --save
           npm install exifreader --save
           npm install @google/generative-ai --save
+          npm audit fix --force
 
       - name: install dependencies
         run: npm ci
