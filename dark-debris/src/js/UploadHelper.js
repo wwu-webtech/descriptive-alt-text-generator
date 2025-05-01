@@ -14,8 +14,6 @@ canvas.height = 0;
 const file_button = document.getElementById("evaluate-image");
 file_button.addEventListener("click", async () => {
 	const loading = document.getElementById("evaluate-loading");
-	const responsible_use = document.getElementById("responsible-use-modal");
-
 	//Only show results upon clicking "Evaluate Image"
 	document.getElementById("results-container").style.display = "block";
 
@@ -42,7 +40,7 @@ file_button.addEventListener("click", async () => {
 	} finally {
 		loading.close();
 		// upon loading modal closing, opens responsible_use modal
-		responsible_use.showModal();
+		//responsible_use.showModal();
 		// using it here to debug
 		//try {
 		//	const refine_results = document.getElementById("refine-results");
@@ -140,3 +138,29 @@ urlInput.addEventListener("input", () => {
 		img.src = url; // Set the image source directly to the URL
 	}
 });
+
+// handles cookie for responsible use modal
+document.getElementById('evaluate-image').addEventListener('click', function() {
+	if (!getCookie('responsibleDialogueCookie')) {
+		const responsible_use = document.getElementById("responsible-use-modal");
+		responsible_use.showModal();
+		setCookie('responsibleDialogueCookie', 'true', 1);
+	}
+});
+function setCookie(name, value, days) {
+	const date = new Date();
+	date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+	const expires = "expires=" + date.toUTCString();
+	document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+function getCookie(name) {
+	const nameEQ = name + "=";
+	const ca = document.cookie.split(';');
+	for (let i = 0; i < ca.length; i++) {
+		let c = ca[i];
+		while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+	}
+	return null;
+}
