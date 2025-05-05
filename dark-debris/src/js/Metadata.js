@@ -1,5 +1,6 @@
 /* Alex Kefer // 5/25/24 // Functions relating to extracting metadata from the images uploaded by the user*/
 import * as ExifReader from "exifreader";
+import {showErrorDialog} from "./ModalHelper";
 
 // Function to extract metadata from the image
 function extractMetadata(selectedFile) {
@@ -10,6 +11,7 @@ function extractMetadata(selectedFile) {
 	} catch (error) {
 		console.error(error);
 		console.log("Error loading metadata");
+		showErrorDialog("There was an error loading the metadata.");
 		return null;
 	} finally {
 		console.log("All Metadata attached is loaded");
@@ -60,6 +62,7 @@ async function exportDataAsCSV() {
 		downloadCSV(csv, filename);    // Step 3: Download the CSV file
 	} catch (error) {
 		console.error("Error exporting data:", error);
+		showErrorDialog("Oh no! Looks like there's no image to evaluate. Please upload an image to continue with this software.");
 	}
 }
 
