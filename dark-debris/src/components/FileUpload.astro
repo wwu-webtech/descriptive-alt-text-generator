@@ -4,7 +4,8 @@ import Metadata from "./Metadata.astro";
 
 // gets fileName
 const handleFileSelect = (event) => {
-	const files = event.target.files || [];
+	const input = event.target as HTMLInputElement;
+	const files = input.files || [];
 	const fileNames = Array.from(files).map((file) => file.name);
 	document.dispatchEvent(
 		new CustomEvent("fileSelected", { detail: fileNames })
@@ -74,7 +75,7 @@ const handleFileSelect = (event) => {
 								type="checkbox"
 								id="show-metadata"
 								name="show-metadata"
-								checked="checked"
+								checked="unchecked"
 							/>
 							<label for="show-metadata"
 								>Enable the download of metadata button</label

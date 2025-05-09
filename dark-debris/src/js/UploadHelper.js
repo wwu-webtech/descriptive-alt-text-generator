@@ -3,8 +3,9 @@ import {handleGeminiCall, handleGeminiURL} from "./Gemini";
 import {handleOpenAICall} from "./OpenAI";
 import {showErrorDialog} from "./ModalHelper";
 import {updateCharacterCount} from "./Clipboard";
-import {showMetadataButton} from "./Metadata.js";
+import {hideMetadataButton, showMetadataButton} from "./Metadata.js";
 
+hideMetadataButton();
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 canvas.width = 0;

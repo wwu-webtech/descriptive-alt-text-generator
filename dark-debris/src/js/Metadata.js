@@ -24,6 +24,10 @@ function showMetadataButton() {
 		metadataButton.removeAttribute("aria-hidden");
 	}
 }
+function hideMetadataButton() {
+		metadataButton.setAttribute("hidden", "true");
+		metadataButton.setAttribute("aria-hidden", "true");
+}
 
 // Function to convert JSON data to CSV format
 async function convertToCSV(metadata) {
@@ -89,9 +93,8 @@ showMetadataOption.addEventListener("click", () => {
 	if (showMetadataOption.checked && metadata) {
 		showMetadataButton();
 	} else {
-		metadataButton.setAttribute("hidden", "true");
-		metadataButton.setAttribute("aria-hidden", "true");
+		hideMetadataButton();
 	}
 });
 
-export {showMetadataButton};
+export {showMetadataButton, hideMetadataButton};
