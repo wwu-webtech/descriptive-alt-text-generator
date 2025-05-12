@@ -6,7 +6,7 @@ import OpenAI from "openai"; //according to docs this is correct?
 
 
 //AzureOpenAIClient vars and auth:
-const apiKey = import.meta.env.PUBLIC_CHATGPT_KEY;//process.env.PUBLIC_AZURE_OPENAI_KEY;
+const apiKey = import.meta.env.PUBLIC_AZURE_OPENAI_KEY;//process.env.PUBLIC_AZURE_OPENAI_KEY;
 const endpoint = "https://wwuwebtechdev.openai.azure.com/";
 const apiVersion = "2024-10-21"
 const deployment = "gpt-35-turbo";
