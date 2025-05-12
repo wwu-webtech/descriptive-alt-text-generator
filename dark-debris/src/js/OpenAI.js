@@ -19,13 +19,15 @@ const handleOpenAICall = async (isFile) => {
 	var limit_response = getCharLimit(isFile);
 
 	// Set up Azure OpenAI client
+	//!TODO: figure out a better way to secure keys, temporarily set the `dangerouslyAllowBrowser` option to `true`?
+	//new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
 	const openai = new OpenAI({
 		apiKey: apiKey,
 		baseURL: `${endpoint}/openai/deployments/${deployment}`,
 		defaultQuery: { "api-version": apiVersion },
 		defaultHeaders: {
 		  "api-key": apiKey,
-		},
+		}, dangerouslyAllowBrowser: true
 	  });
 
 	let canvas;
