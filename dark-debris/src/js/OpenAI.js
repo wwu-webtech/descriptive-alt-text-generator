@@ -27,7 +27,7 @@ const handleOpenAICall = async (isFile) => {
 		defaultQuery: { "api-version": apiVersion },
 		defaultHeaders: {
 		  "api-key": apiKey,
-		}, dangerouslyAllowBrowser: true
+		}
 	  });
 
 	let canvas;
