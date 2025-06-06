@@ -16,6 +16,16 @@
 	text-align: center;
 }
 
+#responsible-use-modal .radio {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#responsible-use-modal fieldset {
+    border: none;
+    padding: 0;
+    margin: 15px 0;
+}
 /* General styles for the dialog */
 dialog {
     background-color: var(--background-color);

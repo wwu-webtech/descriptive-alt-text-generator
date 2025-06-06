@@ -57,6 +57,16 @@
 		. Thank you for your commitment to accessibility and responsible usage.
 	</p>
 	<form method="dialog">
-		<button id="dialog-close-button" autofocus>Close</button>
+		<fieldset>
+			<div class="radio">
+				<input type="radio" id="agree-option" name="responsible-use" value="agree">
+				<label for="agree-option">I Agree</label>
+			</div>
+			<div class="radio">
+				<input type="radio" id="disagree-option" name="responsible-use" value="disagree">
+				<label for="disagree-option">I Disagree</label>
+			</div>
+		</fieldset>
+		<button id="dialog-ok" disabled autofocus>Submit</button>
 	</form>
 </dialog>
