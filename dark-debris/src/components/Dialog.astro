@@ -34,7 +34,7 @@
 
 <!-- This dialog provides information about the responsible use of the tool. It explains the importance of creating 
     accurate and respectful alt text for accessibility purposes. The dialog includes a paragraph with the message 
-    and a form with a button to close the dialog. -->
+    and a form with accept or deny options. -->
 <dialog id="responsible-use-modal">
 	<p>
 		Please use this tool responsibly. Our descriptive alt text generator is
@@ -57,6 +57,16 @@
 		. Thank you for your commitment to accessibility and responsible usage.
 	</p>
 	<form method="dialog">
-		<button id="dialog-close-button" autofocus>Close</button>
+		<fieldset>
+			<div class="radio">
+				<input type="radio" id="agree-option" name="responsible-use" value="agree">
+				<label for="agree-option">I Agree</label>
+			</div>
+			<div class="radio">
+				<input type="radio" id="disagree-option" name="responsible-use" value="disagree">
+				<label for="disagree-option">I Disagree</label>
+			</div>
+		</fieldset>
+		<button id="dialog-ok" disabled autofocus>Submit</button>
 	</form>
 </dialog>

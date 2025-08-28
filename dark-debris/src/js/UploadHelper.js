@@ -11,45 +11,49 @@ const context = canvas.getContext("2d");
 canvas.width = 0;
 canvas.height = 0;
 
+// responsible use modal elements
+const responsibleUseModal = document.getElementById("responsible-use-modal");
+const agreeOption = document.getElementById("agree-option");
+const disagreeOption = document.getElementById("disagree-option");
+const dialogOkButton = document.getElementById("dialog-ok");
+const dialogCancelButton = document.getElementById("dialog-cancel");
+agreeOption.addEventListener("change", () => {
+	dialogOkButton.disabled = false;
+});
+disagreeOption.addEventListener("change", () => {
+	dialogOkButton.disabled = false;
+});
+
 // Event listener for clicking the "Evaluate Image" button for file uploads
 const file_button = document.getElementById("evaluate-image");
 file_button.addEventListener("click", async () => {
-	const loading = document.getElementById("evaluate-loading");
-	//Only show results upon clicking "Evaluate Image"
-	document.getElementById("results-container").style.display = "block";
+    const loading = document.getElementById("evaluate-loading");
 
-	// Close advanced options detail
-	document.getElementById("advanced-options").removeAttribute("open")
+    document.getElementById("results-container").style.display = "block";
+    document.getElementById("advanced-options").removeAttribute("open");
 
-	// Open loading modal
-	loading.showModal();
+    const proceed = await handleResponsibleUseAgreement();
+    if (!proceed) return;
 
-	try {
-		const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+    loading.showModal();
 
-		if (dataURL === "data:,") {
-			showErrorDialog("Oh no! Looks like there's no image to evaluate. Please upload an image to continue with this software.");
-		} else {
-			await handleGeminiCall(true);
-			updateCharacterCount("gemini-area", "copy-gemini-button", "gemini-char-count");
-			await handleOpenAICall(true);
-			updateCharacterCount("chatgpt-area", "copy-chatgpt-button", "chatgpt-char-count");
-		}
+    try {
+        const dataURL = canvas.toDataURL("image/jpeg", 0.5);
 
-	} catch (error) {
-		console.error(error);
-	} finally {
-		loading.close();
-		// upon loading modal closing, opens responsible_use modal
-		//responsible_use.showModal();
-		// using it here to debug
-		//try {
-		//	const refine_results = document.getElementById("refine-results");
-		//	refine_results.showModal(); // Show the modal
-		//} catch (error) {
-		//	console.error("Error showing modal:", error);
-		//}
-	}
+        if (dataURL === "data:,") {
+            showErrorDialog("Oh no! Looks like there's no image to evaluate. Please upload an image to continue with this software.");
+        } else {
+            await handleGeminiCall(true);
+            updateCharacterCount("gemini-area", "copy-gemini-button", "gemini-char-count");
+
+            await handleOpenAICall(true);
+            updateCharacterCount("chatgpt-area", "copy-chatgpt-button", "chatgpt-char-count");
+        }
+    } catch (error) {
+        console.error(error);
+    } finally {
+        loading.close();
+    }
 });
 
 // Event listener for clicking the "Evaluate URL" button for URL uploads
@@ -140,14 +144,42 @@ urlInput.addEventListener("input", () => {
 	}
 });
 
+// function to handle the responisble use agreement logic
+async function handleResponsibleUseAgreement() {
+    const cookieName = 'responsibleDialogueCookie';
+
+    if (getCookie(cookieName)) {
+        return true; // Already agreed
+    }
+
+    // Cookie not found, show modal
+    agreeOption.checked = false;
+    disagreeOption.checked = false;
+    dialogOkButton.disabled = true;
+
+    responsibleUseModal.showModal();
+
+    const decision = await new Promise((resolve) => {
+        dialogOkButton.onclick = () => {
+            const selected = document.querySelector('input[name="responsible-use"]:checked');
+            responsibleUseModal.close();
+            resolve(selected?.value || 'disagree');
+        };
+    });
+
+    if (decision === 'agree') {
+		// Store for 1 week
+        setCookie(cookieName, 'true', 7);
+        return true;
+    }
+
+    console.log("Image evaluation cancelled by user (user declined responsible use).");
+    file_button.focus();
+    return false;
+}
+
+
 // handles cookie for responsible use modal
-document.getElementById('evaluate-image').addEventListener('click', function() {
-	if (!getCookie('responsibleDialogueCookie')) {
-		const responsible_use = document.getElementById("responsible-use-modal");
-		responsible_use.showModal();
-		setCookie('responsibleDialogueCookie', 'true', 1);
-	}
-});
 function setCookie(name, value, days) {
 	const date = new Date();
 	date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
