@@ -20,7 +20,7 @@ const handleGeminiCall = async (isFile) => {
 	const dataURL = canvas.toDataURL("image/jpeg", 0.5);
 	if (dataURL !== "data:,") {
 		const genAI = new GoogleGenerativeAI(import.meta.env.PUBLIC_GEMINI_KEY);
-		const model = genAI.getGenerativeModel({model: "gemini-1.5-flash"});
+		const model = genAI.getGenerativeModel({model: "gemini-2.5-flash-lite"});
 
 		let prompt = "Compose a detailed description in English for this image.";
 		if (limit_response != -1) {
