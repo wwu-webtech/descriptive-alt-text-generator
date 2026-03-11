@@ -35,7 +35,7 @@ const handleOpenAICall = async (isFile) => {
 					role: "user",
 					content: [
 						{
-							type: "image_url",
+							type: "input_image",
 							image_url: {
 								url: dataURL
 							},
