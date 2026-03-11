@@ -46,7 +46,7 @@ const handleOpenAICall = async (isFile) => {
 						}
 					]
 				}],
-				model: 'GPT-4o',
+				model: 'gpt-4.1-mini',
 			});
 
 			console.log(result)
