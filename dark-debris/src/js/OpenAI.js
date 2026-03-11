@@ -97,7 +97,7 @@ const handleOpenAIRefineResults = async (isFile) => {
 					role: "user",
 					content: [
 						{
-							type: "image_url",
+							type: "input_image",
 							image_url: {
 								url: dataURL
 							},
@@ -108,7 +108,7 @@ const handleOpenAIRefineResults = async (isFile) => {
 						}
 					]
 				}],
-				model: 'gpt-4-turbo',
+				model: 'gpt-4.1-mini',
 			});
 
 			console.log(result)
