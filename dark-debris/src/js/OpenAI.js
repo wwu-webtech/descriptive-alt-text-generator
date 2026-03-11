@@ -36,9 +36,7 @@ const handleOpenAICall = async (isFile) => {
 					content: [
 						{
 							type: "input_image",
-							image_url: {
-								url: dataURL
-							},
+							image_url: dataURL
 						},
 						{
 							type: "text",
@@ -98,9 +96,7 @@ const handleOpenAIRefineResults = async (isFile) => {
 					content: [
 						{
 							type: "input_image",
-							image_url: {
-								url: dataURL
-							},
+							image_url: dataURL
 						},
 						{
 							type: "text",
